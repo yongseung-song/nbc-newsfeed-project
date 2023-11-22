@@ -8,10 +8,12 @@ import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import GlobalColors from "../styles/GlobalColors";
 import GlobalFonts from "../styles/GlobalFonts";
+import GlobalStyles from "../styles/GlobalStyles";
 
 function Router() {
   return (
     <>
+      <GlobalStyles />
       <GlobalFonts />
       <GlobalColors />
       <BrowserRouter>

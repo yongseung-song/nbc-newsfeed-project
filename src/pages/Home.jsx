@@ -1,7 +1,11 @@
 import React from "react";
+import Main from "../components/main/Main";
+import app from "../firebase";
 
 function Home() {
-  return <div>fdsafs</div>;
+  console.log("app", app);
+
+  return <Main />;
 }
 
 export default Home;
