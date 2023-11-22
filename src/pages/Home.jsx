@@ -1,10 +1,11 @@
 import React from "react";
+import Main from "../components/main/Main";
 import app from "../firebase";
 
 function Home() {
   console.log("app", app);
 
-  return <div>움찔움찔했죠?</div>;
+  return <Main />;
 }
 
 export default Home;
