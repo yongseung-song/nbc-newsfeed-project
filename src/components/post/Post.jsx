@@ -1,29 +1,32 @@
-import React, { useState } from "react";
+import React, { useState }, { useContext } from "react";
+import { createPortal } from "react-dom";
+import { Context } from "../../context/Context";
 import * as St from "./Post.style";
 import Button from "../../shared/button/Button";
 
 function Post() {
-  const [] = useState("");
-  const [] = useState("");
-
-  const addClick = () => {
-    alert("추가되었습니다!");
-  };
-
-  const delClick = () => {
-    alert("삭제되었습니다!");
+  const { showModal, setShowModal } = useContext(Context);
+  const postClickHandler = () => {
+    setShowModal(true); // 이부분때문에 포스트 누르면 모달 뜸
   };
 
   return (
-    <St.PostWrapper>
-      {/* <form>
-        제목: <input type="text" onChange={}/>
-        <br />
-        내용: <input type="text" onChange={}/>
-        <br />
-      </form> */}
-      {/* <Button clickBtnHandler={addClick}>등록</Button> */}
-    </St.PostWrapper>
+    <>
+      <St.PostWrapper onClick={postClickHandler}>
+        <St.PostHeaderWrapper>
+          <img src="" alt="img" />
+          <div>
+            <h3>홍길동</h3>
+            <h4>리액트 너무 어렵다</h4>
+          </div>
+          <div>
+            <button>좋아요</button>
+            <button>북마크</button>
+          </div>
+        </St.PostHeaderWrapper>
+        <p>살려주세요..</p>
+      </St.PostWrapper>
+    </>
   );
 }
 
