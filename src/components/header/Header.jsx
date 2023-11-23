@@ -33,7 +33,11 @@ function Header() {
                 setHasAccount={setHasAccount}
                 setShowModal={setShowModal}
               >
-                <SignIn setShowModal={setShowModal} />
+                <SignIn
+                  hasAccount={hasAccount}
+                  setHasAccount={setHasAccount}
+                  setShowModal={setShowModal}
+                />
               </ModalBasic>
             ) : (
               <ModalBasic

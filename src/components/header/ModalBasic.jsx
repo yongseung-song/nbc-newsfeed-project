@@ -42,10 +42,6 @@ function ModalBasic({ hasAccount, setHasAccount, children }) {
     };
   });
 
-  const clickSignUpHandler = () => {
-    setHasAccount(!hasAccount);
-  };
-
   return (
     <>
       <St.Wrapper>
@@ -64,16 +60,6 @@ function ModalBasic({ hasAccount, setHasAccount, children }) {
             <St.BgImage></St.BgImage>
             {children}
           </div>
-          {hasAccount ? (
-            <>
-              <p>계정이 따로 없으신가요?</p>
-              <Button clickBtnHandler={clickSignUpHandler}>
-                회원가입하러가기
-              </Button>
-            </>
-          ) : (
-            ""
-          )}
         </St.BoxStyle>
       </St.Wrapper>
     </>
