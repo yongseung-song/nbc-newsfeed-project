@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as St from "../header/ModalBasic.style";
+import SignUp from "../../pages/SignUp";
+import { Link } from "react-router-dom";
 
 function ModalBasic({ setModalOpen, children }) {
   const closeModal = () => {
@@ -53,6 +55,9 @@ function ModalBasic({ setModalOpen, children }) {
             <St.BgImage></St.BgImage>
             {children}
           </div>
+          <p>
+            계정이 따로 없으신가요? <Link to="/signup">회원가입하러가기</Link>
+          </p>
         </St.BoxStyle>
       </St.Wrapper>
     </>

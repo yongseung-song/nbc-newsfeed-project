@@ -7,6 +7,8 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService } from "../firebase";
+import { ModalContext } from "../context/ModalContext";
+import { AuthContext } from "../context/AuthContext";
 
 function SignIn() {
   const [loginEmail, setLoginEmail] = useState("");
@@ -15,7 +17,6 @@ function SignIn() {
   const { setShowModal } = useContext(ModalContext);
   const [user, setUser] = useState("");
 
-  console.log("로그인 상태", isLoggedIn);
   const navigate = useNavigate();
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
