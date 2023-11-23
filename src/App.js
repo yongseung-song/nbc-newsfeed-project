@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import "./App.css";
-import { Context } from "./context/Context";
 import Router from "./shared/Router";
+import AuthContextProvider from "./context/AuthContext";
+import ModalContextProvider from "./context/ModalContext";
 
 function App() {
-  const [showModal, setShowModal] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [postList, setPostList] = useState([]);
+
   return (
-    <Context.Provider
-      value={{ showModal, setShowModal, isLoggedIn, setIsLoggedIn }}
-    >
-      <Router />
-    </Context.Provider>
+    <AuthContextProvider>
+      <ModalContextProvider>
+        <Router />
+      </ModalContextProvider>
+    </AuthContextProvider>
   );
 }
 

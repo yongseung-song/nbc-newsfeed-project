@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import SignIn from "../../pages/SignIn.jsx";
 import * as St from "./Header.style.jsx";
 import ModalBasic from "../../shared/modalBasic/ModalBasic.jsx";
-import { Context } from "../../context/Context.js";
+import { ModalContext } from "../../context/ModalContext.js";
 
 function Header() {
-  const { showModal, setShowModal } = useContext(Context);
+  const { showModal, setShowModal } = useContext(ModalContext);
 
   const loginModalHandler = () => {
     setShowModal(true);

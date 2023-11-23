@@ -5,7 +5,7 @@ import * as St from "./Main.style";
 
 function Main() {
   const mainRef = useRef();
-  console.log(mainRef.current);
+
   return (
     <St.MainWrapper ref={mainRef}>
       <InputBox />
