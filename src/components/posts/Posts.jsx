@@ -3,11 +3,11 @@ import Post from "../post/Post";
 import * as St from "./Posts.style";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
-import { Context } from "../../context/Context";
 import dayjs from "dayjs";
+import { PostContext } from "../../context/PostContext";
 
 function Posts() {
-  const { postList, setPostList } = useContext(Context);
+  const { postList, setPostList } = useContext(PostContext);
 
   useEffect(() => {
     getDocs(collection(db, "posts")).then((querySnapshot) =>
