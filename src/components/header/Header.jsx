@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import SignIn from "../../pages/SignIn.jsx";
 import * as St from "./Header.style.jsx";
 import ModalBasic from "./ModalBasic.jsx";
 
@@ -20,7 +21,11 @@ function Header() {
 			<St.BtnContainer>
 				<button>darkmode</button>
 				<button onClick={loginModalHandler}>login</button>
-				{modalOpen && <ModalBasic setModalOpen={setModalOpen} />}
+				{modalOpen && (
+					<ModalBasic setModalOpen={setModalOpen}>
+						<SignIn setModalOpen={setModalOpen} />
+					</ModalBasic>
+				)}
 			</St.BtnContainer>
 		</St.Header>
 	);

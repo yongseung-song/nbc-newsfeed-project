@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
+import logoImage from "../../assets/console.lo9.png";
 
 const BoxStyle = styled.div`
 	/* 모달창 크기 */
@@ -50,7 +51,15 @@ const EmailLogin = styled.div`
 	margin-top: 27px;
 `;
 
-function ModalBasic({ setModalOpen }) {
+const BgImage = styled.p`
+	background-image: url(${logoImage});
+	background-size: 100%;
+	width: 312px;
+	height: 73px;
+	background-repeat: no-repeat;
+`;
+
+function ModalBasic({ setModalOpen, children }) {
 	const closeModal = () => {
 		setModalOpen(false);
 	};
@@ -98,8 +107,8 @@ function ModalBasic({ setModalOpen }) {
 							fontWeight: "700",
 						}}
 					>
-						<p style={{ fontSize: "60px" }}>console.lo9</p>
-						<EmailLogin>
+						<BgImage></BgImage>
+						{/* <EmailLogin>
 							<p>이메일로 로그인</p>
 							<input type="text" placeholder="이메일을 입력하세요"></input>
 							<input
@@ -107,7 +116,8 @@ function ModalBasic({ setModalOpen }) {
 								placeholder="비밀번호를 입력하세요"
 							></input>
 							<button>로그인</button>
-						</EmailLogin>
+						</EmailLogin> */}
+						{children}
 					</div>
 				</BoxStyle>
 			</Wrapper>
