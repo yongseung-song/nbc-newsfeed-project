@@ -15,6 +15,7 @@ function Posts() {
       <Post />
       <Post />
       <Post />
+      <Post />
     </St.PostsWrapper>
   );
 }
