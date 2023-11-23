@@ -22,7 +22,7 @@ function SignIn() {
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
-        console.log(user.id);
+        console.log(user.uid);
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
