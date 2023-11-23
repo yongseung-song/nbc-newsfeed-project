@@ -3,14 +3,15 @@ import "./App.css";
 import Router from "./shared/Router";
 import AuthContextProvider from "./context/AuthContext";
 import ModalContextProvider from "./context/ModalContext";
+import PostContextProvider from "./context/PostContext";
 
 function App() {
-  const [postList, setPostList] = useState([]);
-
   return (
     <AuthContextProvider>
       <ModalContextProvider>
-        <Router />
+        <PostContextProvider>
+          <Router />
+        </PostContextProvider>
       </ModalContextProvider>
     </AuthContextProvider>
   );
