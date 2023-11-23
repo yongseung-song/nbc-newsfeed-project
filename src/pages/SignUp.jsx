@@ -1,7 +1,4 @@
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import { authService, db } from "../firebase";
@@ -45,6 +42,7 @@ function SignUp() {
         await setDoc(newDocRef, {
           // firebase에 저장할 데이터 매치
           id: newDocRef.id,
+          uid: user.uid,
           userEmail: accountEmail,
           creator: accountNickname,
           userCreateAt: TODAY,
