@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { Context } from "../../context/Context";
 import ModalContent from "../modalContent/ModalContent";
 import * as St from "./Post.style";
+import BoardWrite from "../boardwrite/BoardWrite";
 
 function Post() {
   const { showModal, setShowModal } = useContext(Context);
@@ -12,6 +13,7 @@ function Post() {
 
   return (
     <>
+      {/* <BoardWrite /> */}
       <St.PostWrapper onClick={postClickHandler}>
         <St.PostHeaderWrapper>
           <img src="" alt="img" />

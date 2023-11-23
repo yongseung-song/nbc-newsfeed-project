@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Main from "../components/main/Main";
 import Sidebar from "../components/sidebar/Sidebar";
-import { app } from "../firebase";
+// import { app } from "../firebase";
 
 const StHomeContainer = styled.div`
   position: relative;
@@ -14,7 +14,7 @@ const StHomeContainer = styled.div`
 `;
 
 function Home() {
-  console.log("app", app);
+  // console.log("app", app);
 
   return (
     <StHomeContainer>
