@@ -7,6 +7,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService } from "../firebase";
+import * as St from "./SignIn.style";
 
 function SignIn({ setModalOpen }) {
 	const [loginEmail, setLoginEmail] = useState("");
@@ -111,29 +112,36 @@ function SignIn({ setModalOpen }) {
 	};
 
 	return (
-		<div>
-			<h2>로그인</h2>
+		<St.Wrap>
+			<St.EmailForm>이메일로 로그인</St.EmailForm>
 			<form method="post">
-				이메일:{" "}
-				<input
+				<St.IndexBox
 					type="email"
 					value={loginEmail}
 					onChange={clickEmailChangehandler}
+					placeholder="이메일을 입력해주세요"
 				/>
 				<br />
-				비밀번호:{" "}
-				<input
+
+				<St.IndexBox
 					type="password"
 					value={loginPasssword}
 					onChange={clickPasswordChangehandler}
+					placeholder="비밀번호를 입력해주세요"
 				/>
-				<br />
-				<button onClick={clickLoginHandler}>로그인</button>
-				<button onClick={socialGoogleLoginhandler}>구글로그인</button>
-				<button onClick={socialGithubLoginhandler}>깃허브로그인</button>
-				<button onClick={clickLogoutBtnHandler}>로그아웃</button>
+				<St.LoginButtonBox>
+					<St.LoginButton onClick={clickLoginHandler}>로그인</St.LoginButton>
+				</St.LoginButtonBox>
 			</form>
-		</div>
+			<form method="post">
+				<St.SocialForm>소셜계정으로 로그인</St.SocialForm>
+				<St.SocialLoginBox>
+					<St.GoogleLogin onClick={socialGoogleLoginhandler}></St.GoogleLogin>
+					<St.GitHubLogin onClick={socialGithubLoginhandler}></St.GitHubLogin>
+				</St.SocialLoginBox>
+				{/* <button onClick={clickLogoutBtnHandler}>로그아웃</button> */}
+			</form>
+		</St.Wrap>
 	);
 }
 
