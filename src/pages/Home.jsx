@@ -5,6 +5,7 @@ import Sidebar from "../components/sidebar/Sidebar";
 import { app } from "../firebase";
 import { Context } from "../context/Context";
 import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
 
 const StHomeContainer = styled.div`
   position: relative;
@@ -20,9 +21,10 @@ function Home() {
   const { isLoggedIn, setIsLoggedIn } = useContext(Context);
   const navigate = useNavigate();
 
-  console.log("app", app);
-  console.log(isLoggedIn);
-
+  // console.log("app", app);
+  // console.log(isLoggedIn);
+  const dates = Array(5).fill(dayjs().toJSON());
+  // console.log(dates);
   return (
     <StHomeContainer>
       <Sidebar />

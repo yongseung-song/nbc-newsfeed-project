@@ -5,7 +5,7 @@ export const Sidebar = styled.div`
   top: 84px;
   max-width: 200px;
   width: 40%;
-  height: 440px;
+  height: 600px;
   border: 1px solid #000;
   margin: 0;
 `;
