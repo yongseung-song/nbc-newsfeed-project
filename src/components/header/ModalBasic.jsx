@@ -1,11 +1,16 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import * as St from "../header/ModalBasic.style";
 import SignUp from "../../pages/SignUp";
 import { Link } from "react-router-dom";
+import Button from "../../shared/button/Button";
+import { ModalContext } from "../../context/ModalContext";
 
-function ModalBasic({ setModalOpen, children }) {
+function ModalBasic({ hasAccount, setHasAccount, children }) {
+  const { setShowModal } = useContext(ModalContext);
+
   const closeModal = () => {
-    setModalOpen(false);
+    setShowModal(false);
+    setHasAccount(true);
   };
 
   const modalRef = useRef(null);
@@ -27,7 +32,7 @@ function ModalBasic({ setModalOpen, children }) {
   useEffect(() => {
     const handler = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
-        setModalOpen(false);
+        setShowModal(false);
       }
     };
 
@@ -36,6 +41,10 @@ function ModalBasic({ setModalOpen, children }) {
       document.removeEventListener("mousedown", handler);
     };
   });
+
+  const clickSignUpHandler = () => {
+    setHasAccount(!hasAccount);
+  };
 
   return (
     <>
@@ -55,9 +64,16 @@ function ModalBasic({ setModalOpen, children }) {
             <St.BgImage></St.BgImage>
             {children}
           </div>
-          <p>
-            계정이 따로 없으신가요? <Link to="/signup">회원가입하러가기</Link>
-          </p>
+          {hasAccount ? (
+            <>
+              <p>계정이 따로 없으신가요?</p>
+              <Button clickBtnHandler={clickSignUpHandler}>
+                회원가입하러가기
+              </Button>
+            </>
+          ) : (
+            ""
+          )}
         </St.BoxStyle>
       </St.Wrapper>
     </>
