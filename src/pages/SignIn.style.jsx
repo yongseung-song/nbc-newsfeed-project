@@ -40,7 +40,7 @@ export const TitleStyle = styled.h2`
 
 export const IndexBox = styled.input`
 	width: 703px;
-	height: 20px;
+	height: 50px;
 	flex-shrink: 0;
 	border-radius: 16px;
 	border: none;
