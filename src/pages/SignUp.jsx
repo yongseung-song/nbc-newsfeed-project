@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import { authService, db } from "../firebase";
@@ -35,6 +35,11 @@ function SignUp() {
         accountEmail,
         accountPassword
       );
+      // updateProfile 부분 추가 => @용승
+      updateProfile(user.user, {
+        displayName: accountNickname,
+        photoURL: "https://icons8.com/icon/98957/user",
+      }).then((res) => console.log(res));
 
       const newDocRef = doc(signupRef);
 
@@ -42,7 +47,7 @@ function SignUp() {
         await setDoc(newDocRef, {
           // firebase에 저장할 데이터 매치
           id: newDocRef.id,
-          uid: user.uid,
+          // uid: user.uid,
           userEmail: accountEmail,
           creator: accountNickname,
           userCreateAt: TODAY,

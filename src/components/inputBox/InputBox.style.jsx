@@ -9,6 +9,6 @@ export const InputBox = styled.div`
   background-color: #fff;
   border: 1px solid #000;
   textarea {
-    width: 100%;
+    width: 80%;
   }
 `;

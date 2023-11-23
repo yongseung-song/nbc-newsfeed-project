@@ -20,11 +20,11 @@ function Posts() {
     );
   }, []);
 
-  const data = Object.values({ ...postList });
+  const iterableData = Object.values({ ...postList });
 
   return (
     <St.PostsWrapper>
-      {data.map((post, idx) => {
+      {iterableData.map((post, idx) => {
         const { creator, title, id, content, date, tag } = post;
         return (
           <Post

@@ -11,6 +11,6 @@ export const PostHeaderWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   div {
-    margin-left: 24px;
+    margin-left: 32px;
   }
 `;
