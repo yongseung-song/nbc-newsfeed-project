@@ -1,19 +1,25 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SignIn from "../../pages/SignIn.jsx";
 import * as St from "./Header.style.jsx";
 import ModalBasic from "../../components/header/ModalBasic.jsx";
 import { ModalContext } from "../../context/ModalContext.js";
-import Button from "../../shared/button/Button.jsx";
-import SignUp from "../../pages/SignUp.jsx";
+import { app, authService } from "../../firebase.js";
+import { getAuth } from "firebase/auth";
 
 function Header() {
   const [hasAccount, setHasAccount] = useState(true);
   const { showModal, setShowModal } = useContext(ModalContext);
+  const navigate = useNavigate();
+
+  const name = getAuth()?.currentUser?.displayName;
 
   const loginModalHandler = () => {
     setShowModal(true);
   };
+
+  // console.log(getAuth().currentUser?.photoURL);
+  const userAvatarUrl = getAuth()?.currentUser?.photoURL;
 
   return (
     <St.Header>
@@ -22,9 +28,10 @@ function Header() {
         <label htmlFor="search">검색</label>
         <input id="search" name="search" type="text" />
       </form>
+      <p>{name ?? "guest"}님</p>
       <St.BtnContainer>
         <button>darkmode</button>
-        <Button clickBtnHandler={loginModalHandler}>로그인</Button>
+        <button onClick={loginModalHandler}>login</button>
         {showModal && (
           <>
             {hasAccount ? (
