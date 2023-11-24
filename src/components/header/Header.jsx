@@ -15,7 +15,7 @@ function Header() {
       <St.BtnContainer>
         <button>darkmode</button>
 <<<<<<<<< Temporary merge branch 1
-        <Button clickBtnHandler={loginModalHandler}>로그인</Button>
+         clickBtnHandler={loginModalHandler}>로그인</Button>
 =========
         <button onClick={loginModalHandler}>login</button>
         <St.DropDownBtn
