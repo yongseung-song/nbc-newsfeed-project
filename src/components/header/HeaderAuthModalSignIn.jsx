@@ -1,29 +1,28 @@
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
-  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authService } from "../firebase";
-import { AuthContext } from "../context/AuthContext";
-import { ModalContext } from "../context/ModalContext";
+import { AuthContext } from "../../context/AuthContext";
+import { ModalContext } from "../../context/ModalContext";
+import { authService } from "../../firebase";
+import * as St from "./HeaderAuthModalSignIn.style";
 
-function SignIn() {
+function SignIn({ onClickGoToSignUp: handleClickGoToSignUp }) {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPasssword, setLoginPassword] = useState("");
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const { setShowModal } = useContext(ModalContext);
   const [user, setUser] = useState("");
 
-  console.log("로그인 상태", isLoggedIn);
   const navigate = useNavigate();
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
-        console.log(user.id);
+        console.log(user.uid);
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
@@ -92,11 +91,6 @@ function SignIn() {
       });
   };
 
-  const clickLogoutBtnHandler = () => {
-    authService.signOut();
-    navigate("/");
-  };
-
   const socialGithubLoginhandler = async (event) => {
     event.preventDefault();
     await signInWithGithub()
@@ -117,29 +111,42 @@ function SignIn() {
   };
 
   return (
-    <div>
-      <h2>로그인</h2>
-      <form method="post">
-        이메일:{" "}
-        <input
+    <St.Wrap>
+      <St.EmailForm>이메일로 로그인</St.EmailForm>
+      <St.EmailForm method="post">
+        <St.IndexBox
           type="email"
           value={loginEmail}
           onChange={clickEmailChangehandler}
+          placeholder="이메일을 입력해주세요"
         />
-        <br />
-        비밀번호:{" "}
-        <input
+        ​
+        <St.IndexBox
           type="password"
           value={loginPasssword}
           onChange={clickPasswordChangehandler}
+          placeholder="비밀번호를 입력해주세요"
         />
-        <br />
-        <button onClick={clickLoginHandler}>로그인</button>
-        <button onClick={socialGoogleLoginhandler}>구글로그인</button>
-        <button onClick={socialGithubLoginhandler}>깃허브로그인</button>
-        <button onClick={clickLogoutBtnHandler}>로그아웃</button>
-      </form>
-    </div>
+        <St.LoginButtonBox>
+          <St.LoginButton onClick={clickLoginHandler}>로그인</St.LoginButton>
+        </St.LoginButtonBox>
+      </St.EmailForm>
+      <St.SocialForm method="post">
+        <St.SocialForm>소셜계정으로 로그인</St.SocialForm>
+        <St.SocialLoginBox>
+          <St.GoogleLogin onClick={socialGoogleLoginhandler}></St.GoogleLogin>
+          <St.GitHubLogin onClick={socialGithubLoginhandler}></St.GitHubLogin>
+        </St.SocialLoginBox>
+        {/* <button onClick={clickLogoutBtnHandler}>로그아웃</button> */}
+      </St.SocialForm>
+      <St.SignUpBox>
+        <St.SignUpTitle>계정이 따로 없으신가요?</St.SignUpTitle>
+        {/* button onClick 으로 변경했는데 혹시 괜찮은지 주석 남겨봅니당 */}
+        <St.SignUpButton onClick={handleClickGoToSignUp}>
+          회원가입하러가기
+        </St.SignUpButton>
+      </St.SignUpBox>
+    </St.Wrap>
   );
 }
 
