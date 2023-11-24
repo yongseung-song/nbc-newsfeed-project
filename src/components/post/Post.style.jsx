@@ -14,3 +14,7 @@ export const PostHeaderWrapper = styled.div`
     margin-left: 32px;
   }
 `;
+export const TagContainer = styled.ul`
+  display: flex;
+  gap: 8px;
+`;
