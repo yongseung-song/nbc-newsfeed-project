@@ -70,37 +70,40 @@ function SignUp() {
 
 	return (
 		<St.SignUpBox>
-			<h1>회원가입</h1>
-			<from method="post">
+			<St.SectionTitle>회원가입</St.SectionTitle>
+			<St.SignUpForm method="post">
 				<St.SignUpSection>
-					<p>이메일: </p>
-					<input
+					<p>이메일</p>
+					<St.InputBox
 						type="email"
 						value={accountEmail}
 						onChange={emailChangeHandler}
+						placeholder="이메일을 입력해주세요"
 					/>
 				</St.SignUpSection>
 
 				<St.SignUpSection>
-					<p>비밀번호: </p>
-					<input
+					<p>비밀번호</p>
+					<St.InputBox
 						type="password"
 						value={accountPassword}
 						onChange={passwordChangeHandler}
+						placeholder="비밀번호를 입력해주세요"
 					/>
 				</St.SignUpSection>
 
 				<St.SignUpSection>
-					<p>닉네임: </p>
-					<input
+					<p>닉네임</p>
+					<St.InputBox
 						type="nickName"
 						value={accountNickname}
 						onChange={nicknameChangeHandler}
+						placeholder="닉네임을 입력해주세요"
 					/>
 				</St.SignUpSection>
 
-				<button onClick={accountBtnClickHandler}>등록</button>
-			</from>
+				<St.SignUpBtn onClick={accountBtnClickHandler}>등록</St.SignUpBtn>
+			</St.SignUpForm>
 		</St.SignUpBox>
 	);
 }

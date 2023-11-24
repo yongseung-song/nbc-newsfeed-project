@@ -35,7 +35,7 @@ export const IndexBox = styled.input`
 	flex-shrink: 0;
 	border-radius: 16px;
 	border: none;
-	background: #f0f3ff;
+	background: ${colors.inputBoxColor};
 	margin-bottom: 12px;
 	padding: 17px 0 17px 25px;
 	font-size: 18px;
