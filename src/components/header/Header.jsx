@@ -6,6 +6,7 @@ import ModalBasic from "../../components/header/ModalBasic.jsx";
 import { ModalContext } from "../../context/ModalContext.js";
 import Button from "../../shared/button/Button.jsx";
 import SignUp from "../../pages/SignUp.jsx";
+import DropdownIcon from "../../assets/free-icon-down-arrows-2268472.png";
 
 function Header() {
   const [hasAccount, setHasAccount] = useState(true);
@@ -14,7 +15,7 @@ function Header() {
   const loginModalHandler = () => {
     setShowModal(true);
   };
-
+  console.log(hasAccount);
   return (
     <St.Header>
       <Link to="/">home</Link>
@@ -24,7 +25,34 @@ function Header() {
       </form>
       <St.BtnContainer>
         <button>darkmode</button>
-        <Button clickBtnHandler={loginModalHandler}>로그인</Button>
+        {!hasAccount ? (
+          <Button clickBtnHandler={loginModalHandler}>로그인</Button>
+        ) : (
+          <div>
+            <img
+              style={{
+                width: "100px",
+                height: "100px",
+                borderRadius: "50%",
+                position: "absolute",
+                // margin: "0 0 0 -100px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              src="https://img.freepik.com/free-photo/cute-ai-generated-cartoon-bunny_23-2150288870.jpg?size=338&ext=jpg&ga=GA1.2.386372595.1697587200&semt=ais"
+              alt="프로필 이미지"
+            />
+            <img
+              style={{
+                margin: "50px 0 0 100px",
+              }}
+              src={`${DropdownIcon}`}
+              alt="드롭다운 아이콘"
+            />
+          </div>
+        )}
+
         {showModal && (
           <>
             {hasAccount ? (
