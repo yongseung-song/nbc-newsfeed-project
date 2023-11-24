@@ -2,7 +2,6 @@ import dayjs from "dayjs";
 import { getAuth } from "firebase/auth";
 import React, { useContext } from "react";
 import styled from "styled-components";
-import Button from "../components/Button/Button";
 import Main from "../components/main/Main";
 import Sidebar from "../components/sidebar/Sidebar";
 import { AuthContext } from "../context/AuthContext";
@@ -34,9 +33,6 @@ function Home() {
     <StHomeContainer>
       <Sidebar />
       <Main />
-
-      <Button color="primary">ㅍㅡㄹㅏㅇㅣㅁㅓㄹㅣㅂㅓㅌㅡㄴ</Button>
-      <Button color="secondary">ㅅㅔㅋㅓㄴㄷㅓㄹㅣ</Button>
     </StHomeContainer>
   );
 }

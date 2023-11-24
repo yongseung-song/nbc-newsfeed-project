@@ -1,6 +1,7 @@
 import { getAuth } from "firebase/auth";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import { AuthContext } from "../../context/AuthContext";
 import { ModalContext } from "../../context/ModalContext";
 import { authService } from "../../firebase";
@@ -27,22 +28,8 @@ function HeaderAuthMenu() {
       <div>
         <button>darkmode</button>
         {isLoggedIn ? (
-          <div>
+          <StAuthMenu>
             <p>{name ?? "guest"}님</p>
-            <img
-              style={{
-                width: "100px",
-                height: "100px",
-                borderRadius: "50%",
-                position: "absolute",
-                // margin: "0 0 0 -100px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              src={userAvatarUrl}
-              alt="프로필 이미지"
-            />
             <St.DropDownBtn
               onClick={() => {
                 navigate("mypage");
@@ -50,7 +37,7 @@ function HeaderAuthMenu() {
               src={userAvatarUrl}
             />
             <button onClick={clickLogoutBtnHandler}>로그아웃</button>
-          </div>
+          </StAuthMenu>
         ) : (
           <button onClick={loginModalHandler}>로그인하기</button>
         )}
@@ -61,3 +48,10 @@ function HeaderAuthMenu() {
 }
 
 export default HeaderAuthMenu;
+
+const StAuthMenu = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
