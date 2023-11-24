@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 function Detail() {
   const data = [
     { id: "1", title: "제목1", content: "내용입니다" },
