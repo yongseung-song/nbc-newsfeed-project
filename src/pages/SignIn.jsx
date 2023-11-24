@@ -1,6 +1,7 @@
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
@@ -51,11 +52,11 @@ function SignIn({ hasAccount, setHasAccount }) {
         loginEmail,
         loginPasssword
       );
-      setUser(userLogin.user);
       console.log(userLogin.user);
       alert("환영합니다");
       setShowModal(false);
       navigate("/");
+      setUser(userLogin.user);
     } catch (error) {
       console.log(error);
     }

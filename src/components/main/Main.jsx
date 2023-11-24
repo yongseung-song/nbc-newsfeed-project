@@ -4,12 +4,10 @@ import Posts from "../posts/Posts";
 import * as St from "./Main.style";
 
 function Main() {
-  const mainRef = useRef();
-
   return (
-    <St.MainWrapper ref={mainRef}>
+    <St.MainWrapper>
       <InputBox />
-      <Posts ref={mainRef} />
+      <Posts />
     </St.MainWrapper>
   );
 }
