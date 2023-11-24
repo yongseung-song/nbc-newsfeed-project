@@ -47,9 +47,10 @@ function SignUp() {
         await setDoc(newDocRef, {
           // firebase에 저장할 데이터 매치
           id: newDocRef.id,
-          // uid: user.uid,
+          uid: user.uid,
           userEmail: accountEmail,
-          creator: accountNickname,
+          nickname: accountNickname,
+          photoURL: user.user.photoURL,
           userCreateAt: TODAY,
         });
       } catch (error) {

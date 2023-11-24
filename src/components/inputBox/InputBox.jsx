@@ -4,9 +4,10 @@ import { getAuth } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 import dayjs from "dayjs";
 import { db } from "../../firebase";
+import { PostContext } from "../../context/PostContext";
 // import { ModalContext } from "../../context/ModalContext";
 function InputBox() {
-  // const { postList, setPostList } = useContext(ModalContext);
+  const { postList, setPostList } = useContext(PostContext);
   const inputRef = useRef();
   const textareaRef = useRef();
   const [inputValue, setInputValue] = useState("");
@@ -17,16 +18,23 @@ function InputBox() {
   const newDocRef = doc(collection(db, "posts"));
 
   const postSubmitBtnClickHandler = async (e) => {
+    const newPost = {
+      title: inputValue,
+      content: textAreaValue,
+      date: dayjs().toJSON(),
+      creator: user.displayName,
+      creatorUid: auth.currentUser.uid,
+      id: newDocRef.id,
+      tag: [],
+    };
     if (textAreaValue && inputValue) {
-      setDoc(newDocRef, {
-        title: inputValue,
-        content: textAreaValue,
-        date: dayjs().toJSON(),
-        creator: user.displayName,
-        creatorUid: auth.currentUser.uid,
-        id: newDocRef.id,
-        tag: [],
-      })
+      setDoc(newDocRef, newPost)
+        .then(() => {
+          setPostList((prevList) => ({
+            ...prevList,
+            [newPost.id]: { ...newPost, id: newPost.id },
+          }));
+        })
         .then(() => {
           setInputValue("");
           setTextAreaValue("");
