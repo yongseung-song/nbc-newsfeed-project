@@ -3,14 +3,15 @@ import { createGlobalStyle } from "styled-components";
 const styled = { createGlobalStyle };
 
 const GlobalColors = styled.createGlobalStyle`
-	:root {
-	}
+  :root {
+  }
 `;
 
 export const colors = {
-	mainColor: "#4A46FF",
-	smallTitleColor: "#969696",
-	indexFontColor: "#CECECE",
+  mainColor: "#4A46FF",
+  smallTitleColor: "#969696",
+  indexFontColor: "#CECECE",
+  inputBoxColor: "#f0f3ff",
 };
 
 export default GlobalColors;

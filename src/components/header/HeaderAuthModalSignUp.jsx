@@ -50,7 +50,8 @@ function SignUp() {
           id: newDocRef.id,
           uid: user.uid,
           userEmail: accountEmail,
-          creator: accountNickname,
+          nickname: accountNickname,
+          photoURL: user.user.photoURL,
           userCreateAt: TODAY,
         });
       } catch (error) {

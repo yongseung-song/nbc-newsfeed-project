@@ -1,12 +1,13 @@
-import React, { useContext, useRef, useState } from "react";
-import * as St from "./InputBox.style";
+import dayjs from "dayjs";
 import { getAuth } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
-import dayjs from "dayjs";
+import React, { useContext, useRef, useState } from "react";
+import styled from "styled-components";
+import { PostContext } from "../../context/PostContext";
 import { db } from "../../firebase";
 // import { ModalContext } from "../../context/ModalContext";
 function InputBox() {
-  // const { postList, setPostList } = useContext(ModalContext);
+  const { postList, setPostList } = useContext(PostContext);
   const inputRef = useRef();
   const textareaRef = useRef();
   const [inputValue, setInputValue] = useState("");
@@ -17,16 +18,23 @@ function InputBox() {
   const newDocRef = doc(collection(db, "posts"));
 
   const postSubmitBtnClickHandler = async (e) => {
+    const newPost = {
+      title: inputValue,
+      content: textAreaValue,
+      date: dayjs().toJSON(),
+      creator: user.displayName,
+      creatorUid: auth.currentUser.uid,
+      id: newDocRef.id,
+      tag: [],
+    };
     if (textAreaValue && inputValue) {
-      setDoc(newDocRef, {
-        title: inputValue,
-        content: textAreaValue,
-        date: dayjs().toJSON(),
-        creator: user.displayName,
-        creatorUid: auth.currentUser.uid,
-        id: newDocRef.id,
-        tag: [],
-      })
+      setDoc(newDocRef, newPost)
+        .then(() => {
+          setPostList((prevList) => ({
+            ...prevList,
+            [newPost.id]: { ...newPost, id: newPost.id },
+          }));
+        })
         .then(() => {
           setInputValue("");
           setTextAreaValue("");
@@ -38,7 +46,7 @@ function InputBox() {
   };
 
   return (
-    <St.InputBox>
+    <StInputBox>
       <form action="">
         <div>
           <label htmlFor="">제목</label>
@@ -66,8 +74,24 @@ function InputBox() {
         </div>
       </form>
       <button>취소</button>
-    </St.InputBox>
+    </StInputBox>
   );
 }
 
 export default InputBox;
+
+export const StInputBox = styled.div`
+  width: 100%;
+  height: 160px; // 조건부 스타일링 필요
+  position: sticky;
+  top: 84px;
+  margin-bottom: 16px;
+  background-color: #fff;
+  border: 1px solid #000;
+  textarea {
+    width: 80%;
+    resize: none;
+  }
+  div {
+  }
+`;

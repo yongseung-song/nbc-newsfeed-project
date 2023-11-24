@@ -1,9 +1,7 @@
 import React, { useContext } from "react";
-import { createPortal } from "react-dom";
 import { ModalContext } from "../../context/ModalContext";
-import * as St from "./Post.style";
-import Button from "../../shared/button/Button";
 import Tag from "../tag/Tag";
+import * as St from "./Post.style";
 
 function Post({ id, creator, title, content, date, tag }) {
   const { showModal, setShowModal } = useContext(ModalContext);

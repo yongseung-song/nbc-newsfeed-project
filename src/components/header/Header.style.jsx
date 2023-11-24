@@ -23,4 +23,6 @@ export const DropDownBtn = styled.img`
   width: 46px;
   height: 46px;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
 `;
