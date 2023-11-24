@@ -3,99 +3,106 @@ import { collection, doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import { authService, db } from "../firebase";
 import dayjs from "dayjs";
+import * as St from "../pages/SignUp.style";
 
 function SignUp() {
-  const signupRef = collection(db, "users");
+	const signupRef = collection(db, "users");
 
-  const [accountEmail, setAccountEmail] = useState("");
-  const [accountPassword, setAccountPassword] = useState("");
-  const [accountNickname, setAccountNickname] = useState("");
+	const [accountEmail, setAccountEmail] = useState("");
+	const [accountPassword, setAccountPassword] = useState("");
+	const [accountNickname, setAccountNickname] = useState("");
 
-  const TODAY = dayjs().format("YY-MM-DD HH:mm:ss");
+	const TODAY = dayjs().format("YY-MM-DD HH:mm:ss");
 
-  const emailChangeHandler = (event) => {
-    const email = event.currentTarget.value;
-    setAccountEmail(email);
-  };
+	const emailChangeHandler = (event) => {
+		const email = event.currentTarget.value;
+		setAccountEmail(email);
+	};
 
-  const passwordChangeHandler = (event) => {
-    const password = event.currentTarget.value;
-    setAccountPassword(password);
-  };
+	const passwordChangeHandler = (event) => {
+		const password = event.currentTarget.value;
+		setAccountPassword(password);
+	};
 
-  const nicknameChangeHandler = (event) => {
-    const nickname = event.currentTarget.value;
-    setAccountNickname(nickname);
-  };
+	const nicknameChangeHandler = (event) => {
+		const nickname = event.currentTarget.value;
+		setAccountNickname(nickname);
+	};
 
-  const account = async (accountEmail, accountPassword) => {
-    try {
-      const user = await createUserWithEmailAndPassword(
-        authService,
-        accountEmail,
-        accountPassword
-      );
+	const account = async (accountEmail, accountPassword) => {
+		try {
+			const user = await createUserWithEmailAndPassword(
+				authService,
+				accountEmail,
+				accountPassword
+			);
 
-      const newDocRef = doc(signupRef);
+			const newDocRef = doc(signupRef);
 
-      try {
-        await setDoc(newDocRef, {
-          // firebase에 저장할 데이터 매치
-          id: newDocRef.id,
-          uid: user.uid,
-          userEmail: accountEmail,
-          creator: accountNickname,
-          userCreateAt: TODAY,
-        });
-      } catch (error) {
-        console.error(error.code, error.message);
-      }
-    } catch (error) {
-      console.log(error.code, error.message);
-    }
-  };
+			try {
+				await setDoc(newDocRef, {
+					// firebase에 저장할 데이터 매치
+					id: newDocRef.id,
+					uid: user.uid,
+					userEmail: accountEmail,
+					creator: accountNickname,
+					userCreateAt: TODAY,
+				});
+			} catch (error) {
+				console.error(error.code, error.message);
+			}
+		} catch (error) {
+			console.log(error.code, error.message);
+		}
+	};
 
-  // 회원가입 등록 버튼
-  const accountBtnClickHandler = (event) => {
-    event.preventDefault();
-    console.log("test");
-    account(accountEmail, accountPassword);
-    alert("회원가입을 축하드립니다!");
+	// 회원가입 등록 버튼
+	const accountBtnClickHandler = (event) => {
+		event.preventDefault();
+		console.log("test");
+		account(accountEmail, accountPassword);
+		alert("회원가입을 축하드립니다!");
 
-    setAccountEmail("");
-    setAccountPassword("");
-    setAccountNickname("");
-  };
+		setAccountEmail("");
+		setAccountPassword("");
+		setAccountNickname("");
+	};
 
-  return (
-    <div>
-      <h1>회원가입</h1>
-      <form method="post">
-        이메일:{" "}
-        <input
-          type="email"
-          value={accountEmail}
-          onChange={emailChangeHandler}
-        />
-        <br />
-        비밀번호:{" "}
-        <input
-          type="password"
-          value={accountPassword}
-          onChange={passwordChangeHandler}
-        />
-        <br />
-        닉네임:{" "}
-        <input
-          type="nickName"
-          value={accountNickname}
-          onChange={nicknameChangeHandler}
-        />
-        <br />
-        <button onClick={accountBtnClickHandler}>등록</button>
-      </form>
-    </div>
-  );
+	return (
+		<St.SignUpBox>
+			<h1>회원가입</h1>
+			<from method="post">
+				<St.SignUpSection>
+					<p>이메일: </p>
+					<input
+						type="email"
+						value={accountEmail}
+						onChange={emailChangeHandler}
+					/>
+				</St.SignUpSection>
+
+				<St.SignUpSection>
+					<p>비밀번호: </p>
+					<input
+						type="password"
+						value={accountPassword}
+						onChange={passwordChangeHandler}
+					/>
+				</St.SignUpSection>
+
+				<St.SignUpSection>
+					<p>닉네임: </p>
+					<input
+						type="nickName"
+						value={accountNickname}
+						onChange={nicknameChangeHandler}
+					/>
+				</St.SignUpSection>
+
+				<button onClick={accountBtnClickHandler}>등록</button>
+			</from>
+		</St.SignUpBox>
+	);
 }
 
 export default SignUp;
