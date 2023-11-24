@@ -1,10 +1,10 @@
+import dayjs from "dayjs";
+import { collection, getDocs } from "firebase/firestore";
 import React, { useContext, useEffect } from "react";
+import { PostContext } from "../../context/PostContext";
+import { db } from "../../firebase";
 import Post from "../post/Post";
 import * as St from "./Posts.style";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebase";
-import dayjs from "dayjs";
-import { PostContext } from "../../context/PostContext";
 
 function Posts() {
   const { postList, setPostList } = useContext(PostContext);

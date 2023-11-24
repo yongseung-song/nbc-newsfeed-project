@@ -73,9 +73,6 @@ function InputBox() {
           />
         </div>
       </form>
-      <button type="submit" onClick={postSubmitBtnClickHandler}>
-        등록
-      </button>
       <button>취소</button>
     </StInputBox>
   );

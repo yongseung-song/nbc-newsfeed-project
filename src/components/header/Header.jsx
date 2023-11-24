@@ -11,7 +11,6 @@ function Header() {
         <label htmlFor="search">검색</label>
         <input id="search" name="search" type="text" />
       </form>
-
       <HeaderAuthMenu />
     </St.Header>
   );
