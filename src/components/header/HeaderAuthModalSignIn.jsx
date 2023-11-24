@@ -1,19 +1,17 @@
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
-  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authService } from "../firebase";
-import { ModalContext } from "../context/ModalContext";
-import { AuthContext } from "../context/AuthContext";
-import * as St from "../pages/SignIn.style";
-import Button from "../shared/button/Button";
+import { AuthContext } from "../../context/AuthContext";
+import { ModalContext } from "../../context/ModalContext";
+import { authService } from "../../firebase";
+import * as St from "./HeaderAuthModalSignIn.style";
 
-function SignIn({ hasAccount, setHasAccount }) {
+function SignIn({ onClickGoToSignUp: handleClickGoToSignUp }) {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPasssword, setLoginPassword] = useState("");
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
@@ -93,11 +91,6 @@ function SignIn({ hasAccount, setHasAccount }) {
       });
   };
 
-  const clickLogoutBtnHandler = () => {
-    authService.signOut();
-    navigate("/");
-  };
-
   const socialGithubLoginhandler = async (event) => {
     event.preventDefault();
     await signInWithGithub()
@@ -115,10 +108,6 @@ function SignIn({ hasAccount, setHasAccount }) {
       .catch((error) => {
         console.error(error);
       });
-  };
-
-  const clickSignUpHandler = () => {
-    setHasAccount(!hasAccount);
   };
 
   return (
@@ -150,8 +139,13 @@ function SignIn({ hasAccount, setHasAccount }) {
         </St.SocialLoginBox>
         {/* <button onClick={clickLogoutBtnHandler}>로그아웃</button> */}
       </St.SocialForm>
-      <p>계정이 따로 없으신가요?</p>
-      <Button clickBtnHandler={clickSignUpHandler}>회원가입하러가기</Button>
+      <St.SignUpBox>
+        <St.SignUpTitle>계정이 따로 없으신가요?</St.SignUpTitle>
+        {/* button onClick 으로 변경했는데 혹시 괜찮은지 주석 남겨봅니당 */}
+        <St.SignUpButton onClick={handleClickGoToSignUp}>
+          회원가입하러가기
+        </St.SignUpButton>
+      </St.SignUpBox>
     </St.Wrap>
   );
 }

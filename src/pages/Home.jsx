@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import dayjs from "dayjs";
+import { getAuth } from "firebase/auth";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import Button from "../components/Button/Button";
 import Main from "../components/main/Main";
 import Sidebar from "../components/sidebar/Sidebar";
-import { useNavigate } from "react-router-dom";
-import dayjs from "dayjs";
 import { AuthContext } from "../context/AuthContext";
-import { getAuth } from "firebase/auth";
 
 const StHomeContainer = styled.div`
   position: relative;
@@ -34,6 +34,9 @@ function Home() {
     <StHomeContainer>
       <Sidebar />
       <Main />
+
+      <Button color="primary">ㅍㅡㄹㅏㅇㅣㅁㅓㄹㅣㅂㅓㅌㅡㄴ</Button>
+      <Button color="secondary">ㅅㅔㅋㅓㄴㄷㅓㄹㅣ</Button>
     </StHomeContainer>
   );
 }

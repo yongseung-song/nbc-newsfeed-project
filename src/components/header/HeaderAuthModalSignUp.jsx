@@ -1,8 +1,9 @@
+import dayjs from "dayjs";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
-import { authService, db } from "../firebase";
-import dayjs from "dayjs";
+import { authService, db } from "../../firebase";
+import * as St from "./HeaderAuthModalSignUp.style";
 
 function SignUp() {
   const signupRef = collection(db, "users");
@@ -47,7 +48,7 @@ function SignUp() {
         await setDoc(newDocRef, {
           // firebase에 저장할 데이터 매치
           id: newDocRef.id,
-          // uid: user.uid,
+          uid: user.uid,
           userEmail: accountEmail,
           creator: accountNickname,
           userCreateAt: TODAY,
@@ -73,33 +74,39 @@ function SignUp() {
   };
 
   return (
-    <div>
+    <St.SignUpBox>
       <h1>회원가입</h1>
-      <form method="post">
-        이메일:{" "}
-        <input
-          type="email"
-          value={accountEmail}
-          onChange={emailChangeHandler}
-        />
-        <br />
-        비밀번호:{" "}
-        <input
-          type="password"
-          value={accountPassword}
-          onChange={passwordChangeHandler}
-        />
-        <br />
-        닉네임:{" "}
-        <input
-          type="nickName"
-          value={accountNickname}
-          onChange={nicknameChangeHandler}
-        />
-        <br />
+      <from method="post">
+        <St.SignUpSection>
+          <p>이메일: </p>
+          <input
+            type="email"
+            value={accountEmail}
+            onChange={emailChangeHandler}
+          />
+        </St.SignUpSection>
+
+        <St.SignUpSection>
+          <p>비밀번호: </p>
+          <input
+            type="password"
+            value={accountPassword}
+            onChange={passwordChangeHandler}
+          />
+        </St.SignUpSection>
+
+        <St.SignUpSection>
+          <p>닉네임: </p>
+          <input
+            type="nickName"
+            value={accountNickname}
+            onChange={nicknameChangeHandler}
+          />
+        </St.SignUpSection>
+
         <button onClick={accountBtnClickHandler}>등록</button>
-      </form>
-    </div>
+      </from>
+    </St.SignUpBox>
   );
 }
 
