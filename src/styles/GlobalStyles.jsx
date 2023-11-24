@@ -3,12 +3,12 @@ import reset from "styled-reset";
 const styled = { createGlobalStyle };
 
 const GlobalStyles = styled.createGlobalStyle`
-  ${reset}
+	${reset}
 
-  body * {
-    box-sizing: border-box;
-    /* margin: 0 auto; */
-  }
+	body * {
+		box-sizing: border-box;
+		/* margin: 0 auto; */
+	}
 `;
 
 export default GlobalStyles;

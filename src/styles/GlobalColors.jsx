@@ -12,6 +12,7 @@ export const colors = {
 	smallTitleColor: "#969696",
 	indexFontColor: "#CECECE",
 	inputBoxColor: "#f0f3ff",
+	backgroundColor: "#fafbff",
 };
 
 export default GlobalColors;
