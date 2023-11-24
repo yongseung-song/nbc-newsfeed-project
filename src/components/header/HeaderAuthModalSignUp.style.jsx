@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { colors } from "../styles/GlobalColors";
 
 export const SignUpBox = styled.div`
 	margin-top: 50px;

@@ -1,8 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import dayjs from "dayjs";
+import { getAuth } from "firebase/auth";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Main from "../components/main/Main";
 import Sidebar from "../components/sidebar/Sidebar";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 const StHomeContainer = styled.div`
@@ -16,8 +17,18 @@ const StHomeContainer = styled.div`
 
 function Home() {
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const auth = getAuth();
+  const user = auth.currentUser;
+  if (user) {
+    console.log(user.uid, user.displayName);
+  } else {
+    console.log("none");
+  }
 
+  // console.log("app", app);
+  // console.log(isLoggedIn);
+  const dates = Array(5).fill(dayjs().toJSON());
+  // console.log(dates);
   return (
     <StHomeContainer>
       <Sidebar />

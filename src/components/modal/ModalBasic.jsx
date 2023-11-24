@@ -1,16 +1,12 @@
 import React, { useContext, useEffect, useRef } from "react";
-import * as St from "../header/ModalBasic.style";
-import SignUp from "../../pages/SignUp";
-import { Link } from "react-router-dom";
-import Button from "../../shared/button/Button";
 import { ModalContext } from "../../context/ModalContext";
+import * as St from "./ModalBasic.style";
 
-function ModalBasic({ hasAccount, setHasAccount, children }) {
+function ModalBasic({ children }) {
   const { setShowModal } = useContext(ModalContext);
 
   const closeModal = () => {
     setShowModal(false);
-    setHasAccount(true);
   };
 
   const modalRef = useRef(null);

@@ -4,8 +4,6 @@ import Layout from "../layout/Layout";
 import Detail from "../pages/Detail";
 import Home from "../pages/Home";
 import MyPage from "../pages/MyPage";
-import SignIn from "../pages/SignIn";
-import SignUp from "../pages/SignUp";
 import GlobalColors from "../styles/GlobalColors";
 import GlobalFonts from "../styles/GlobalFonts";
 import GlobalStyles from "../styles/GlobalStyles";
@@ -21,9 +19,7 @@ function Router() {
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="detail/:id" element={<Detail />} />
-            <Route path="mypage/:memberId" element={<MyPage />} />
-            <Route path="signin" element={<SignIn />} />
-            <Route path="signup" element={<SignUp />} />
+            <Route path="mypage" element={<MyPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
