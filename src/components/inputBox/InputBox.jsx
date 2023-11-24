@@ -1,6 +1,8 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import * as St from "./InputBox.style";
+// import { ModalContext } from "../../context/ModalContext";
 function InputBox() {
+  // const { postList, setPostList } = useContext(ModalContext);
   const textareaRef = useRef();
 
   return (

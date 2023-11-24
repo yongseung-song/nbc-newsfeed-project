@@ -2,9 +2,8 @@ import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import Main from "../components/main/Main";
 import Sidebar from "../components/sidebar/Sidebar";
-import { app } from "../firebase";
-import { Context } from "../context/Context";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const StHomeContainer = styled.div`
   position: relative;
@@ -16,7 +15,8 @@ const StHomeContainer = styled.div`
 `;
 
 function Home() {
-  console.log("app", app);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   return (
     <StHomeContainer>

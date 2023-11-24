@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef } from "react";
 import styled from "styled-components";
 import logoImage from "../../assets/console.lo9.png";
-import { Context } from "../../context/Context";
+import { ModalContext } from "../../context/ModalContext";
 /* 
 
 
@@ -82,7 +82,7 @@ const BgImage = styled.p`
 
 function ModalBasic({ children }) {
   const modalRef = useRef(null);
-  const { setShowModal } = useContext(Context);
+  const { setShowModal } = useContext(ModalContext);
 
   // 모달 창 클릭시 뒷 내용 스크롤 고정
   useEffect(() => {

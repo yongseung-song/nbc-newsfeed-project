@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { createPortal } from "react-dom";
-import { Context } from "../../context/Context";
+import { ModalContext } from "../../context/ModalContext";
 import * as St from "./Post.style";
 import BoardWrite from "../boardwrite/BoardWrite";
+import Button from "../../shared/button/Button";
 
 function Post() {
-  const { showModal, setShowModal } = useContext(Context);
+  const { showModal, setShowModal } = useContext(ModalContext);
   const postClickHandler = () => {
     setShowModal(true); // 이부분때문에 포스트 누르면 모달 뜸
   };
