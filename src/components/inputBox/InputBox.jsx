@@ -1,10 +1,10 @@
-import React, { useContext, useRef, useState } from "react";
-import * as St from "./InputBox.style";
+import dayjs from "dayjs";
 import { getAuth } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
-import dayjs from "dayjs";
-import { db } from "../../firebase";
+import React, { useContext, useRef, useState } from "react";
+import styled from "styled-components";
 import { PostContext } from "../../context/PostContext";
+import { db } from "../../firebase";
 // import { ModalContext } from "../../context/ModalContext";
 function InputBox() {
   const { postList, setPostList } = useContext(PostContext);
@@ -46,7 +46,7 @@ function InputBox() {
   };
 
   return (
-    <St.InputBox>
+    <StInputBox>
       <form action="">
         <div>
           <label htmlFor="">제목</label>
@@ -77,8 +77,24 @@ function InputBox() {
         등록
       </button>
       <button>취소</button>
-    </St.InputBox>
+    </StInputBox>
   );
 }
 
 export default InputBox;
+
+export const StInputBox = styled.div`
+  width: 100%;
+  height: 160px; // 조건부 스타일링 필요
+  position: sticky;
+  top: 84px;
+  margin-bottom: 16px;
+  background-color: #fff;
+  border: 1px solid #000;
+  textarea {
+    width: 80%;
+    resize: none;
+  }
+  div {
+  }
+`;
