@@ -10,5 +10,8 @@ export const InputBox = styled.div`
   border: 1px solid #000;
   textarea {
     width: 80%;
+    resize: none;
+  }
+  div {
   }
 `;
