@@ -23,7 +23,7 @@ function InputBox() {
       date: dayjs().toJSON(),
       creator: user.displayName,
       tag: [],
-    }).then((res) => console.log(res));
+    }).catch((error) => console.log(error));
   };
 
   return (

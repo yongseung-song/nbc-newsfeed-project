@@ -38,7 +38,7 @@ function SignUp() {
       // updateProfile 부분 추가 => @용승
       updateProfile(user.user, {
         displayName: accountNickname,
-        photoURL: "https://icons8.com/icon/98957/user",
+        photoURL: "https://img.icons8.com/ios-glyphs/60/user--v1.png",
       }).then((res) => console.log(res));
 
       const newDocRef = doc(signupRef);
