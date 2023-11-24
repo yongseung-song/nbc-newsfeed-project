@@ -1,7 +1,4 @@
-import React from "react";
-import styled from "styled-components";
-import Button from "../shared/button/Button";
-import { useState } from "react";
+import React, { useState } from "react";
 
 function Detail() {
   const data = [
@@ -14,15 +11,18 @@ function Detail() {
 
   const [todos, setTodos] = useState(data);
 
-  const clickRemoveButtonHadler = (id) => {
+  const clickDeleteButtonHadler = (id) => {
+    // const answer = window.confirm("정말로 삭제하시겠습니까?");
+    // if (!answer) return;
     const deleteData = todos.filter((item) => {
       return item.id !== id;
     });
-    console.log(deleteData);
     setTodos(deleteData);
   };
 
   const clickUpdateButtonHadler = (id) => {
+    // if (!editingText) return alert("수정사항이 없습니다.");
+
     const editData = todos.filter((item) => {
       return item.id === id;
     });
@@ -47,7 +47,7 @@ function Detail() {
 
             <button
               onClick={() => {
-                clickRemoveButtonHadler(data.id);
+                clickDeleteButtonHadler(data.id);
               }}
             >
               삭제
