@@ -13,6 +13,7 @@ export const colors = {
 	indexFontColor: "#CECECE",
 	inputBoxColor: "#f0f3ff",
 	backgroundColor: "#fafbff",
+	postColor: "#6C6C6C",
 };
 
 export default GlobalColors;
