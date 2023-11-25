@@ -18,7 +18,7 @@ function Posts() {
         }))
       )
     );
-  }, [postList]);
+  }, [db]);
 
   const iterableData = Object.values({ ...postList });
   return (
@@ -26,12 +26,13 @@ function Posts() {
       {iterableData
         .sort((a, b) => dayjs(b.date) - dayjs(a.date))
         .map((post, idx) => {
-          const { creator, title, id, content, date, tag } = post;
+          const { creator, creatorUid, title, id, content, date, tag } = post;
           return (
             <Post
               key={id}
               title={title}
               creator={creator}
+              creatorUid={creatorUid}
               content={content}
               id={id}
               date={dayjs(date).format("YYYY년 M월 D일 h:m")}

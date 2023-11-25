@@ -47,7 +47,7 @@ function ModalBasic({ children }) {
   return (
     <>
       <St.Wrapper>
-        <St.BoxStyle modalSwitch={modalSwitch()} ref={modalRef}>
+        <St.BoxStyle $modalSwitch={modalSwitch()} ref={modalRef}>
           <St.ButtonStyle onClick={closeModalHandler}></St.ButtonStyle>
           <div
             style={{
