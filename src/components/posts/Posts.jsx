@@ -26,7 +26,18 @@ function Posts() {
       {iterableData
         .sort((a, b) => dayjs(b.date) - dayjs(a.date))
         .map((post, idx) => {
-          const { creator, creatorUid, title, id, content, date, tag } = post;
+          const {
+            creator,
+            creatorUid,
+            title,
+            id,
+            content,
+            date,
+            tag,
+            editContent,
+            editTitle,
+            editDate,
+          } = post;
           return (
             <Post
               key={id}
@@ -34,6 +45,9 @@ function Posts() {
               creator={creator}
               creatorUid={creatorUid}
               content={content}
+              editContent={editContent}
+              editTitle={editTitle}
+              editDate={editDate}
               id={id}
               date={dayjs(date).format("YYYY년 M월 D일 h:m")}
               tag={tag}

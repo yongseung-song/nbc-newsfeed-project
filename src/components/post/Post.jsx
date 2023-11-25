@@ -4,7 +4,17 @@ import { ModalContext } from "../../context/ModalContext";
 import { colors } from "../../styles/GlobalColors";
 import Tag from "../tag/Tag";
 
-function Post({ id, creator, title, content, date, tag }) {
+function Post({
+  id,
+  creator,
+  title,
+  content,
+  date,
+  tag,
+  editContent,
+  editTitle,
+  editDate,
+}) {
   const { showModal, setShowModal } = useContext(ModalContext);
   const postClickHandler = () => {
     setShowModal(true); // 이부분때문에 포스트 누르면 모달 뜸
@@ -18,14 +28,14 @@ function Post({ id, creator, title, content, date, tag }) {
             <img src="" alt="img" />
             <div>
               <h3>{creator}</h3>
-              <h4>{title}</h4>
+              <h4>{editTitle ? editTitle : title}</h4>
             </div>
             <StBtnContainer>
               <StFnBtn>👍🏻</StFnBtn>
               <StFnBtn>⭐️</StFnBtn>
             </StBtnContainer>
           </StPostHeaderWrapper>
-          <p>{content}</p>
+          <p>{editContent ? editContent : content}</p>
           <StDayContent>{date}</StDayContent>
           <StTagContainer>
             {tag &&
