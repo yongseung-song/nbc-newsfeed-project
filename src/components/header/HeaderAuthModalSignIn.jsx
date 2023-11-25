@@ -22,11 +22,9 @@ function SignIn({ onClickGoToSignUp: handleClickGoToSignUp }) {
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
-        console.log(user.uid);
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
-        console.log("로그아웃");
       }
     });
   }, []);
