@@ -1,13 +1,14 @@
+import { getAuth } from "firebase/auth";
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { ModalContext } from "../../context/ModalContext";
 import { colors } from "../../styles/GlobalColors";
 import Tag from "../tag/Tag";
 
-function Post({ id, creator, title, content, date, tag }) {
-	const { showModal, setShowModal } = useContext(ModalContext);
+function Post({ id, creator, creatoruid, title, content, date, tag }) {
+	const { showPostModal, setShowPostModal } = useContext(ModalContext);
 	const postClickHandler = () => {
-		setShowModal(true); // 이부분때문에 포스트 누르면 모달 뜸
+		setShowPostModal(true); // 이부분때문에 포스트 누르면 모달 뜸
 	};
 
 	return (
@@ -33,8 +34,23 @@ function Post({ id, creator, title, content, date, tag }) {
 								return <Tag key={idx} item={item} />;
 							})}
 					</StTagContainer>
+					{creatoruid === getAuth()?.currentUser?.uid ? (
+						<button>수정/삭제</button>
+					) : (
+						""
+					)}
 				</StIndexWrap>
 			</StPostWrapper>
+			{showPostModal && (
+				<PostModal
+					id={id}
+					creator={creator}
+					title={title}
+					content={content}
+					date={date}
+					tag={[]}
+				/>
+			)}
 		</>
 	);
 }
