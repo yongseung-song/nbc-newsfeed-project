@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { PostContext } from "../context/PostContext";
 
 function Detail() {
+  const { postList, setPostList } = useContext(PostContext);
   const data = [
     { id: "1", title: "제목1", content: "내용입니다" },
     { id: "2", title: "제목2", content: "내용입니다2" },

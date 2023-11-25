@@ -3,11 +3,8 @@ import { ModalContext } from "../../context/ModalContext";
 import * as St from "./ModalBasic.style";
 
 function ModalBasic({ children }) {
-  const { setShowModal } = useContext(ModalContext);
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
+  const { showModal, setShowModal, showPostModal, setShowPostModal } =
+    useContext(ModalContext);
 
   const modalRef = useRef(null);
 
@@ -28,7 +25,7 @@ function ModalBasic({ children }) {
   useEffect(() => {
     const handler = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
-        setShowModal(false);
+        closeModalHandler();
       }
     };
 
@@ -38,11 +35,20 @@ function ModalBasic({ children }) {
     };
   });
 
+  const modalSwitch = () => {
+    return showModal ? showModal : showPostModal;
+  };
+
+  const closeModalHandler = () => {
+    if (showModal) setShowModal(false);
+    if (showPostModal) setShowPostModal(false);
+  };
+
   return (
     <>
       <St.Wrapper>
-        <St.BoxStyle ref={modalRef}>
-          <St.ButtonStyle onClick={closeModal}></St.ButtonStyle>
+        <St.BoxStyle modalSwitch={modalSwitch()} ref={modalRef}>
+          <St.ButtonStyle onClick={closeModalHandler}></St.ButtonStyle>
           <div
             style={{
               display: "flex",

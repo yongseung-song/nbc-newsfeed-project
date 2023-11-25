@@ -1,5 +1,5 @@
 import { getAuth } from "firebase/auth";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { AuthContext } from "../../context/AuthContext";
@@ -9,14 +9,17 @@ import * as St from "./Header.style";
 import HeaderAuthModal from "./HeaderAuthModal";
 
 function HeaderAuthMenu() {
-  const { isLoggedIn } = useContext(AuthContext);
   const name = getAuth()?.currentUser?.displayName;
+  const userAvatarUrl = getAuth()?.currentUser?.photoURL;
+  const navigate = useNavigate();
+
+  const { showDropDown, setShowDropDown } = useState(false);
+  const { isLoggedIn } = useContext(AuthContext);
   const { showModal, setShowModal } = useContext(ModalContext);
+
   const loginModalHandler = () => {
     setShowModal(true);
   };
-  const userAvatarUrl = getAuth()?.currentUser?.photoURL;
-  const navigate = useNavigate();
 
   const clickLogoutBtnHandler = () => {
     authService.signOut();
@@ -30,12 +33,7 @@ function HeaderAuthMenu() {
         {isLoggedIn ? (
           <StAuthMenu>
             <p>{name ?? "guest"}님</p>
-            <St.DropDownBtn
-              onClick={() => {
-                navigate("mypage");
-              }}
-              src={userAvatarUrl}
-            />
+            <St.DropDownBtn onClick={() => {}} src={userAvatarUrl} />
             <button onClick={clickLogoutBtnHandler}>로그아웃</button>
           </StAuthMenu>
         ) : (
