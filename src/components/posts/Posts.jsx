@@ -22,7 +22,7 @@ function Posts() {
 
   const iterableData = Object.values({ ...postList });
   return (
-    <St.PostsWrapper>
+    <StPostsWrapper>
       {iterableData
         .sort((a, b) => dayjs(b.date) - dayjs(a.date))
         .map((post, idx) => {
@@ -40,13 +40,13 @@ function Posts() {
             />
           );
         })}
-    </St.PostsWrapper>
+    </StPostsWrapper>
   );
 }
 
 export default Posts;
 
-const PostsWrapper = styled.section`
+const StPostsWrapper = styled.section`
   width: 100%;
   /* border: 1px solid #000; */
   display: flex;
