@@ -5,18 +5,18 @@ import { db } from "../firebase";
 function Update() {
   const postUpdateRef = collection(db, "posts");
 
-  const [titleQuery, setTitleQuery] = useState("");
+  const [titleInput, setTitleinput] = useState("");
 
-  const clickTitleChangeHandler = () => {
-    const input 
-    setTitleQuery(titleQuery)
+  const clickTitleChangeHandler = (event) => {
+    const inputTitle = event.currentTarget.value;
+    setTitleinput(inputTitle)
   }
 
   const clickPostUpdateBtn = async (event) => {
     event.preventDefault();
 
     await updateDoc(doc(postUpdateRef, currentUid), {
-      editTitle: ,
+      editTitle: titleInput,
       editContent: ,
       editDate: datejs().format(),
       editTag: ,
