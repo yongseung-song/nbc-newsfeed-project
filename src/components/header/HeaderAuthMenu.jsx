@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { ModalContext } from "../../context/ModalContext";
 import * as St from "./Header.style";
 import HeaderAuthModal from "./HeaderAuthModal";
+import HeaderDropDown from "./HeaderDropDown";
 
 function HeaderAuthMenu() {
   const name = getAuth()?.currentUser?.displayName;
@@ -27,13 +28,8 @@ function HeaderAuthMenu() {
         {isLoggedIn ? (
           <StAuthMenu>
             <p>{name ?? "guest"}님</p>
-            <St.DropDownBtn
-              onClick={() => {
-                navigate("mypage");
-              }}
-              src={userAvatarUrl}
-            />
-            <button onClick={clickLogoutBtnHandler}>로그아웃</button>
+            <St.DropDownBtn onClick={() => {}} src={userAvatarUrl} />
+            <HeaderDropDown />
           </StAuthMenu>
         ) : (
           <button onClick={loginModalHandler}>로그인하기</button>
