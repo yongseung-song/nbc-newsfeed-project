@@ -112,7 +112,7 @@ function SignIn({ onClickGoToSignUp: handleClickGoToSignUp }) {
 
   return (
     <St.Wrap>
-      <St.EmailForm>이메일로 로그인</St.EmailForm>
+      <St.SectionTItle>이메일로 로그인</St.SectionTItle>
       <St.EmailForm method="post">
         <St.IndexBox
           type="email"
@@ -132,7 +132,7 @@ function SignIn({ onClickGoToSignUp: handleClickGoToSignUp }) {
         </St.LoginButtonBox>
       </St.EmailForm>
       <St.SocialForm method="post">
-        <St.SocialForm>소셜계정으로 로그인</St.SocialForm>
+        <St.SectionTItle>소셜계정으로 로그인</St.SectionTItle>
         <St.SocialLoginBox>
           <St.GoogleLogin onClick={socialGoogleLoginhandler}></St.GoogleLogin>
           <St.GitHubLogin onClick={socialGithubLoginhandler}></St.GitHubLogin>

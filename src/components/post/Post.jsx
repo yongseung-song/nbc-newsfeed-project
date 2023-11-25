@@ -2,11 +2,12 @@ import React, { useContext } from "react";
 import { ModalContext } from "../../context/ModalContext";
 import Tag from "../tag/Tag";
 import * as St from "./Post.style";
+import PostModal from "./PostModal";
 
 function Post({ id, creator, title, content, date, tag }) {
-  const { showModal, setShowModal } = useContext(ModalContext);
+  const { showPostModal, setShowPostModal } = useContext(ModalContext);
   const postClickHandler = () => {
-    setShowModal(true); // 이부분때문에 포스트 누르면 모달 뜸
+    setShowPostModal(true); // 이부분때문에 포스트 누르면 모달 뜸
   };
 
   return (
@@ -32,6 +33,16 @@ function Post({ id, creator, title, content, date, tag }) {
             })}
         </St.TagContainer>
       </St.PostWrapper>
+      {showPostModal && (
+        <PostModal
+          id={id}
+          creator={creator}
+          title={title}
+          content={content}
+          date={date}
+          tag={[]}
+        />
+      )}
     </>
   );
 }
