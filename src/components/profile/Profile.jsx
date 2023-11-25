@@ -93,6 +93,7 @@ const SummarizedPost = styled.li`
 	background-color: ${colors.inputBoxColor};
 	border-radius: 10px;
 	color: ${colors.postColor};
+	margin: 20px;
 `;
 
 const StIdCardContent = styled.div`
@@ -146,6 +147,6 @@ const StPostContainer = styled.ul`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center; */
-	padding: 20px;
+	/* padding: 20px; */
 	margin-bottom: 20px;
 `;

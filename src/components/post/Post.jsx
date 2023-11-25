@@ -80,7 +80,7 @@ const StBtnContainer = styled.div`
 const StFnBtn = styled.button`
 	border: none;
 	border-radius: 999px;
-	background-color: ${colors.mainColor};
+	background-color: #fff;
 	text-align: center;
 	cursor: pointer;
 	padding: 2px 10px;
