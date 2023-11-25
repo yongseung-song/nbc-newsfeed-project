@@ -58,7 +58,7 @@ function InputBox() {
     <InputBoxDiv>
       <form action="">
         <WriteBoxDiv>
-          <label htmlFor=""></label>
+          <label htmlFor="title">제목을 입력해주세요</label>
           <InputBoxStyle
             ref={inputRef}
             id="title"
@@ -70,7 +70,7 @@ function InputBox() {
           />
         </WriteBoxDiv>
         <WriteBoxDiv>
-          <label htmlFor="textarea"></label>
+          <label htmlFor="textarea">글의 내용을 입력해주세요</label>
           <TextAreaStyle
             placeholder="글의 내용을 1500자 이내로 입력해주세요"
             ref={textareaRef}
@@ -82,9 +82,9 @@ function InputBox() {
             onChange={(e) => setTextAreaValue(e.target.value)}
           />
         </WriteBoxDiv>
-        <div>
-          <label htmlFor="tags">태그를 입력해주세요.</label>
-          <input
+        <WriteBoxDiv>
+          <label htmlFor="tags">태그를 입력해주세요</label>
+          <InputBoxStyle
             placeholder="태그는 쉼표(,) 로 구분해주세요"
             ref={inputTagRef}
             value={inputTagValue}
@@ -92,7 +92,7 @@ function InputBox() {
             type="text"
             onChange={(e) => setInputTagValue(e.target.value)}
           />
-        </div>
+        </WriteBoxDiv>
       </form>
       <BtnDiv>
         <ButtonStyle type="submit" onClick={postSubmitBtnClickHandler}>
@@ -121,6 +121,9 @@ const InputBoxDiv = styled.div`
   textarea {
     /* width: 80%; */
     resize: none;
+  }
+  label {
+    font-size: 0;
   }
   div {
   }
