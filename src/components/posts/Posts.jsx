@@ -59,6 +59,8 @@ const PostsWrapper = styled.section`
 	/* border: 1px solid #000; */
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	gap: 24px;
 	margin-top: 36px;
 `;

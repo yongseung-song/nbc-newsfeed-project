@@ -50,7 +50,7 @@ function InputBox() {
 		<InputBoxDiv>
 			<form action="">
 				<WriteBoxDiv>
-					<label htmlFor=""></label>
+					<StInputTitleContent htmlFor="">제목 작성</StInputTitleContent>
 					<InputBoxStyle
 						ref={inputRef}
 						id="title"
@@ -62,7 +62,7 @@ function InputBox() {
 					/>
 				</WriteBoxDiv>
 				<WriteBoxDiv>
-					<label htmlFor="textarea"></label>
+					<StInputTitleContent htmlFor="textarea">글 작성</StInputTitleContent>
 					<TextAreaStyle
 						placeholder="글의 내용을 1500자 이내로 입력해주세요"
 						ref={textareaRef}
@@ -123,7 +123,7 @@ const InputBoxStyle = styled.input`
 const TextAreaStyle = styled.textarea`
 	background-color: ${colors.inputBoxColor};
 	border: none;
-	padding: 10px 0 10px 25px;
+	padding: 25px;
 	border-radius: 15px;
 	width: 100%;
 	&::placeholder {
@@ -151,4 +151,12 @@ const ButtonStyle = styled.button`
 	margin-left: 10px;
 	border-radius: 30px;
 	font-weight: 700;
+	cursor: pointer;
+`;
+
+const StInputTitleContent = styled.label`
+	color: ${colors.smallTitleColor};
+	font-size: 14px;
+	display: block;
+	margin-bottom: 10px;
 `;

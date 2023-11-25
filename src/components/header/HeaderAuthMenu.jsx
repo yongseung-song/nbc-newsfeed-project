@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { AuthContext } from "../../context/AuthContext";
 import { ModalContext } from "../../context/ModalContext";
 import { authService } from "../../firebase";
+import { colors } from "../../styles/GlobalColors";
 import * as St from "./Header.style";
 import HeaderAuthModal from "./HeaderAuthModal";
 
@@ -26,7 +27,7 @@ function HeaderAuthMenu() {
 	return (
 		<>
 			<div>
-				<button>darkmode</button>
+				<StHeaderBtn>darkmode</StHeaderBtn>
 				{isLoggedIn ? (
 					<StAuthMenu>
 						<p>{name ?? "guest"}님</p>
@@ -36,10 +37,10 @@ function HeaderAuthMenu() {
 							}}
 							src={userAvatarUrl}
 						/>
-						<button onClick={clickLogoutBtnHandler}>로그아웃</button>
+						<StHeaderBtn onClick={clickLogoutBtnHandler}>로그아웃</StHeaderBtn>
 					</StAuthMenu>
 				) : (
-					<button onClick={loginModalHandler}>로그인하기</button>
+					<StHeaderBtn onClick={loginModalHandler}>로그인</StHeaderBtn>
 				)}
 			</div>
 			{showModal && <HeaderAuthModal />}
@@ -54,4 +55,14 @@ const StAuthMenu = styled.div`
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
+`;
+
+const StHeaderBtn = styled.button`
+	background-color: ${colors.mainColor};
+	color: #fff;
+	border: none;
+	padding: 8px 16px;
+	border-radius: 99px;
+	margin-left: 10px;
+	font-weight: 700;
 `;

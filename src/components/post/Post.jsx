@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { ModalContext } from "../../context/ModalContext";
 import { colors } from "../../styles/GlobalColors";
 import Tag from "../tag/Tag";
+import PostModal from "./PostModal";
 
 function Post({ id, creator, creatoruid, title, content, date, tag }) {
 	const { showPostModal, setShowPostModal } = useContext(ModalContext);
