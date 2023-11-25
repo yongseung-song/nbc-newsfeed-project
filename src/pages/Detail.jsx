@@ -22,41 +22,20 @@ function Detail() {
     setTodos(deleteData);
   };
 
-  const clickUpdateButtonHadler = (id) => {
-    // if (!editingText) return alert("수정사항이 없습니다.");
-
-    const editData = todos.filter((item) => {
-      return item.id === id;
-    });
-    setTodos(editData);
-  };
+  // const editData = todos.filter((item) => {
+  //   return item.id === id;
+  // });
 
   return (
     <>
-      {todos.map((data) => {
+      {/* {editData.filter((data) => {
         return (
           <div key={data.id}>
             <p>제목:{data.title}</p>
             <p>내용:{data.content}</p>
-
-            <button
-              onClick={() => {
-                clickUpdateButtonHadler(data.id);
-              }}
-            >
-              수정
-            </button>
-
-            <button
-              onClick={() => {
-                clickDeleteButtonHadler(data.id);
-              }}
-            >
-              삭제
-            </button>
           </div>
         );
-      })}
+      })} */}
     </>
   );
 }
