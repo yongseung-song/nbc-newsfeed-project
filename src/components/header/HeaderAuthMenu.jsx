@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { AuthContext } from "../../context/AuthContext";
 import { ModalContext } from "../../context/ModalContext";
-import { authService } from "../../firebase";
 import * as St from "./Header.style";
 import HeaderAuthModal from "./HeaderAuthModal";
+import HeaderDropDown from "./HeaderDropDown";
 
 function HeaderAuthMenu() {
   const name = getAuth()?.currentUser?.displayName;
@@ -21,20 +21,15 @@ function HeaderAuthMenu() {
     setShowModal(true);
   };
 
-  const clickLogoutBtnHandler = () => {
-    authService.signOut();
-    navigate("/");
-  };
-
   return (
     <>
       <div>
         <button>darkmode</button>
         {isLoggedIn ? (
-          <StAuthMenu>
+          <StAuthMenu onClick={() => {}}>
             <p>{name ?? "guest"}님</p>
-            <St.DropDownBtn onClick={() => {}} src={userAvatarUrl} />
-            <button onClick={clickLogoutBtnHandler}>로그아웃</button>
+            <St.DropDownBtn src={userAvatarUrl} />
+            <HeaderDropDown />
           </StAuthMenu>
         ) : (
           <button onClick={loginModalHandler}>로그인하기</button>
