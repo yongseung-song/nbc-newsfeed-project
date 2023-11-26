@@ -15,7 +15,11 @@ function Main() {
 export default Main;
 
 const MainWrapper = styled.main`
-	max-width: 800px;
+	max-width: 700px;
 	width: 60%;
+	display: flex;
+	flex-direction: column;
+
+	align-items: center;
 	/* border: 1px solid #000; */
 `;

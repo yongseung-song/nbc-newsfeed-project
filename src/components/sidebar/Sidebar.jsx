@@ -20,7 +20,7 @@ const SideBarDiv = styled.div`
 	position: sticky;
 	top: 84px;
 	max-width: 200px;
-	width: 346px;
+	width: 200px;
 	height: 600px;
 	border: none;
 	margin: 0;

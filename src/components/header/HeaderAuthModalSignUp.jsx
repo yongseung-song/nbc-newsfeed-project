@@ -1,5 +1,9 @@
 import dayjs from "dayjs";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  updateProfile,
+} from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import { authService, db } from "../../firebase";
@@ -29,43 +33,34 @@ function SignUp() {
     setAccountNickname(nickname);
   };
 
-  const account = async (accountEmail, accountPassword) => {
-    try {
-      const user = await createUserWithEmailAndPassword(
-        authService,
-        accountEmail,
-        accountPassword
-      );
-      // updateProfile 부분 추가 => @용승
-      updateProfile(user.user, {
-        displayName: accountNickname,
-        photoURL: "https://img.icons8.com/ios-glyphs/60/user--v1.png",
-      }).then((res) => console.log(res));
-
-      const newDocRef = doc(signupRef);
-
-      try {
-        await setDoc(newDocRef, {
+  const account = (accountEmail, accountPassword) => {
+    const auth = getAuth();
+    const newDocRef = doc(signupRef);
+    // .then((res) => console.log(res));
+    createUserWithEmailAndPassword(authService, accountEmail, accountPassword)
+      .then(() =>
+        updateProfile(auth.currentUser, {
+          displayName: accountNickname,
+          photoURL: "https://img.icons8.com/ios-glyphs/60/user--v1.png",
+        })
+      )
+      .then(() =>
+        setDoc(doc(signupRef), {
           // firebase에 저장할 데이터 매치
           id: newDocRef.id,
-          uid: user.uid,
+          uid: auth.currentUser.uid,
           userEmail: accountEmail,
           nickname: accountNickname,
-          photoURL: user.user.photoURL,
+          photoURL: auth.currentUser.photoURL,
           userCreateAt: TODAY,
-        });
-      } catch (error) {
-        console.error(error.code, error.message);
-      }
-    } catch (error) {
-      console.log(error.code, error.message);
-    }
+        })
+      )
+      .catch((error) => console.error(error.code, error.message));
   };
 
   // 회원가입 등록 버튼
   const accountBtnClickHandler = (event) => {
     event.preventDefault();
-    console.log("test");
     account(accountEmail, accountPassword);
     alert("회원가입을 축하드립니다!");
 
@@ -76,11 +71,11 @@ function SignUp() {
 
   return (
     <St.SignUpBox>
-      <h1>회원가입</h1>
-      <from method="post">
+      <St.SectionTitle>회원가입</St.SectionTitle>
+      <St.SignUpForm method="post">
         <St.SignUpSection>
           <p>이메일: </p>
-          <input
+          <St.InputBox
             type="email"
             value={accountEmail}
             onChange={emailChangeHandler}
@@ -89,7 +84,7 @@ function SignUp() {
 
         <St.SignUpSection>
           <p>비밀번호: </p>
-          <input
+          <St.InputBox
             type="password"
             value={accountPassword}
             onChange={passwordChangeHandler}
@@ -98,15 +93,15 @@ function SignUp() {
 
         <St.SignUpSection>
           <p>닉네임: </p>
-          <input
+          <St.InputBox
             type="nickName"
             value={accountNickname}
             onChange={nicknameChangeHandler}
           />
         </St.SignUpSection>
 
-        <button onClick={accountBtnClickHandler}>등록</button>
-      </from>
+        <St.SignUpBtn onClick={accountBtnClickHandler}>등록</St.SignUpBtn>
+      </St.SignUpForm>
     </St.SignUpBox>
   );
 }

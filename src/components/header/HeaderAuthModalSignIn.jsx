@@ -1,6 +1,9 @@
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
+  browserSessionPersistence,
+  getAuth,
+  setPersistence,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
@@ -22,11 +25,11 @@ function SignIn({ onClickGoToSignUp: handleClickGoToSignUp }) {
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
-        console.log(user.uid);
         setIsLoggedIn(true);
+        navigate("/");
+        setShowModal(false);
       } else {
         setIsLoggedIn(false);
-        console.log("로그아웃");
       }
     });
   }, []);
@@ -41,23 +44,21 @@ function SignIn({ onClickGoToSignUp: handleClickGoToSignUp }) {
     setLoginPassword(passwordInput);
   };
 
-  const clickLoginHandler = async (event) => {
+  const clickLoginHandler = (event) => {
     event.preventDefault();
-
-    try {
-      const userLogin = await signInWithEmailAndPassword(
-        authService,
-        loginEmail,
-        loginPasssword
-      );
-      console.log(userLogin.user);
-      alert("환영합니다");
-      setShowModal(false);
-      navigate("/");
-      setUser(userLogin.user);
-    } catch (error) {
-      console.log(error);
-    }
+    const auth = getAuth();
+    setPersistence(auth, browserSessionPersistence)
+      .then(() =>
+        signInWithEmailAndPassword(authService, loginEmail, loginPasssword)
+      )
+      .then(() => {
+        console.log(auth.currentUser);
+        alert(`${auth.currentUser.displayName}님 환영합니다!`);
+        setShowModal(false);
+        navigate("/");
+        // setUser(.user);
+      })
+      .catch((error) => console.log(error));
   };
 
   const signInWithGoogle = () => {

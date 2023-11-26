@@ -2,9 +2,8 @@ import React, { useContext, useEffect, useRef } from "react";
 import { ModalContext } from "../../context/ModalContext";
 import * as St from "./ModalBasic.style";
 
-function ModalBasic({ children }) {
-  const { showModal, setShowModal, showPostModal, setShowPostModal } =
-    useContext(ModalContext);
+function ModalBasic({ showPostModal, setShowPostModal, children }) {
+  const { showModal, setShowModal } = useContext(ModalContext);
 
   const modalRef = useRef(null);
 
@@ -35,9 +34,7 @@ function ModalBasic({ children }) {
     };
   });
 
-  const modalSwitch = () => {
-    return showModal ? showModal : showPostModal;
-  };
+  const modalSwitch = () => (showModal ? showModal : showPostModal);
 
   const closeModalHandler = () => {
     if (showModal) setShowModal(false);
@@ -47,7 +44,7 @@ function ModalBasic({ children }) {
   return (
     <>
       <St.Wrapper>
-        <St.BoxStyle modalSwitch={modalSwitch()} ref={modalRef}>
+        <St.BoxStyle $modalSwitch={modalSwitch()} ref={modalRef}>
           <St.ButtonStyle onClick={closeModalHandler}></St.ButtonStyle>
           <div
             style={{

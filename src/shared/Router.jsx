@@ -4,6 +4,7 @@ import Layout from "../layout/Layout";
 import Detail from "../pages/Detail";
 import Home from "../pages/Home";
 import MyPage from "../pages/MyPage";
+import Update from "../pages/Update";
 import GlobalColors from "../styles/GlobalColors";
 import GlobalFonts from "../styles/GlobalFonts";
 import GlobalStyles from "../styles/GlobalStyles";
@@ -20,6 +21,7 @@ function Router() {
             <Route path="/" element={<Home />} />
             <Route path="detail/:id" element={<Detail />} />
             <Route path="mypage" element={<MyPage />} />
+            <Route path="detail/update/:id" element={<Update />} />
           </Route>
         </Routes>
       </BrowserRouter>
