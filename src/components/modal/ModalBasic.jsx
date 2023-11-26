@@ -2,9 +2,8 @@ import React, { useContext, useEffect, useRef } from "react";
 import { ModalContext } from "../../context/ModalContext";
 import * as St from "./ModalBasic.style";
 
-function ModalBasic({ children }) {
-  const { showModal, setShowModal, showPostModal, setShowPostModal } =
-    useContext(ModalContext);
+function ModalBasic({ showPostModal, setShowPostModal, children }) {
+  const { showModal, setShowModal } = useContext(ModalContext);
 
   const modalRef = useRef(null);
 
