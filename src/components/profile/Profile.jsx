@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import idcard from "../../assets/idcard.png";
 import { PostContext } from "../../context/PostContext";
@@ -52,7 +53,7 @@ function Profile({ photoURL, displayName, email, uid, creationTime }) {
         <StSignUpDayContent>
           가입 날짜 : {dayjs(creationTime).format("YYYY년 M년 D일 h:m")}
         </StSignUpDayContent>
-      </ProfileInfo>
+      </StProfileInfo>
       <StWriteInforContent>
         {displayName}님이 작성하신 글이 {myPosts.length}개 있습니다.
       </StWriteInforContent>
@@ -75,7 +76,7 @@ function Profile({ photoURL, displayName, email, uid, creationTime }) {
           })}
       </StPostContainer>
       <p></p>
-    </ProfileWrapper>
+    </StProfileWrapper>
   );
 }
 
