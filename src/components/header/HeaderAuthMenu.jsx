@@ -1,18 +1,18 @@
-import { getAuth } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import LightBtn from "../../assets/lightButton.png";
 import { AuthContext } from "../../context/AuthContext";
 import { ModalContext } from "../../context/ModalContext";
+import { authService } from "../../firebase";
 import { colors } from "../../styles/GlobalColors";
 import * as St from "./Header.style";
 import HeaderAuthModal from "./HeaderAuthModal";
 import HeaderDropDown from "./HeaderDropDown";
 
 function HeaderAuthMenu() {
-  const name = getAuth()?.currentUser?.displayName;
-  const userAvatarUrl = getAuth()?.currentUser?.photoURL;
+  const name = authService?.currentUser?.displayName;
+  const userAvatarUrl = authService?.currentUser?.photoURL;
   const navigate = useNavigate();
 
   const [showDropDown, setShowDropDown] = useState(false);

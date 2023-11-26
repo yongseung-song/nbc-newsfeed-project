@@ -36,7 +36,7 @@ const HeaderBox = styled.header`
   /* border: 1px solid red; */
   background: ${colors.backgroundColor};
   box-shadow: 0px 2px 12px 1px rgba(0, 0, 0, 0.05);
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
 `;
 
 const LinkIcon = styled(Link)`

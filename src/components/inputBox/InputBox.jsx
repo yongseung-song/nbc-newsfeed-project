@@ -1,10 +1,9 @@
 import dayjs from "dayjs";
-import { getAuth } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 import React, { useContext, useRef, useState } from "react";
 import styled from "styled-components";
 import { PostContext } from "../../context/PostContext";
-import { db } from "../../firebase";
+import { authService, db } from "../../firebase";
 import { colors } from "../../styles/GlobalColors";
 // import { ModalContext } from "../../context/ModalContext";
 function InputBox() {
@@ -16,7 +15,7 @@ function InputBox() {
   const inputRef = useRef();
   const textareaRef = useRef();
   const inputTagRef = useRef();
-  const auth = getAuth();
+  const auth = authService;
   const user = auth.currentUser;
   // 강쟝님 파싱 추가 부탁
 
@@ -121,9 +120,7 @@ export default InputBox;
 
 const InputBoxDiv = styled.div`
   width: 630px;
-  // 용승 스타일 추가
   height: ${(props) => (props.$isOpen ? "460px" : "64px")};
-  /* height: 160px; // 조건부 스타일링 필요 */
   position: sticky;
   overflow: hidden;
   padding: 24px 30px 30px 30px;
@@ -133,14 +130,11 @@ const InputBoxDiv = styled.div`
   background: #fff;
   z-index: 2;
 
-  /* bigShadow */
   box-shadow: 0px 4px 30px 5px rgba(0, 0, 0, 0.05);
   transition: 0.5s ease-in-out;
   textarea {
-    /* width: 80%; */
     resize: none;
   }
-  // 용승 스타일 추가
   h1 {
     font-size: 1rem;
     font-weight: 700;
@@ -158,7 +152,6 @@ const InputBoxStyle = styled.input`
   border-radius: 15px;
   width: 100%;
   &::placeholder {
-    /* padding: 10px 0 10px 25px; */
     font-size: 12px;
     color: ${colors.indexFontColor};
   }
@@ -171,7 +164,6 @@ const TextAreaStyle = styled.textarea`
   border-radius: 15px;
   width: 100%;
   &::placeholder {
-    /* padding: 17px 0 17px 25px; */
     font-size: 12px;
     color: ${colors.indexFontColor};
   }

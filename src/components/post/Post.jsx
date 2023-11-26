@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
-import { getAuth } from "firebase/auth";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { authService } from "../../firebase";
 import { colors } from "../../styles/GlobalColors";
 import Tag from "../tag/Tag";
 import PostModal from "./PostModal";
@@ -43,7 +43,7 @@ function Post({
             <StBtnContainer>
               <StFnBtn>👍🏻</StFnBtn>
               <StFnBtn>⭐️</StFnBtn>
-              {creatorUid === getAuth()?.currentUser?.uid ? (
+              {creatorUid === authService?.currentUser?.uid ? (
                 <StReviseBtn>수정/삭제</StReviseBtn>
               ) : (
                 ""

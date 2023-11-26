@@ -1,10 +1,9 @@
 import dayjs from "dayjs";
-import { getAuth } from "firebase/auth";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { db } from "../../firebase";
+import { authService, db } from "../../firebase";
 import { colors } from "../../styles/GlobalColors";
 
 function PostsSummary({ displayName }) {
@@ -14,7 +13,7 @@ function PostsSummary({ displayName }) {
   useEffect(() => {
     const q = query(
       collection(db, "posts"),
-      where("creatorUid", "==", getAuth().currentUser.uid)
+      where("creatorUid", "==", authService.currentUser.uid)
     );
     getDocs(q)
       .then((res) =>

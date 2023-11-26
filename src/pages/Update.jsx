@@ -33,6 +33,7 @@ function Update() {
     const textareaContent = event.currentTarget.value;
     setContentTextarea(textareaContent);
   };
+
   const clickUpdateBtnHandler = async (event) => {
     event.preventDefault();
     console.log(contentTextarea);
@@ -53,6 +54,7 @@ function Update() {
     return;
   };
   const clickUpdateCancelBtnHandler = () => {};
+
   const clickGoToList = () => {
     navigate("/mypage");
   };

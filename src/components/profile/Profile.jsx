@@ -1,19 +1,51 @@
 import dayjs from "dayjs";
-import { useContext } from "react";
+import { updateProfile } from "firebase/auth";
+import { collection } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import idcard from "../../assets/idcard.png";
-import { PostContext } from "../../context/PostContext";
+import { authService, db, storage } from "../../firebase";
 import { colors } from "../../styles/GlobalColors";
 function Profile({ photoURL, displayName, email, uid, creationTime }) {
-  const { postList } = useContext(PostContext);
+  const [imageURL, setImageURL] = useState("");
+  const storageRef = ref(storage);
+  const usersRef = collection(db, "users");
+  const navigate = useNavigate();
 
-  // console.log(myPosts);
+  const imageUploadHandler = (e) => {
+    const file = e.target.files[0];
+    const imagesRef = ref(storage, `images/${file.name}`);
+    uploadBytes(imagesRef, file)
+      .then((res) => getDownloadURL(imagesRef))
+      .then((url) => {
+        setImageURL((prevState) => url);
+        return updateProfile(authService.currentUser, {
+          photoURL: url,
+        });
+      })
+      .then(() => navigate("/mypage"))
+      .catch((error) => console.log(error));
+  };
+
   return (
     <StProfileWrapper>
       <StProfileInfo>
         <StIdCardContent>
           <StInforContainer>
-            <img src={photoURL} alt={displayName} />
+            <div>
+              <img src={photoURL} alt={displayName} width="120px" />
+              <StInforImageUploadForm>
+                <label htmlFor="imageUpload">이미지 업로드</label>
+                <input
+                  type="file"
+                  name="imageUpload"
+                  id="imageUpload"
+                  onChange={imageUploadHandler}
+                />
+              </StInforImageUploadForm>
+            </div>
             <StInforIndexContainer>
               <h3>{displayName}</h3>
               <StEmailContent>{email}</StEmailContent>
@@ -56,15 +88,55 @@ const StIdCardContent = styled.div`
   background-position: center;
 `;
 const StInforContainer = styled.div`
-  margin-top: 158px;
-  text-align: center;
+  position: relative;
+  margin-top: 129px;
   color: ${colors.mainColor};
   font-size: 28px;
   font-weight: 900;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  img {
+    border-radius: 100%;
+    /* margin-top: -29px; */
+    /* border: 1px solid white; */
+  }
+  img:hover {
+    opacity: 0.5;
+  }
+`;
+
+const StInforImageUploadForm = styled.form`
+  position: absolute;
+  top: 0px;
+  left: 58px;
+  label {
+    display: block;
+    height: 120px;
+    width: 120px;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    opacity: 0;
+    background-color: ${colors.mainColor};
+    border-radius: 100%;
+    cursor: pointer;
+    transition: 0.2s all;
+  }
+  label:hover {
+    opacity: 0.8;
+  }
+  input {
+    visibility: hidden;
+  }
 `;
 const StInforIndexContainer = styled.div`
-  margin-top: 65px;
+  margin-top: 30px;
   gap: 20px;
 `;
 const StEmailContent = styled.p`
