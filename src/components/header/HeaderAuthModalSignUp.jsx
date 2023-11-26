@@ -1,9 +1,5 @@
 import dayjs from "dayjs";
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-  updateProfile,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -35,7 +31,7 @@ function SignUp() {
   };
 
   const createAccount = (accountEmail, accountPassword) => {
-    const auth = getAuth();
+    const auth = authService;
     const newDocRef = doc(signupRef);
     // .then((res) => console.log(res));
     createUserWithEmailAndPassword(authService, accountEmail, accountPassword)

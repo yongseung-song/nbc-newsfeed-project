@@ -1,10 +1,9 @@
 import dayjs from "dayjs";
-import { getAuth } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 import React, { useContext, useRef, useState } from "react";
 import styled from "styled-components";
 import { PostContext } from "../../context/PostContext";
-import { db } from "../../firebase";
+import { authService, db } from "../../firebase";
 import { colors } from "../../styles/GlobalColors";
 // import { ModalContext } from "../../context/ModalContext";
 function InputBox() {
@@ -16,7 +15,7 @@ function InputBox() {
   const inputRef = useRef();
   const textareaRef = useRef();
   const inputTagRef = useRef();
-  const auth = getAuth();
+  const auth = authService;
   const user = auth.currentUser;
   // 강쟝님 파싱 추가 부탁
 

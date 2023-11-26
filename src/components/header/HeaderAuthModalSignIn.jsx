@@ -2,7 +2,6 @@ import {
   GithubAuthProvider,
   GoogleAuthProvider,
   browserSessionPersistence,
-  getAuth,
   setPersistence,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -46,7 +45,7 @@ function SignIn({ onClickGoToSignUp: handleClickGoToSignUp }) {
 
   const clickLoginHandler = (event) => {
     event.preventDefault();
-    const auth = getAuth();
+    const auth = authService;
     setPersistence(auth, browserSessionPersistence)
       .then(() =>
         signInWithEmailAndPassword(authService, loginEmail, loginPassword)

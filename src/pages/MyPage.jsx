@@ -1,9 +1,9 @@
-import { getAuth } from "firebase/auth";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PostsSummary from "../components/postsSummary/PostsSummary";
 import Profile from "../components/profile/Profile";
+import { authService } from "../firebase";
 
 function MyPage() {
   const {
@@ -12,7 +12,7 @@ function MyPage() {
     email,
     uid,
     metadata: { creationTime },
-  } = getAuth()?.currentUser;
+  } = authService?.currentUser;
   const navigate = useNavigate();
   return (
     <StFormWrapper>

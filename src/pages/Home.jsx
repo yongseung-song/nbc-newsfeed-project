@@ -1,14 +1,14 @@
-import { getAuth } from "firebase/auth";
 import React, { useContext } from "react";
 import styled from "styled-components";
 import Main from "../components/main/Main";
 import Sidebar from "../components/sidebar/Sidebar";
 import { AuthContext } from "../context/AuthContext";
+import { authService } from "../firebase";
 
 function Home() {
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-  if (getAuth().currentUser) {
-    console.log(getAuth().currentUser.displayName);
+  if (authService.currentUser) {
+    console.log(authService.currentUser.displayName);
   } else {
     console.log("none");
   }
