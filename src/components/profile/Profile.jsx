@@ -35,8 +35,8 @@ function Profile() {
   const iterableData = Object.values({ ...postList });
   const myPosts = iterableData.filter((item) => item.creatorUid === uid);
 
-  const clickGoToUpdate = (id) => {
-    navigate(`/detail/update/${id}`);
+  const clickGoToDetail = (id) => {
+    navigate(`/detail/${id}`);
   };
 
   // console.log(myPosts);
@@ -66,7 +66,7 @@ function Profile() {
           .map((post) => {
             return (
               <SummarizedPost
-                onClick={() => clickGoToUpdate(post?.id)}
+                onClick={() => clickGoToDetail(post?.id)}
                 key={post?.id}
               >
                 <div>
