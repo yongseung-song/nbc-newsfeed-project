@@ -28,7 +28,7 @@ const HeaderBox = styled.header`
 	display: flex;
 	position: sticky;
 	top: 0;
-	z-index: 2;
+	z-index: 3;
 	height: 100px;
 	justify-content: center;
 	align-items: center;
