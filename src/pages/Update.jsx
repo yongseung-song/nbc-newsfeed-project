@@ -41,7 +41,7 @@ function Update() {
     setContentTextarea(textareaContent);
   };
 
-  const clickPostUpdateBtn = async (event) => {
+  const clickUpdateBtnHandler = async (event) => {
     event.preventDefault();
     console.log(contentTextarea);
     if (currentPost.content === textareaRef.current.value) {
@@ -63,6 +63,7 @@ function Update() {
     }
     return;
   };
+  const clickUpdateCancelBtnHandler = () => {};
 
   const clickGoToList = () => {
     navigate("/mypage");
@@ -91,10 +92,10 @@ function Update() {
           onChange={contentChangeHandler}
         />
         <StBtnContainer>
-          <button type="submit" onClick={clickPostUpdateBtn}>
+          <button type="submit" onClick={clickUpdateBtnHandler}>
             수정하기
           </button>
-          <button>취소</button>
+          <button onClick={clickUpdateCancelBtnHandler}>취소</button>
           <button onClick={clickGoToList}>목록으로</button>
         </StBtnContainer>
       </StIndexWrapper>
