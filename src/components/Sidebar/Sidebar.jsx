@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { PostContext } from "../../context/PostContext";
 import { colors } from "../../styles/GlobalColors";
 
 function Sidebar() {
+  const { filter, setFilter } = useContext(PostContext);
+
+  const clickSidebarBtnHandler = (e) => {
+    setFilter(e.currentTarget.id);
+  };
+
   return (
     <SideBarDiv>
       <ButtonDiv>
-        <ButtonStyle>개발 팁 공유</ButtonStyle>
-        <ButtonStyle>사이드 프로젝트 구인</ButtonStyle>
-        <ButtonStyle>질문</ButtonStyle>
+        <ButtonStyle id={"all"} onClick={clickSidebarBtnHandler}>
+          전체
+        </ButtonStyle>
+        <ButtonStyle id={"developTip"} onClick={clickSidebarBtnHandler}>
+          개발 팁 공유
+        </ButtonStyle>
+        <ButtonStyle id={"sidePj"} onClick={clickSidebarBtnHandler}>
+          사이드 프로젝트 구인
+        </ButtonStyle>
+        <ButtonStyle id={"question"} onClick={clickSidebarBtnHandler}>
+          질문
+        </ButtonStyle>
       </ButtonDiv>
     </SideBarDiv>
   );

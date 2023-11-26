@@ -50,7 +50,7 @@ export const Wrapper = styled.div`
 	align-items: center;
 	background: rgba(0, 0, 0, 0.04);
 	backdrop-filter: blur(5.9px);
-	z-index: 99;
+	z-index: 999;
 `;
 
 export const EmailLogin = styled.div`

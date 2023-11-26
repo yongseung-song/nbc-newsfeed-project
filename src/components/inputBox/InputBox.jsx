@@ -2,10 +2,8 @@ import dayjs from "dayjs";
 import { getAuth } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 import React, { useContext, useRef, useState } from "react";
-import styled from "styled-components";
 import { PostContext } from "../../context/PostContext";
 import { db } from "../../firebase";
-import { colors } from "../../styles/GlobalColors";
 // import { ModalContext } from "../../context/ModalContext";
 function InputBox() {
   const { setPostList } = useContext(PostContext);
@@ -20,11 +18,11 @@ function InputBox() {
   const user = auth.currentUser;
   // 강쟝님 파싱 추가 부탁
 
-  const newDocRef = doc(collection(db, "posts"));
+	const newDocRef = doc(collection(db, "posts"));
 
-  const parseTags = () => {
-    return inputTagValue.trim().toLowerCase().split(",");
-  };
+	const parseTags = () => {
+		return inputTagValue.trim().toLowerCase().split(",");
+	};
 
   const postSubmitBtnClickHandler = async (e) => {
     // const tags = parseTags();
@@ -56,6 +54,16 @@ function InputBox() {
     }
   };
 
+<<<<<<<<< Temporary merge branch 1
+  const inputBoxClickHandler = () => {
+    setInputBoxOpen(!inputBoxOpen);
+  };
+  return (
+    <InputBoxDiv $isOpen={inputBoxOpen}>
+      <h1 onClick={inputBoxClickHandler}>게시물 작성하기</h1>
+      <form action="">
+        <WriteBoxDiv>
+=========
   return (
     <InputBoxDiv>
       <form action="">
@@ -66,6 +74,7 @@ function InputBox() {
             <option value="sidePj">사이드 프로젝트 구인</option>
             <option value="question">질문</option>
           </select>
+>>>>>>>>> Temporary merge branch 2
           <StInputTitleContent htmlFor="title">
             제목을 입력해주세요
           </StInputTitleContent>
@@ -152,55 +161,55 @@ const InputBoxDiv = styled.div`
 `;
 
 const InputBoxStyle = styled.input`
-  background-color: ${colors.inputBoxColor};
-  border: none;
-  padding: 10px 0 10px 25px;
-  border-radius: 15px;
-  width: 100%;
-  &::placeholder {
-    /* padding: 10px 0 10px 25px; */
-    font-size: 12px;
-    color: ${colors.indexFontColor};
-  }
+	background-color: ${colors.inputBoxColor};
+	border: none;
+	padding: 10px 0 10px 25px;
+	border-radius: 15px;
+	width: 100%;
+	&::placeholder {
+		/* padding: 10px 0 10px 25px; */
+		font-size: 12px;
+		color: ${colors.indexFontColor};
+	}
 `;
 
 const TextAreaStyle = styled.textarea`
-  background-color: ${colors.inputBoxColor};
-  border: none;
-  padding: 25px;
-  border-radius: 15px;
-  width: 100%;
-  &::placeholder {
-    /* padding: 17px 0 17px 25px; */
-    font-size: 12px;
-    color: ${colors.indexFontColor};
-  }
+	background-color: ${colors.inputBoxColor};
+	border: none;
+	padding: 25px;
+	border-radius: 15px;
+	width: 100%;
+	&::placeholder {
+		/* padding: 17px 0 17px 25px; */
+		font-size: 12px;
+		color: ${colors.indexFontColor};
+	}
 `;
 
 const WriteBoxDiv = styled.div`
-  margin-bottom: 20px;
-  width: 100%;
+	margin-bottom: 20px;
+	width: 100%;
 `;
 
 const BtnDiv = styled.div`
-  display: flex;
-  justify-content: right;
+	display: flex;
+	justify-content: right;
 `;
 
 const ButtonStyle = styled.button`
-  background-color: ${colors.mainColor};
-  border: none;
-  color: #fff;
-  padding: 10px 25px;
-  margin-left: 10px;
-  border-radius: 30px;
-  font-weight: 700;
-  cursor: pointer;
+	background-color: ${colors.mainColor};
+	border: none;
+	color: #fff;
+	padding: 10px 25px;
+	margin-left: 10px;
+	border-radius: 30px;
+	font-weight: 700;
+	cursor: pointer;
 `;
 
 const StInputTitleContent = styled.label`
-  color: ${colors.smallTitleColor};
-  font-size: 14px;
-  display: block;
-  margin-bottom: 10px;
+	color: ${colors.smallTitleColor};
+	font-size: 14px;
+	display: block;
+	margin-bottom: 10px;
 `;
