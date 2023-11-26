@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { getAuth } from "firebase/auth";
-import React, { useContext } from "react";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import idcard from "../../assets/idcard.png";
 import { PostContext } from "../../context/PostContext";
@@ -16,8 +17,14 @@ function Profile() {
 		metadata: { creationTime },
 	} = getAuth()?.currentUser;
 	console.log(getAuth().currentUser.uid);
+	const navigator = useNavigate();
 	const iterableData = Object.values({ ...postList });
 	const myPosts = iterableData.filter((item) => item.creatorUid === uid);
+
+	const clickGoToUpdate = (id) => {
+		navigator(`update/${id}`);
+	};
+
 	// console.log(myPosts);
 	return (
 		<ProfileWrapper>
@@ -44,7 +51,10 @@ function Profile() {
 					.sort((a, b) => dayjs(b.date) - dayjs(a.date))
 					.map((post) => {
 						return (
-							<SummarizedPost key={post?.id}>
+							<SummarizedPost
+								onClick={() => clickGoToUpdate(post?.id)}
+								key={post?.id}
+							>
 								<div>
 									<h4>{post?.title}</h4>
 									<p>{dayjs(post?.date).format("YYYY년 M년 D일 h:m")}</p>

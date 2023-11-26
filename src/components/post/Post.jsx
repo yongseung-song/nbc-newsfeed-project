@@ -6,7 +6,7 @@ import { colors } from "../../styles/GlobalColors";
 import Tag from "../tag/Tag";
 import PostModal from "./PostModal";
 
-function Post({ id, creator, creatoruid, title, content, date, tag }) {
+function Post({ id, creator, creatorUid, title, content, date, tag, edit }) {
 	const { showPostModal, setShowPostModal } = useContext(ModalContext);
 	const postClickHandler = () => {
 		setShowPostModal(true); // 이부분때문에 포스트 누르면 모달 뜸

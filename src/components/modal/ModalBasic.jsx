@@ -35,9 +35,7 @@ function ModalBasic({ children }) {
     };
   });
 
-  const modalSwitch = () => {
-    return showModal ? showModal : showPostModal;
-  };
+  const modalSwitch = () => (showModal ? showModal : showPostModal);
 
   const closeModalHandler = () => {
     if (showModal) setShowModal(false);

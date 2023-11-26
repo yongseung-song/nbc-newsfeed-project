@@ -40,14 +40,6 @@ function Posts() {
 						/>
 					);
 				})}
-			<Post
-				id={4312}
-				creator={"나다"}
-				title={"Test"}
-				content={"Dunno"}
-				date={"Whatever"}
-				tag={[]}
-			/>
 		</PostsWrapper>
 	);
 }

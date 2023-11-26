@@ -11,14 +11,21 @@ function InputBox() {
 	const { postList, setPostList } = useContext(PostContext);
 	const inputRef = useRef();
 	const textareaRef = useRef();
+	const inputTagRef = useRef();
 	const [inputValue, setInputValue] = useState("");
 	const [textAreaValue, setTextAreaValue] = useState("");
+	const [inputTagValue, setInputTagValue] = useState("");
 	const auth = getAuth();
 	const user = auth.currentUser;
 
 	const newDocRef = doc(collection(db, "posts"));
 
+	const parseTags = () => {
+		return inputTagValue.trim().toLowerCase().split(",");
+	};
+
 	const postSubmitBtnClickHandler = async (e) => {
+		// const tags = parseTags();
 		const newPost = {
 			title: inputValue,
 			content: textAreaValue,
@@ -26,7 +33,7 @@ function InputBox() {
 			creator: user.displayName,
 			creatorUid: auth.currentUser.uid,
 			id: newDocRef.id,
-			tag: [],
+			tag: parseTags(),
 		};
 		if (textAreaValue && inputValue) {
 			setDoc(newDocRef, newPost)
@@ -39,6 +46,7 @@ function InputBox() {
 				.then(() => {
 					setInputValue("");
 					setTextAreaValue("");
+					setInputTagValue("");
 				})
 				.catch((error) => console.log(error));
 		} else {
@@ -102,6 +110,9 @@ const InputBoxDiv = styled.div`
 	textarea {
 		/* width: 80%; */
 		resize: none;
+	}
+	label {
+		font-size: 0;
 	}
 	div {
 	}
