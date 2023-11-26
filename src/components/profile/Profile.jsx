@@ -56,10 +56,10 @@ function Profile() {
                 key={post?.id}
               >
                 <div>
-                  <h4>{post?.editTitle ? post?.editTitle : post?.title}</h4>
+                  <h4>{post?.title}</h4>
                   <p>{dayjs(post?.date).format("YYYY년 M년 D일 h:m")}</p>
                 </div>
-                <p>{post?.editContent ? post?.editContent : post?.content}</p>
+                <p>{post?.content}</p>
               </SummarizedPost>
             );
           })}
