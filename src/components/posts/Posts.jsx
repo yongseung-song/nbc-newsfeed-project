@@ -7,7 +7,7 @@ import { db } from "../../firebase";
 import Post from "../post/Post";
 
 function Posts() {
-  const { postList, setPostList } = useContext(PostContext);
+  const { postList, setPostList, filter } = useContext(PostContext);
 
   useEffect(() => {
     getDocs(collection(db, "posts")).then((querySnapshot) =>
@@ -21,6 +21,9 @@ function Posts() {
     console.log("update occured");
   }, [db]);
 
+  // useEffect(() => {
+  // }, [filter]);
+
   const iterableData = Object.values({ ...postList });
   // console.log(iterableData);
   return (
@@ -28,7 +31,16 @@ function Posts() {
       {iterableData
         .sort((a, b) => dayjs(b.date) - dayjs(a.date))
         .map((post, idx) => {
-          const { creator, creatorUid, title, id, content, date, tag } = post;
+          const {
+            creator,
+            creatorUid,
+            title,
+            id,
+            content,
+            createDate,
+            tag,
+            editDate,
+          } = post;
           return (
             <Post
               key={id}
@@ -37,7 +49,8 @@ function Posts() {
               creatorUid={creatorUid}
               content={content}
               id={id}
-              date={dayjs(date).format("YYYY년 M월 D일 h:m")}
+              createDate={dayjs(createDate).format("YYYY년 M월 D일 h:m")}
+              editDate={dayjs(editDate).format("YYYY년 M월 D일 h:m")}
               tag={tag}
             />
           );

@@ -5,7 +5,16 @@ import { colors } from "../../styles/GlobalColors";
 import Tag from "../tag/Tag";
 import PostModal from "./PostModal";
 
-function Post({ id, creator, creatorUid, title, content, date, tag, edit }) {
+function Post({
+  id,
+  creator,
+  creatorUid,
+  title,
+  content,
+  createDate,
+  tag,
+  editDate,
+}) {
   // const { showPostModal, setShowPostModal } = useContext(ModalContext);
   // TODO 튜터님께 문의
   const [showPostModal, setShowPostModal] = useState(false);
@@ -22,7 +31,9 @@ function Post({ id, creator, creatorUid, title, content, date, tag, edit }) {
             <StProfileCreator>
               <img src="" alt="img" />
               <h3>작성자: {creator}</h3>
-              <StDayContent>{date}</StDayContent>
+              <StDayContent>
+                {editDate ? `수정된 시간: ${editDate}` : createDate}
+              </StDayContent>
             </StProfileCreator>
             <StBtnContainer>
               <StFnBtn>👍🏻</StFnBtn>
@@ -53,7 +64,7 @@ function Post({ id, creator, creatorUid, title, content, date, tag, edit }) {
           creator={creator}
           title={title}
           content={content}
-          date={date}
+          createDate={createDate}
           tag={[]}
         />
       )}

@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PostsSummary from "../components/postsSummary/PostsSummary";
 import Profile from "../components/profile/Profile";
@@ -13,7 +12,6 @@ function MyPage() {
     uid,
     metadata: { creationTime },
   } = authService?.currentUser;
-  const navigate = useNavigate();
   return (
     <StFormWrapper>
       <Profile
