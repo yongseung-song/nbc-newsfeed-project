@@ -143,6 +143,7 @@ const InputBoxDiv = styled.div`
     font-weight: 700;
     margin-bottom: ${(props) => (props.$isOpen ? "16px" : "40px")};
     transition: 0.5s ease-in-out;
+    cursor: pointer;
   }
 `;
 

@@ -15,7 +15,7 @@ function Update() {
   const textareaRef = useRef();
   const postUpdateRef = collection(db, "posts");
 
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getDocPost = async () => {
