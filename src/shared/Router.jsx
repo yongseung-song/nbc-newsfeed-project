@@ -10,23 +10,23 @@ import GlobalFonts from "../styles/GlobalFonts";
 import GlobalStyles from "../styles/GlobalStyles";
 
 function Router() {
-  return (
-    <>
-      <GlobalStyles />
-      <GlobalFonts />
-      <GlobalColors />
-      <BrowserRouter>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="detail/:id" element={<Detail />} />
-            <Route path="mypage" element={<MyPage />} />
-            <Route path="detail/:id/update" element={<Update />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </>
-  );
+	return (
+		<>
+			<GlobalStyles />
+			<GlobalFonts />
+			<GlobalColors />
+			<BrowserRouter>
+				<Routes>
+					<Route element={<Layout />}>
+						<Route path="/" element={<Home />} />
+						<Route path="detail/:id" element={<Detail />} />
+						<Route path="mypage" element={<MyPage />} />
+						<Route path="detail/:id/update" element={<Update />} />
+					</Route>
+				</Routes>
+			</BrowserRouter>
+		</>
+	);
 }
 
 export default Router;

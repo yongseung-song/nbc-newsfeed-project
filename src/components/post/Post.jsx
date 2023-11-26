@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { getAuth } from "firebase/auth";
 import React, { useState } from "react";
 import styled from "styled-components";
@@ -32,7 +33,11 @@ function Post({
               <img src="" alt="img" />
               <h3>작성자: {creator}</h3>
               <StDayContent>
-                {editDate ? `수정된 시간: ${editDate}` : createDate}
+                {editDate
+                  ? `수정된 시간: ${dayjs(editDate).format(
+                      "YYYY년 M월 D일 hh:mm"
+                    )}`
+                  : dayjs(createDate).format("YYYY년 M월 D일 hh:mm")}
               </StDayContent>
             </StProfileCreator>
             <StBtnContainer>

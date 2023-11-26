@@ -20,6 +20,7 @@ function Profile({ photoURL, displayName, email, uid, creationTime }) {
             </StInforIndexContainer>
           </StInforContainer>
         </StIdCardContent>
+
         <StSignUpDayContent>
           가입 날짜 : {dayjs(creationTime).format("YYYY년 M년 D일 h:m")}
         </StSignUpDayContent>
