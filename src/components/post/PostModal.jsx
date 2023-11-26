@@ -102,6 +102,7 @@ const StContent = styled.p`
   font-size: 16px;
   line-height: 24px;
   overflow-y: scroll;
+  white-space: pre-line;
   height: 230px;
 `;
 

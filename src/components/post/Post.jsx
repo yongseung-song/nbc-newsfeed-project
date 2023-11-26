@@ -163,6 +163,7 @@ const StContent = styled.p`
   line-height: 24px;
   overflow: hidden;
   display: -webkit-box;
+  white-space: pre-line;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 `;

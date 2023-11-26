@@ -202,6 +202,7 @@ const StIndexContent = styled.p`
   font-size: 18px;
   line-height: 27px;
   word-wrap: break-word;
+  white-space: pre-line;
   background-color: ${colors.inputBoxColor};
   padding: 20px;
   border-radius: 20px;
