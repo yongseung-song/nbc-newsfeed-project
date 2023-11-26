@@ -14,6 +14,7 @@ function HeaderAuthMenu() {
   const navigate = useNavigate();
 
   const { showDropDown, setShowDropDown } = useState(false);
+
   const { isLoggedIn } = useContext(AuthContext);
   const { showModal, setShowModal } = useContext(ModalContext);
 
@@ -26,10 +27,11 @@ function HeaderAuthMenu() {
       <div>
         <button>darkmode</button>
         {isLoggedIn ? (
-          <StAuthMenu>
+          <StAuthMenu onClick={() => setShowDropDown(!showDropDown)}>
             <p>{name ?? "guest"}님</p>
-            <St.DropDownBtn onClick={() => {}} src={userAvatarUrl} />
-            <HeaderDropDown />
+            <St.DropDownBtn src={userAvatarUrl} />
+            {showDropDown ? "닫힘" : "열림"}
+            {showDropDown && <HeaderDropDown />}
           </StAuthMenu>
         ) : (
           <button onClick={loginModalHandler}>로그인하기</button>

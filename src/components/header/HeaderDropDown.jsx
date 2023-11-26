@@ -13,7 +13,7 @@ function HeaderDropDown() {
 
   return (
     <div>
-      <button onClick={() => navigator("mypage")}>마이페이지</button>
+      <button onClick={() => navigator("mypage")}>마이페이지</button>{" "}
       <button onClick={clickLogoutBtnHandler}>로그아웃</button>
     </div>
   );
