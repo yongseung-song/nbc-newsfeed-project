@@ -10,6 +10,7 @@ function Post({
   id,
   creator,
   creatorUid,
+  creatorPhotoURL,
   title,
   content,
   createDate,
@@ -30,14 +31,14 @@ function Post({
         <StIndexWrap>
           <StPostHeaderWrapper>
             <StProfileCreator>
-              <img src="" alt="img" />
+              <img src={creatorPhotoURL} alt="img" />
               <h3>작성자: {creator}</h3>
               <StDayContent>
                 {editDate
                   ? `수정된 시간: ${dayjs(editDate).format(
-                      "YYYY년 M월 D일 hh:mm"
+                      "YYYY년 MM월 DD일 hh:mm"
                     )}`
-                  : dayjs(createDate).format("YYYY년 M월 D일 hh:mm")}
+                  : dayjs(createDate).format("YYYY년 MM월 DD일 hh:mm")}
               </StDayContent>
             </StProfileCreator>
             <StBtnContainer>
@@ -70,7 +71,8 @@ function Post({
           title={title}
           content={content}
           createDate={createDate}
-          tag={[]}
+          editDate={editDate}
+          tag={tag}
         />
       )}
     </>
@@ -181,5 +183,10 @@ const StProfileCreator = styled.div`
     color: ${colors.postColor};
     margin-left: 20px;
     font-weight: 500;
+  }
+  img {
+    width: 46px;
+    height: 46px;
+    border-radius: 100%;
   }
 `;

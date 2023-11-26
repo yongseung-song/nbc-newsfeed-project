@@ -34,6 +34,7 @@ function Posts() {
           const {
             creator,
             creatorUid,
+            creatorPhotoURL,
             title,
             id,
             content,
@@ -47,6 +48,7 @@ function Posts() {
               title={title}
               creator={creator}
               creatorUid={creatorUid}
+              creatorPhotoURL={creatorPhotoURL}
               content={content}
               id={id}
               createDate={createDate}

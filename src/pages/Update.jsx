@@ -33,7 +33,6 @@ function Update() {
     const textareaContent = event.currentTarget.value;
     setContentTextarea(textareaContent);
   };
-
   const clickUpdateBtnHandler = async (event) => {
     event.preventDefault();
     console.log(contentTextarea);
@@ -54,54 +53,64 @@ function Update() {
     return;
   };
   const clickUpdateCancelBtnHandler = () => {};
-
   const clickGoToList = () => {
     navigate("/mypage");
   };
   return (
-    <StUpdateWrapper>
-      <StSectionTitle>글 수정하기 </StSectionTitle>
-      <StIndexWrapper>
-        <StCreatorDayWrapper>
-          <p>작성자: {currentPost.creator}</p>
-          <p>
-            {currentPost.editDate
-              ? `수정된 시간: ${dayjs(currentPost.editDate).format(
-                  "YYYY년 M월 D일 hh:mm"
-                )}`
-              : `작성된 시간: ${dayjs(currentPost.createDate).format(
-                  "YYYY년 M월 D일 hh:mm"
-                )}`}
-          </p>
-        </StCreatorDayWrapper>
-        <StInputTItle>제목:</StInputTItle>
-        <StInputContent
-          ref={inputRef}
-          type="text"
-          defaultValue={currentPost.title}
-          onChange={titleChangeHandler}
-        />
-        <br />
-        <StInputTItle>내용: </StInputTItle>
-        <StTextArea
-          ref={textareaRef}
-          defaultValue={currentPost.content}
-          onChange={contentChangeHandler}
-        />
-        <StBtnContainer>
-          <button type="submit" onClick={clickUpdateBtnHandler}>
-            수정하기
-          </button>
-          <button onClick={clickUpdateCancelBtnHandler}>취소</button>
-          <button onClick={clickGoToList}>목록으로</button>
-        </StBtnContainer>
-      </StIndexWrapper>
-    </StUpdateWrapper>
+    <StUpdateWrapperBG>
+      <StUpdateWrapper>
+        <StSectionTitle>글 수정하기 </StSectionTitle>
+        <StIndexWrapper>
+          <StCreatorDayWrapper>
+            <p>작성자: {currentPost.creator}</p>
+            <p>
+              {currentPost.editDate
+                ? `수정된 시간: ${dayjs(currentPost.editDate).format(
+                    "YYYY년 M월 D일 hh:mm"
+                  )}`
+                : `작성된 시간: dayjs(currentPost.createDate).format("YYYY년 M월 D일 hh:mm")`}
+            </p>
+          </StCreatorDayWrapper>
+          <StInputTItle>제목:</StInputTItle>
+          <StInputContent
+            ref={inputRef}
+            type="text"
+            defaultValue={currentPost.title}
+            onChange={titleChangeHandler}
+          />
+          <br />
+          <StInputTItle>내용: </StInputTItle>
+          <StTextArea
+            ref={textareaRef}
+            defaultValue={currentPost.content}
+            onChange={contentChangeHandler}
+          />
+          <StBtnContainer>
+            <button type="submit" onClick={clickUpdateBtnHandler}>
+              수정하기
+            </button>
+            <button onClick={clickUpdateCancelBtnHandler}>취소</button>
+            <button onClick={clickGoToList}>목록으로</button>
+          </StBtnContainer>
+        </StIndexWrapper>
+      </StUpdateWrapper>
+    </StUpdateWrapperBG>
   );
 }
 export default Update;
+
+const StUpdateWrapperBG = styled.div`
+  padding: 36px 0 180px;
+  background: linear-gradient(
+      127deg,
+      rgba(32, 117, 255, 0.8),
+      rgba(0, 255, 0, 0) 70.71%
+    ),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%);
+`;
 const StUpdateWrapper = styled.form`
   display: flex;
+  background-color: white;
   flex-direction: column;
   justify-content: center;
   align-items: center;

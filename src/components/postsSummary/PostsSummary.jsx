@@ -52,7 +52,7 @@ function PostsSummary({ displayName }) {
                 <div>
                   <StPostTitle>{post?.title}</StPostTitle>
                   <StDayContent>
-                    {dayjs(post?.date).format("YYYY년 M년 D일 h:m")}
+                    {dayjs(post?.date).format("YYYY년 MM년 DD일 hh:mm")}
                   </StDayContent>
                 </div>
                 <StContent>{post?.content}</StContent>

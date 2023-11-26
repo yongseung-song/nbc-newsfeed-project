@@ -2,12 +2,14 @@ import dayjs from "dayjs";
 import { collection, doc, setDoc } from "firebase/firestore";
 import React, { useContext, useRef, useState } from "react";
 import styled from "styled-components";
+import { AuthContext } from "../../context/AuthContext";
 import { PostContext } from "../../context/PostContext";
 import { authService, db } from "../../firebase";
 import { colors } from "../../styles/GlobalColors";
 // import { ModalContext } from "../../context/ModalContext";
 function InputBox() {
   const { setPostList } = useContext(PostContext);
+  const { isLoggedIn } = useContext(AuthContext);
   const [inputValue, setInputValue] = useState("");
   const [textAreaValue, setTextAreaValue] = useState("");
   const [inputTagValue, setInputTagValue] = useState("");
@@ -22,17 +24,19 @@ function InputBox() {
   const newDocRef = doc(collection(db, "posts"));
 
   const parseTags = () => {
-    return inputTagValue.trim().toLowerCase().split(",");
+    return inputTagValue.trim().toUpperCase().split(",");
   };
 
   const postSubmitBtnClickHandler = async (e) => {
     // const tags = parseTags();
+
     const newPost = {
       title: inputValue,
       content: textAreaValue,
       createDate: dayjs().toJSON(),
-      creator: user.displayName,
+      creator: user?.displayName,
       creatorUid: auth.currentUser.uid,
+      creatorPhotoURL: auth.currentUser.photoURL,
       id: newDocRef.id,
       tag: parseTags(),
     };
@@ -56,7 +60,14 @@ function InputBox() {
   };
 
   const inputBoxClickHandler = () => {
-    setInputBoxOpen(!inputBoxOpen);
+    if (isLoggedIn === true) {
+      setInputBoxOpen(!inputBoxOpen);
+    } else {
+      alert("게시물을 작성하려면 먼저 로그인해주세요");
+    }
+  };
+  const inputBoxCancelBtnHandler = () => {
+    setInputBoxOpen(false);
   };
 
   return (
@@ -110,7 +121,7 @@ function InputBox() {
         <ButtonStyle type="submit" onClick={postSubmitBtnClickHandler}>
           등록
         </ButtonStyle>
-        <ButtonStyle>취소</ButtonStyle>
+        <ButtonStyle onClick={inputBoxCancelBtnHandler}>취소</ButtonStyle>
       </BtnDiv>
     </InputBoxDiv>
   );
@@ -120,7 +131,9 @@ export default InputBox;
 
 const InputBoxDiv = styled.div`
   width: 630px;
+  // 용승 스타일 추가
   height: ${(props) => (props.$isOpen ? "460px" : "64px")};
+  /* height: 160px; // 조건부 스타일링 필요 */
   position: sticky;
   overflow: hidden;
   padding: 24px 30px 30px 30px;
@@ -130,11 +143,14 @@ const InputBoxDiv = styled.div`
   background: #fff;
   z-index: 2;
 
+  /* bigShadow */
   box-shadow: 0px 4px 30px 5px rgba(0, 0, 0, 0.05);
   transition: 0.5s ease-in-out;
   textarea {
+    /* width: 80%; */
     resize: none;
   }
+  // 용승 스타일 추가
   h1 {
     font-size: 1rem;
     font-weight: 700;
@@ -152,6 +168,7 @@ const InputBoxStyle = styled.input`
   border-radius: 15px;
   width: 100%;
   &::placeholder {
+    /* padding: 10px 0 10px 25px; */
     font-size: 12px;
     color: ${colors.indexFontColor};
   }
@@ -164,6 +181,7 @@ const TextAreaStyle = styled.textarea`
   border-radius: 15px;
   width: 100%;
   &::placeholder {
+    /* padding: 17px 0 17px 25px; */
     font-size: 12px;
     color: ${colors.indexFontColor};
   }

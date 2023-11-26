@@ -1,5 +1,4 @@
 import dayjs from "dayjs";
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { colors } from "../../styles/GlobalColors";
@@ -28,20 +27,22 @@ function PostModal({
         <StContentWrapper>
           <StCreatorDateWrapper>
             <StCreator>작성자: {creator}</StCreator>
-            {tag &&
-              Object.values(tag).map((item, idx) => {
-                return <Tag key={idx} item={item} />;
-              })}
             <StCreateDate>
               {editDate
                 ? `수정된 시간: ${dayjs(editDate).format(
-                    "YYYY년 M월 D일 hh:mm"
+                    "YYYY년 MM월 DD일 hh:mm"
                   )}`
-                : dayjs(createDate).format("YYYY년 M월 D일 hh:mm")}
+                : dayjs(createDate).format("YYYY년 MM월 DD일 hh:mm")}
             </StCreateDate>
           </StCreatorDateWrapper>
           <StTitle>{title}</StTitle>
           <StContent>{content}</StContent>
+          <ul>
+            {tag &&
+              Object.values(tag).map((item, idx) => {
+                return <Tag key={idx} item={item} />;
+              })}
+          </ul>
           <StBtn onClick={() => navigate(`/detail/${id}`)}>상세보기</StBtn>
         </StContentWrapper>
       </ModalBasic>
@@ -66,6 +67,11 @@ const StContentWrapper = styled.div`
   font-weight: 500;
   width: 100%;
   gap: 20px;
+  ul {
+    width: fit-content;
+    display: flex;
+    gap: 8px;
+  }
 `;
 
 const StCreatorDateWrapper = styled.div`
@@ -96,7 +102,7 @@ const StContent = styled.p`
   font-size: 16px;
   line-height: 24px;
   overflow-y: scroll;
-  height: 280px;
+  height: 230px;
 `;
 
 const StBtn = styled.button`

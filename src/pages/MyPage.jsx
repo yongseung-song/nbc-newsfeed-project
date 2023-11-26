@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PostsSummary from "../components/postsSummary/PostsSummary";
 import Profile from "../components/profile/Profile";
@@ -13,7 +12,6 @@ function MyPage() {
     uid,
     metadata: { creationTime },
   } = authService?.currentUser;
-  const navigate = useNavigate();
   return (
     <StFormWrapper>
       <Profile
@@ -35,4 +33,10 @@ const StFormWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(
+      127deg,
+      rgba(32, 117, 255, 0.8),
+      rgba(0, 255, 0, 0) 70.71%
+    ),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%);
 `;

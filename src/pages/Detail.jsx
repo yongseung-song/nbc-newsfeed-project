@@ -73,70 +73,81 @@ function Detail() {
       await deleteDoc(doc(db, "posts", params.id));
 
       alert("삭제되었습니다!");
-      navigator("/");
     } else {
       return false;
     }
   };
 
   const clickGoToListBtnHandler = () => {
-    navigator("/");
+    navigator(`/`);
   };
 
   return (
-    <StDetailWrapper>
-      <StIndexWrapper>
-        <StSectionTitle>채널이름</StSectionTitle>
-        <StHashTagContent>
-          {currentPost.tag &&
-            Object.values(currentPost.tag).map((item, idx) => {
-              return <Tag key={idx} item={item} />;
-            })}
-        </StHashTagContent>
-        <StTitleCreatorTimeWrapper>
-          <p>제목: {currentPost.title}</p>
-          <p>작성자: {currentPost.creator}</p>
-          <p>
-            {currentPost.editDate
-              ? `수정된 시간: ${dayjs(currentPost.editDate).format(
-                  "YYYY년 M월 D일 hh:mm"
-                )}`
-              : dayjs(currentPost.createDate).format("YYYY년 M월 D일 hh:mm")}
-          </p>
-        </StTitleCreatorTimeWrapper>
-
-        <StIndexContent>{currentPost.content}</StIndexContent>
-        <StBtnWrapper>
-          <button onClick={clickUpdateBtnHandler}>수정</button>
-          <button onClick={clickRemoveBtnHandler}>삭제</button>
-          <button onClick={clickGoToListBtnHandler}>목록으로</button>
-        </StBtnWrapper>
-
-        <p>연관글보기</p>
-        {postList?.map((item) => {
-          return (
-            <div
-              key={item.id}
-              style={{ backgroundColor: "red", cursor: "pointer" }}
-              onClick={() => {
-                navigator(`/detail/${item.id}`);
-              }}
-            >
-              <p>
-                {item.editData ? `수정된 시간: ${item.editData}` : item.date}
-              </p>
-              <p>{item.title}</p>
-              <p>{item.content}</p>
-            </div>
-          );
-        })}
-      </StIndexWrapper>
-    </StDetailWrapper>
+    <StDetailWrapperBG>
+      <StDetailWrapper>
+        <StIndexWrapper>
+          <StSectionTitle>게시물 상세보기</StSectionTitle>
+          <StHashTagContent>
+            {currentPost.tag &&
+              Object.values(currentPost.tag).map((item, idx) => {
+                return <Tag key={idx} item={item} />;
+              })}
+          </StHashTagContent>
+          <StTitleCreatorTimeWrapper>
+            <p>제목: {currentPost.title}</p>
+            <p>작성자: {currentPost.creator}</p>
+            <p>
+              {currentPost.editDate
+                ? `수정된 시간: ${dayjs(currentPost.editDate).format(
+                    "YYYY년 MM월 DD일 hh:mm"
+                  )}`
+                : `작성된 시간: ${dayjs(currentPost.createDate).format(
+                    "YYYY년 MM월 DD일 hh:mm"
+                  )}`}
+            </p>
+          </StTitleCreatorTimeWrapper>
+          <StIndexContent>{currentPost.content}</StIndexContent>
+          <StBtnWrapper>
+            <button onClick={clickUpdateBtnHandler}>수정</button>
+            <button onClick={clickRemoveBtnHandler}>삭제</button>
+            <button onClick={clickGoToListBtnHandler}>목록으로</button>
+          </StBtnWrapper>
+          <p>연관글보기</p>
+          {postList?.map((item) => {
+            return (
+              <div
+                key={item.id}
+                style={{ backgroundColor: "red", cursor: "pointer" }}
+                onClick={() => {
+                  navigator(`/detail/${item.id}`);
+                }}
+              >
+                <p>
+                  {item.editData ? `수정된 시간: ${item.editData}` : item.date}
+                </p>
+                <p>{item.title}</p>
+                <p>{item.content}</p>
+              </div>
+            );
+          })}
+        </StIndexWrapper>
+      </StDetailWrapper>
+    </StDetailWrapperBG>
   );
 }
 export default Detail;
 
-const StDetailWrapper = styled.form`
+const StDetailWrapperBG = styled.div`
+  padding: 36px 0 180px;
+  background: linear-gradient(
+      127deg,
+      rgba(32, 117, 255, 0.8),
+      rgba(0, 255, 0, 0) 70.71%
+    ),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%);
+`;
+
+const StDetailWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -146,6 +157,7 @@ const StDetailWrapper = styled.form`
   box-shadow: 0px 4px 30px 5px rgba(0, 0, 0, 0.05);
   padding: 20px;
   border-radius: 20px;
+  background-color: white;
 `;
 const StSectionTitle = styled.h3`
   color: ${colors.mainColor};
@@ -189,6 +201,7 @@ const StTitleCreatorTimeWrapper = styled.div`
 const StIndexContent = styled.p`
   font-size: 18px;
   line-height: 27px;
+  word-wrap: break-word;
   background-color: ${colors.inputBoxColor};
   padding: 20px;
   border-radius: 20px;
