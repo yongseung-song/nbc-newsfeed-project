@@ -8,15 +8,17 @@ import { db } from "../../firebase";
 import { colors } from "../../styles/GlobalColors";
 // import { ModalContext } from "../../context/ModalContext";
 function InputBox() {
-  const { postList, setPostList } = useContext(PostContext);
-  const inputRef = useRef();
-  const textareaRef = useRef();
-  const inputTagRef = useRef();
+  const { setPostList } = useContext(PostContext);
   const [inputValue, setInputValue] = useState("");
   const [textAreaValue, setTextAreaValue] = useState("");
   const [inputTagValue, setInputTagValue] = useState("");
+  const [inputBoxOpen, setInputBoxOpen] = useState(false);
+  const inputRef = useRef();
+  const textareaRef = useRef();
+  const inputTagRef = useRef();
   const auth = getAuth();
   const user = auth.currentUser;
+  // 강쟝님 파싱 추가 부탁
 
   const newDocRef = doc(collection(db, "posts"));
 
@@ -29,7 +31,7 @@ function InputBox() {
     const newPost = {
       title: inputValue,
       content: textAreaValue,
-      date: dayjs().toJSON(),
+      createDate: dayjs().toJSON(),
       creator: user.displayName,
       creatorUid: auth.currentUser.uid,
       id: newDocRef.id,
@@ -120,21 +122,32 @@ export default InputBox;
 
 const InputBoxDiv = styled.div`
   width: 630px;
+  // 용승 스타일 추가
+  height: ${(props) => (props.$isOpen ? "460px" : "64px")};
   /* height: 160px; // 조건부 스타일링 필요 */
   position: sticky;
+  overflow: hidden;
   padding: 30px;
   top: 110px;
   margin-bottom: 16px;
   border-radius: 30px;
   background: #fff;
+  z-index: 2;
 
   /* bigShadow */
   box-shadow: 0px 4px 30px 5px rgba(0, 0, 0, 0.05);
+  transition: 0.5s ease-in-out;
   textarea {
     /* width: 80%; */
     resize: none;
   }
-  div {
+  // 용승 스타일 추가
+  h1 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: ${(props) => (props.$isOpen ? "16px" : "40px")};
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
   }
 `;
 

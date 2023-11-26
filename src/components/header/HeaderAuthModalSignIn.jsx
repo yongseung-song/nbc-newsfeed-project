@@ -16,7 +16,7 @@ import * as St from "./HeaderAuthModalSignIn.style";
 
 function SignIn({ onClickGoToSignUp: handleClickGoToSignUp }) {
   const [loginEmail, setLoginEmail] = useState("");
-  const [loginPasssword, setLoginPassword] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const { setShowModal } = useContext(ModalContext);
   const [user, setUser] = useState("");
@@ -49,7 +49,7 @@ function SignIn({ onClickGoToSignUp: handleClickGoToSignUp }) {
     const auth = getAuth();
     setPersistence(auth, browserSessionPersistence)
       .then(() =>
-        signInWithEmailAndPassword(authService, loginEmail, loginPasssword)
+        signInWithEmailAndPassword(authService, loginEmail, loginPassword)
       )
       .then(() => {
         console.log(auth.currentUser);
@@ -58,7 +58,15 @@ function SignIn({ onClickGoToSignUp: handleClickGoToSignUp }) {
         navigate("/");
         // setUser(.user);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => signInErrorHandler(error));
+  };
+
+  const signInErrorHandler = (error) => {
+    if (error.code === "auth/invalid-login-credentials") {
+      alert("아이디 또는 비밀번호를 확인해 주십시오.");
+    } else if (error.code === "auto/missing-password") {
+      alert("비밀번호를 입력해 주십시오");
+    }
   };
 
   const signInWithGoogle = () => {
@@ -124,7 +132,7 @@ function SignIn({ onClickGoToSignUp: handleClickGoToSignUp }) {
         ​
         <St.IndexBox
           type="password"
-          value={loginPasssword}
+          value={loginPassword}
           onChange={clickPasswordChangehandler}
           placeholder="비밀번호를 입력해주세요"
         />
@@ -138,11 +146,9 @@ function SignIn({ onClickGoToSignUp: handleClickGoToSignUp }) {
           <St.GoogleLogin onClick={socialGoogleLoginhandler}></St.GoogleLogin>
           <St.GitHubLogin onClick={socialGithubLoginhandler}></St.GitHubLogin>
         </St.SocialLoginBox>
-        {/* <button onClick={clickLogoutBtnHandler}>로그아웃</button> */}
       </St.SocialForm>
       <St.SignUpBox>
         <St.SignUpTitle>계정이 따로 없으신가요?</St.SignUpTitle>
-        {/* button onClick 으로 변경했는데 혹시 괜찮은지 주석 남겨봅니당 */}
         <St.SignUpButton onClick={handleClickGoToSignUp}>
           회원가입하러가기
         </St.SignUpButton>

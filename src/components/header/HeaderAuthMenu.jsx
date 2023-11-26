@@ -19,20 +19,29 @@ function HeaderAuthMenu() {
   const { isLoggedIn } = useContext(AuthContext);
   const { showModal, setShowModal } = useContext(ModalContext);
 
+  // console.log(name);
+
   const loginModalHandler = () => {
     setShowModal(true);
   };
 
+  const dropDownMenuCloseHandler = () => {
+    setTimeout(() => {
+      setShowDropDown(false);
+    }, 200);
+  };
+  const dropDownMenuOpenHandler = () => {
+    setShowDropDown(!showDropDown);
+  };
   return (
     <>
       <StAuthCWrapper>
         {isLoggedIn ? (
           <StAuthMenu>
             <St.DropDownBtn
-              onClick={() => {
-                setShowDropDown(!showDropDown);
-              }}
-              src={userAvatarUrl}
+              onBlur={dropDownMenuCloseHandler}
+              onClick={dropDownMenuOpenHandler}
+              $userAvatarUrl={userAvatarUrl}
             />
             <p>{name ?? "guest"}님</p>
             {showDropDown ? <HeaderDropDown /> : ""}
@@ -65,6 +74,7 @@ const StHeaderBtn = styled.button`
   border-radius: 99px;
   margin-left: 10px;
   font-weight: 700;
+  cursor: pointer;
 `;
 
 const StLightBtn = styled.button`

@@ -1,48 +1,17 @@
 import dayjs from "dayjs";
-import { getAuth } from "firebase/auth";
-import { collection, getDocs, query, where } from "firebase/firestore";
-import { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import styled from "styled-components";
 import idcard from "../../assets/idcard.png";
 import { PostContext } from "../../context/PostContext";
-import { db } from "../../firebase";
 import { colors } from "../../styles/GlobalColors";
 
-function Profile() {
+function Profile({ photoURL, displayName, email, uid, creationTime }) {
   const { postList } = useContext(PostContext);
-  const {
-    photoURL,
-    displayName,
-    email,
-    uid,
-    metadata: { creationTime },
-  } = getAuth()?.currentUser;
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const q = query(
-      collection(db, "posts"),
-      where("creatorUid", "==", getAuth().currentUser.uid)
-    );
-
-    getDocs(q)
-      .then((res) => res.forEach((doc) => console.log(doc.data())))
-      .catch((err) => console.log(err));
-    console.log(getAuth().currentUser.uid);
-  }, []);
-
-  const iterableData = Object.values({ ...postList });
-  const myPosts = iterableData.filter((item) => item.creatorUid === uid);
-
-  const clickGoToDetail = (id) => {
-    navigate(`/detail/${id}`);
-  };
 
   // console.log(myPosts);
   return (
-    <ProfileWrapper>
-      <ProfileInfo>
+    <StProfileWrapper>
+      <StProfileInfo>
         <StIdCardContent>
           <StInforContainer>
             <img src={photoURL} alt={displayName} />
@@ -56,36 +25,14 @@ function Profile() {
         <StSignUpDayContent>
           가입 날짜 : {dayjs(creationTime).format("YYYY년 M년 D일 h:m")}
         </StSignUpDayContent>
-      </ProfileInfo>
-      <StWriteInforContent>
-        {displayName}님이 작성하신 글이 {myPosts.length}개 있습니다.
-      </StWriteInforContent>
-      <StPostContainer>
-        {myPosts
-          .sort((a, b) => dayjs(b.date) - dayjs(a.date))
-          .map((post) => {
-            return (
-              <SummarizedPost
-                onClick={() => clickGoToDetail(post?.id)}
-                key={post?.id}
-              >
-                <div>
-                  <h4>{post?.title}</h4>
-                  <p>{dayjs(post?.date).format("YYYY년 M년 D일 h:m")}</p>
-                </div>
-                <p>{post?.content}</p>
-              </SummarizedPost>
-            );
-          })}
-      </StPostContainer>
-      <p></p>
-    </ProfileWrapper>
+      </StProfileInfo>
+    </StProfileWrapper>
   );
 }
 
 export default Profile;
 
-const ProfileWrapper = styled.article`
+const StProfileWrapper = styled.article`
   max-width: 800px;
   width: 60%;
   margin: 0 auto;
@@ -93,7 +40,7 @@ const ProfileWrapper = styled.article`
   flex-direction: column;
 `;
 
-const ProfileInfo = styled.div`
+const StProfileInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -103,21 +50,6 @@ const ProfileInfo = styled.div`
   /* background-color: ${colors.inputBoxColor}; */
   margin: 24px 0;
   font-size: 24px;
-`;
-
-const SummarizedPost = styled.li`
-  padding: 30px;
-  border: none;
-  /* margin-bottom: 12px; */
-  div {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  background-color: ${colors.inputBoxColor};
-  border-radius: 10px;
-  color: ${colors.postColor};
-  margin: 20px;
 `;
 
 const StIdCardContent = styled.div`
@@ -154,28 +86,4 @@ const StSignUpDayContent = styled.p`
   font-weight: 600;
   border-radius: 10px;
   color: ${colors.smallTitleColor};
-`;
-
-const StWriteInforContent = styled.h4`
-  color: ${colors.smallTitleColor};
-  font-weight: 700;
-  font-size: 18px;
-  margin-bottom: 20px;
-`;
-
-const StPostContainer = styled.ul`
-  background-color: #fff;
-  box-shadow: 0px 4px 30px 5px rgba(0, 0, 0, 0.05);
-  border-radius: 20px;
-  /* display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center; */
-  /* padding: 20px; */
-  margin-bottom: 20px;
-`;
-
-const StDayContent = styled.p`
-  color: ${colors.indexFontColor};
-  font-size: 12px;
 `;

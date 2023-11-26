@@ -34,8 +34,6 @@ function ModalBasic({ showPostModal, setShowPostModal, children }) {
     };
   });
 
-  const modalSwitch = () => (showModal ? showModal : showPostModal);
-
   const closeModalHandler = () => {
     if (showModal) setShowModal(false);
     if (showPostModal) setShowPostModal(false);
@@ -44,7 +42,7 @@ function ModalBasic({ showPostModal, setShowPostModal, children }) {
   return (
     <>
       <St.Wrapper>
-        <St.BoxStyle $modalSwitch={modalSwitch()} ref={modalRef}>
+        <St.BoxStyle ref={modalRef}>
           <St.ButtonStyle onClick={closeModalHandler}></St.ButtonStyle>
           <div
             style={{
