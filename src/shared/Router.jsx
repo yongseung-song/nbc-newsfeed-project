@@ -21,7 +21,7 @@ function Router() {
             <Route path="/" element={<Home />} />
             <Route path="detail/:id" element={<Detail />} />
             <Route path="mypage" element={<MyPage />} />
-            <Route path="detail/update/:id" element={<Update />} />
+            <Route path="detail/:id/update" element={<Update />} />
           </Route>
         </Routes>
       </BrowserRouter>

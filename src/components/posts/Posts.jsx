@@ -7,7 +7,7 @@ import { db } from "../../firebase";
 import Post from "../post/Post";
 
 function Posts() {
-  const { postList, setPostList } = useContext(PostContext);
+  const { postList, setPostList, filter } = useContext(PostContext);
 
   useEffect(() => {
     getDocs(collection(db, "posts")).then((querySnapshot) =>
@@ -20,6 +20,9 @@ function Posts() {
     );
     console.log("update occured");
   }, [db]);
+
+  // useEffect(() => {
+  // }, [filter]);
 
   const iterableData = Object.values({ ...postList });
   // console.log(iterableData);
