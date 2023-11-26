@@ -30,6 +30,7 @@ function HeaderDropDown() {
 export default HeaderDropDown;
 
 const StDropDownContainer = styled.div`
+  z-index: 3;
   position: absolute;
   width: 120px;
   top: 42px;
@@ -50,4 +51,5 @@ const StHeaderBtn = styled.button`
   border-radius: 99px;
   /* margin-left: 10px; */
   font-weight: 700;
+  cursor: pointer;
 `;

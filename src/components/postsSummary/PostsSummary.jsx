@@ -51,12 +51,12 @@ function PostsSummary({ displayName }) {
                 key={post?.id}
               >
                 <div>
-                  <h4>{post?.title}</h4>
+                  <StPostTitle>{post?.title}</StPostTitle>
                   <StDayContent>
                     {dayjs(post?.date).format("YYYY년 M년 D일 h:m")}
                   </StDayContent>
                 </div>
-                <p>{post?.content}</p>
+                <StContent>{post?.content}</StContent>
               </SummarizedPost>
             );
           })}
@@ -88,6 +88,10 @@ const SummarizedPost = styled.li`
   border-radius: 10px;
   color: ${colors.postColor};
   margin: 20px;
+  transition: all 0.5s ease;
+  &:hover {
+    transform: scale(1.02);
+  }
 `;
 
 const StWriteInforContent = styled.h4`
@@ -107,9 +111,25 @@ const StPostContainer = styled.ul`
 	align-items: center; */
   /* padding: 20px; */
   margin-bottom: 20px;
+  cursor: pointer;
 `;
 
 const StDayContent = styled.p`
   color: ${colors.indexFontColor};
-  font-size: 12px;
+  font-size: 14px;
+`;
+
+const StPostTitle = styled.h4`
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 10px;
+`;
+
+const StContent = styled.p`
+  font-size: 16px;
+  line-height: 24px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 `;

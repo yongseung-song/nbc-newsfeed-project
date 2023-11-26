@@ -74,6 +74,7 @@ const StHeaderBtn = styled.button`
   border-radius: 99px;
   margin-left: 10px;
   font-weight: 700;
+  cursor: pointer;
 `;
 
 const StLightBtn = styled.button`
