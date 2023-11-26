@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import {
   collection,
   deleteDoc,
@@ -92,8 +93,10 @@ function Detail() {
       <p>작성자: {currentPost.creator}</p>
       <p>
         {currentPost.editDate
-          ? `수정된 시간:${currentPost.editDate}`
-          : `작성된 시간:${currentPost.createDate}`}
+          ? `수정된 시간: ${dayjs(currentPost.editDate).format(
+              "YYYY년 M월 D일 hh:mm"
+            )}`
+          : dayjs(currentPost.createDate).format("YYYY년 M월 D일 hh:mm")}
       </p>
       <p>{currentPost.content}</p>
       <button onClick={clickUpdateBtnHandler}>수정</button>
@@ -109,7 +112,13 @@ function Detail() {
               navigator(`/detail/${item.id}`);
             }}
           >
-            <p>{item.editData ? `수정된 시간: ${item.editData}` : item.date}</p>
+            <p>
+              {item
+                ? `수정된 시간: ${dayjs(item.editDate).format(
+                    "YYYY년 M월 D일 hh:mm"
+                  )}`
+                : dayjs(item.createDate).format("YYYY년 M월 D일 hh:mm")}
+            </p>
             <p>{item.title}</p>
             <p>{item.content}</p>
           </div>
