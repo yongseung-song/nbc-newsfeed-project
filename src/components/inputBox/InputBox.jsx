@@ -8,180 +8,186 @@ import { db } from "../../firebase";
 import { colors } from "../../styles/GlobalColors";
 // import { ModalContext } from "../../context/ModalContext";
 function InputBox() {
-	const { postList, setPostList } = useContext(PostContext);
-	const inputRef = useRef();
-	const textareaRef = useRef();
-	const inputTagRef = useRef();
-	const [inputValue, setInputValue] = useState("");
-	const [textAreaValue, setTextAreaValue] = useState("");
-	const [inputTagValue, setInputTagValue] = useState("");
-	const auth = getAuth();
-	const user = auth.currentUser;
+  const { postList, setPostList } = useContext(PostContext);
+  const inputRef = useRef();
+  const textareaRef = useRef();
+  const inputTagRef = useRef();
+  const [inputValue, setInputValue] = useState("");
+  const [textAreaValue, setTextAreaValue] = useState("");
+  const [inputTagValue, setInputTagValue] = useState("");
+  const auth = getAuth();
+  const user = auth.currentUser;
 
-	const newDocRef = doc(collection(db, "posts"));
+  const newDocRef = doc(collection(db, "posts"));
 
-	const parseTags = () => {
-		return inputTagValue.trim().toLowerCase().split(",");
-	};
+  const parseTags = () => {
+    return inputTagValue.trim().toLowerCase().split(",");
+  };
 
-	const postSubmitBtnClickHandler = async (e) => {
-		// const tags = parseTags();
-		const newPost = {
-			title: inputValue,
-			content: textAreaValue,
-			date: dayjs().toJSON(),
-			creator: user.displayName,
-			creatorUid: auth.currentUser.uid,
-			id: newDocRef.id,
-			tag: parseTags(),
-		};
-		if (textAreaValue && inputValue) {
-			setDoc(newDocRef, newPost)
-				.then(() => {
-					setPostList((prevList) => ({
-						...prevList,
-						[newPost.id]: { ...newPost, id: newPost.id },
-					}));
-				})
-				.then(() => {
-					setInputValue("");
-					setTextAreaValue("");
-					setInputTagValue("");
-				})
-				.catch((error) => console.log(error));
-		} else {
-			alert("닉네임과 내용을 입력해주세요!");
-		}
-	};
+  const postSubmitBtnClickHandler = async (e) => {
+    // const tags = parseTags();
+    const newPost = {
+      title: inputValue,
+      content: textAreaValue,
+      date: dayjs().toJSON(),
+      creator: user.displayName,
+      creatorUid: auth.currentUser.uid,
+      id: newDocRef.id,
+      tag: parseTags(),
+    };
+    if (textAreaValue && inputValue) {
+      setDoc(newDocRef, newPost)
+        .then(() => {
+          setPostList((prevList) => ({
+            ...prevList,
+            [newPost.id]: { ...newPost, id: newPost.id },
+          }));
+        })
+        .then(() => {
+          setInputValue("");
+          setTextAreaValue("");
+          setInputTagValue("");
+        })
+        .catch((error) => console.log(error));
+    } else {
+      alert("닉네임과 내용을 입력해주세요!");
+    }
+  };
 
-	return (
-		<InputBoxDiv>
-			<form action="">
-				<WriteBoxDiv>
-					<StInputTitleContent htmlFor="title">
-						제목을 입력해주세요
-					</StInputTitleContent>
-					<InputBoxStyle
-						ref={inputRef}
-						id="title"
-						value={inputValue}
-						type="text"
-						required
-						onChange={(e) => setInputValue(e.target.value)}
-						placeholder="제목을 입력해주세요"
-					/>
-				</WriteBoxDiv>
-				<WriteBoxDiv>
-					<StInputTitleContent htmlFor="textarea">
-						글의 내용을 입력해주세요
-					</StInputTitleContent>
-					<TextAreaStyle
-						placeholder="글의 내용을 1500자 이내로 입력해주세요"
-						ref={textareaRef}
-						value={textAreaValue}
-						id="textarea"
-						required
-						rows={5}
-						maxLength={1500}
-						onChange={(e) => setTextAreaValue(e.target.value)}
-					/>
-				</WriteBoxDiv>
-				<WriteBoxDiv>
-					<StInputTitleContent htmlFor="tags">
-						태그를 입력해주세요
-					</StInputTitleContent>
-					<InputBoxStyle
-						placeholder="태그는 쉼표(,) 로 구분해주세요"
-						ref={inputTagRef}
-						value={inputTagValue}
-						id="tags"
-						type="text"
-						onChange={(e) => setInputTagValue(e.target.value)}
-					/>
-				</WriteBoxDiv>
-			</form>
-			<BtnDiv>
-				<ButtonStyle type="submit" onClick={postSubmitBtnClickHandler}>
-					등록
-				</ButtonStyle>
-				<ButtonStyle>취소</ButtonStyle>
-			</BtnDiv>
-		</InputBoxDiv>
-	);
+  return (
+    <InputBoxDiv>
+      <form action="">
+        <WriteBoxDiv>
+          <select required="required">
+            <option value="">채널을 선택해주세요</option>
+            <option value="developTip">개발 팁 공유</option>
+            <option value="sidePj">사이드 프로젝트 구인</option>
+            <option value="question">질문</option>
+          </select>
+          <StInputTitleContent htmlFor="title">
+            제목을 입력해주세요
+          </StInputTitleContent>
+          <InputBoxStyle
+            ref={inputRef}
+            id="title"
+            value={inputValue}
+            type="text"
+            required
+            onChange={(e) => setInputValue(e.target.value)}
+            placeholder="제목을 입력해주세요"
+          />
+        </WriteBoxDiv>
+        <WriteBoxDiv>
+          <StInputTitleContent htmlFor="textarea">
+            글의 내용을 입력해주세요
+          </StInputTitleContent>
+          <TextAreaStyle
+            placeholder="글의 내용을 1500자 이내로 입력해주세요"
+            ref={textareaRef}
+            value={textAreaValue}
+            id="textarea"
+            required
+            rows={5}
+            maxLength={1500}
+            onChange={(e) => setTextAreaValue(e.target.value)}
+          />
+        </WriteBoxDiv>
+        <WriteBoxDiv>
+          <StInputTitleContent htmlFor="tags">
+            태그를 입력해주세요
+          </StInputTitleContent>
+          <InputBoxStyle
+            placeholder="태그는 쉼표(,) 로 구분해주세요"
+            ref={inputTagRef}
+            value={inputTagValue}
+            id="tags"
+            type="text"
+            onChange={(e) => setInputTagValue(e.target.value)}
+          />
+        </WriteBoxDiv>
+      </form>
+      <BtnDiv>
+        <ButtonStyle type="submit" onClick={postSubmitBtnClickHandler}>
+          등록
+        </ButtonStyle>
+        <ButtonStyle>취소</ButtonStyle>
+      </BtnDiv>
+    </InputBoxDiv>
+  );
 }
 
 export default InputBox;
 
 const InputBoxDiv = styled.div`
-	width: 630px;
-	/* height: 160px; // 조건부 스타일링 필요 */
-	position: sticky;
-	padding: 30px;
-	top: 84px;
-	margin-bottom: 16px;
-	border-radius: 30px;
-	background: #fff;
+  width: 630px;
+  /* height: 160px; // 조건부 스타일링 필요 */
+  position: sticky;
+  padding: 30px;
+  top: 84px;
+  margin-bottom: 16px;
+  border-radius: 30px;
+  background: #fff;
 
-	/* bigShadow */
-	box-shadow: 0px 4px 30px 5px rgba(0, 0, 0, 0.05);
-	textarea {
-		/* width: 80%; */
-		resize: none;
-	}
-	div {
-	}
+  /* bigShadow */
+  box-shadow: 0px 4px 30px 5px rgba(0, 0, 0, 0.05);
+  textarea {
+    /* width: 80%; */
+    resize: none;
+  }
+  div {
+  }
 `;
 
 const InputBoxStyle = styled.input`
-	background-color: ${colors.inputBoxColor};
-	border: none;
-	padding: 10px 0 10px 25px;
-	border-radius: 15px;
-	width: 100%;
-	&::placeholder {
-		/* padding: 10px 0 10px 25px; */
-		font-size: 12px;
-		color: ${colors.indexFontColor};
-	}
+  background-color: ${colors.inputBoxColor};
+  border: none;
+  padding: 10px 0 10px 25px;
+  border-radius: 15px;
+  width: 100%;
+  &::placeholder {
+    /* padding: 10px 0 10px 25px; */
+    font-size: 12px;
+    color: ${colors.indexFontColor};
+  }
 `;
 
 const TextAreaStyle = styled.textarea`
-	background-color: ${colors.inputBoxColor};
-	border: none;
-	padding: 25px;
-	border-radius: 15px;
-	width: 100%;
-	&::placeholder {
-		/* padding: 17px 0 17px 25px; */
-		font-size: 12px;
-		color: ${colors.indexFontColor};
-	}
+  background-color: ${colors.inputBoxColor};
+  border: none;
+  padding: 25px;
+  border-radius: 15px;
+  width: 100%;
+  &::placeholder {
+    /* padding: 17px 0 17px 25px; */
+    font-size: 12px;
+    color: ${colors.indexFontColor};
+  }
 `;
 
 const WriteBoxDiv = styled.div`
-	margin-bottom: 20px;
-	width: 100%;
+  margin-bottom: 20px;
+  width: 100%;
 `;
 
 const BtnDiv = styled.div`
-	display: flex;
-	justify-content: right;
+  display: flex;
+  justify-content: right;
 `;
 
 const ButtonStyle = styled.button`
-	background-color: ${colors.mainColor};
-	border: none;
-	color: #fff;
-	padding: 10px 25px;
-	margin-left: 10px;
-	border-radius: 30px;
-	font-weight: 700;
-	cursor: pointer;
+  background-color: ${colors.mainColor};
+  border: none;
+  color: #fff;
+  padding: 10px 25px;
+  margin-left: 10px;
+  border-radius: 30px;
+  font-weight: 700;
+  cursor: pointer;
 `;
 
 const StInputTitleContent = styled.label`
-	color: ${colors.smallTitleColor};
-	font-size: 14px;
-	display: block;
-	margin-bottom: 10px;
+  color: ${colors.smallTitleColor};
+  font-size: 14px;
+  display: block;
+  margin-bottom: 10px;
 `;
