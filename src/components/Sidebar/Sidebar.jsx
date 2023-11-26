@@ -32,7 +32,6 @@ const SideBarDiv = styled.div`
 `;
 
 const ButtonStyle = styled.button`
-<<<<<<< HEAD
   border-radius: 15px;
   background: ${colors.inputBoxColor};
   border: none;
@@ -40,21 +39,12 @@ const ButtonStyle = styled.button`
   font-weight: 700;
   /* margin: 20px 20px 0px 20px; */
   height: 50px;
-=======
-	border-radius: 15px;
-	background: ${colors.inputBoxColor};
-	border: none;
-	color: ${colors.mainColor};
-	font-weight: 700;
-	/* margin: 20px 20px 0px 20px; */
-	height: 50px;
-	cursor: pointer;
-	transition: all 0.8s ease;
-	&:hover {
-		background-color: ${colors.mainColor};
-		color: ${colors.inputBoxColor};
-	}
->>>>>>> c745368998d9a22da7189f41181ab5925d2b3bbc
+  cursor: pointer;
+  transition: all 0.8s ease;
+  &:hover {
+    background-color: ${colors.mainColor};
+    color: ${colors.inputBoxColor};
+  }
 `;
 
 const ButtonDiv = styled.div`
