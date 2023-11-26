@@ -73,13 +73,14 @@ function Detail() {
       await deleteDoc(doc(db, "posts", params.id));
 
       alert("삭제되었습니다!");
+      navigator("/");
     } else {
       return false;
     }
   };
 
   const clickGoToListBtnHandler = () => {
-    navigator(`/`);
+    navigator("/");
   };
 
   return (
