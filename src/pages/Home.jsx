@@ -32,6 +32,7 @@ const StHomeContainer = styled.div`
   justify-content: center;
   gap: 24px;
   padding-top: 16px;
+  padding-bottom: 60px;
   background: linear-gradient(
       127deg,
       rgba(32, 117, 255, 0.8),

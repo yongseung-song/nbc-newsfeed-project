@@ -26,8 +26,12 @@ function Profile({ photoURL, displayName, email, uid, creationTime }) {
           photoURL: url,
         });
       })
-      .then(() => navigate("/mypage"))
+      .then(() => notifyImageUploadComplete())
       .catch((error) => console.log(error));
+  };
+  const notifyImageUploadComplete = () => {
+    setImageURL("");
+    alert("이미지 업로드가 완료되었습니다!");
   };
 
   return (
@@ -105,8 +109,8 @@ const StInforContainer = styled.div`
   text-align: center;
   img {
     border-radius: 100%;
-    /* margin-top: -29px; */
-    /* border: 1px solid white; */
+    height: 120px;
+    width: 120px;
   }
   img:hover {
     opacity: 0.5;
@@ -117,6 +121,8 @@ const StInforImageUploadForm = styled.form`
   position: absolute;
   top: 0px;
   left: 58px;
+  height: 120px;
+  width: 120px;
   label {
     display: block;
     height: 120px;
