@@ -6,7 +6,18 @@ import { colors } from "../../styles/GlobalColors";
 import Tag from "../tag/Tag";
 import PostModal from "./PostModal";
 
-function Post({ id, creator, creatorUid, title, content, date, tag }) {
+function Post({
+  id,
+  creator,
+  creatorUid,
+  title,
+  content,
+  date,
+  tag,
+  editContent,
+  editTitle,
+  editDate,
+}) {
   const { showPostModal, setShowPostModal } = useContext(ModalContext);
   const postClickHandler = () => {
     setShowPostModal(true); // 이부분때문에 포스트 누르면 모달 뜸
@@ -20,14 +31,14 @@ function Post({ id, creator, creatorUid, title, content, date, tag }) {
             <img src="" alt="img" />
             <div>
               <h3>{creator}</h3>
-              <h4>{title}</h4>
+              <h4>{editTitle ? editTitle : title}</h4>
             </div>
             <StBtnContainer>
               <StFnBtn>👍🏻</StFnBtn>
               <StFnBtn>⭐️</StFnBtn>
             </StBtnContainer>
           </StPostHeaderWrapper>
-          <p>{content}</p>
+          <p>{editContent ? editContent : content}</p>
           <StDayContent>{date}</StDayContent>
           <StTagContainer>
             {tag &&
