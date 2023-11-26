@@ -11,8 +11,10 @@ import {
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import styled from "styled-components";
 import Tag from "../components/tag/Tag";
 import { db } from "../firebase";
+import { colors } from "../styles/GlobalColors";
 
 function Detail() {
   const [currentPost, setCurrentPost] = useState({});
@@ -81,51 +83,130 @@ function Detail() {
   };
 
   return (
-    <>
-      <p>채널이름</p>
-      <p>
-        {currentPost.tag &&
-          Object.values(currentPost.tag).map((item, idx) => {
-            return <Tag key={idx} item={item} />;
-          })}
-      </p>
-      <p>제목: {currentPost.title}</p>
-      <p>작성자: {currentPost.creator}</p>
-      <p>
-        {currentPost.editDate
-          ? `수정된 시간: ${dayjs(currentPost.editDate).format(
-              "YYYY년 M월 D일 hh:mm"
-            )}`
-          : dayjs(currentPost.createDate).format("YYYY년 M월 D일 hh:mm")}
-      </p>
-      <p>{currentPost.content}</p>
-      {/* 용승님 여기에요! 로그인 아이디랑 매치해서 얘를 뜨게 해주세요 */}
-      <button onClick={clickUpdateBtnHandler}>수정</button>
-      <button onClick={clickRemoveBtnHandler}>삭제</button>
-      <button onClick={clickGoToListBtnHandler}>목록으로</button>
-      <p>연관글보기</p>
-      {postList?.map((item) => {
-        return (
-          <div
-            key={item.id}
-            style={{ backgroundColor: "red", cursor: "pointer" }}
-            onClick={() => {
-              navigator(`/detail/${item.id}`);
-            }}
-          >
-            <p>
-              {item
-                ? `수정된 시간: ${dayjs(item.editDate).format(
-                    "YYYY년 M월 D일 hh:mm"
-                  )}`
-                : dayjs(item.createDate).format("YYYY년 M월 D일 hh:mm")}
-            </p>
-            <p>{item.title}</p>
-            <p>{item.content}</p>
-          </div>
-        );
-      })}
-    </>
+    <StDetailWrapper>
+      <StIndexWrapper>
+        <StSectionTitle>채널이름</StSectionTitle>
+        <StHashTagContent>
+          {currentPost.tag &&
+            Object.values(currentPost.tag).map((item, idx) => {
+              return <Tag key={idx} item={item} />;
+            })}
+        </StHashTagContent>
+        <StTitleCreatorTimeWrapper>
+          <p>제목: {currentPost.title}</p>
+          <p>작성자: {currentPost.creator}</p>
+          <p>
+            {currentPost.editDate
+              ? `수정된 시간: ${dayjs(currentPost.editDate).format(
+                  "YYYY년 M월 D일 hh:mm"
+                )}`
+              : dayjs(currentPost.createDate).format("YYYY년 M월 D일 hh:mm")}
+          </p>
+        </StTitleCreatorTimeWrapper>
+
+        <StIndexContent>{currentPost.content}</StIndexContent>
+        <StBtnWrapper>
+          <button onClick={clickUpdateBtnHandler}>수정</button>
+          <button onClick={clickRemoveBtnHandler}>삭제</button>
+          <button onClick={clickGoToListBtnHandler}>목록으로</button>
+        </StBtnWrapper>
+
+        <p>연관글보기</p>
+        {postList?.map((item) => {
+          return (
+            <div
+              key={item.id}
+              style={{ backgroundColor: "red", cursor: "pointer" }}
+              onClick={() => {
+                navigator(`/detail/${item.id}`);
+              }}
+            >
+              <p>
+                {item.editData ? `수정된 시간: ${item.editData}` : item.date}
+              </p>
+              <p>{item.title}</p>
+              <p>{item.content}</p>
+            </div>
+          );
+        })}
+      </StIndexWrapper>
+    </StDetailWrapper>
   );
 }
 export default Detail;
+
+const StDetailWrapper = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 700px;
+  margin: auto;
+  box-shadow: 0px 4px 30px 5px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  border-radius: 20px;
+`;
+const StSectionTitle = styled.h3`
+  color: ${colors.mainColor};
+  font-family: Pretendard;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  text-align: center;
+`;
+
+const StHashTagContent = styled.p`
+  display: flex;
+  gap: 10px;
+  li {
+    background-color: ${colors.inputBoxColor};
+  }
+`;
+
+const StIndexWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  /* background-color: ${colors.inputBoxColor}; */
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  gap: 10px;
+`;
+
+const StTitleCreatorTimeWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  color: ${colors.postColor};
+`;
+
+const StIndexContent = styled.p`
+  font-size: 18px;
+  line-height: 27px;
+  background-color: ${colors.inputBoxColor};
+  padding: 20px;
+  border-radius: 20px;
+  color: ${colors.postColor};
+`;
+
+const StBtnWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  button {
+    background-color: ${colors.mainColor};
+    border: none;
+    padding: 10px 20px;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 99px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+`;
