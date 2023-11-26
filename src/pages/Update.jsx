@@ -27,6 +27,9 @@ function Update() {
     };
 
     getDocPost();
+
+    setTitleinput(currentPost.title);
+    setContentTextarea(currentPost.content);
   }, []);
 
   const clickTitleChangeHandler = (event) => {
@@ -41,21 +44,24 @@ function Update() {
 
   const clickPostUpdateBtn = async (event) => {
     event.preventDefault();
-    const updateCheck = window.confirm("진짜로 정말로 수정하시겠습니다?");
+    console.log(contentTextarea);
+    if (currentPost.content === contentTextarea) {
+      alert("수정된게 없어 돌아가 다시 작성해");
+      return false;
+    }
 
-    if (updateCheck) {
+    if (window.confirm("진짜로 정말로 수정하시겠습니다?")) {
       await updateDoc(doc(postUpdateRef, params.id), {
         title: titleInput,
         content: contentTextarea,
         date: dayjs().toJSON(),
+        edit: "수정됨",
       });
-
       alert("수정되었습니다!");
 
       navigator("/mypage");
-    } else {
-      alert("수정된게 없습니다! 수정을 진행해주세요");
     }
+    return;
   };
 
   const clickGoToList = () => {
@@ -71,14 +77,14 @@ function Update() {
       <input
         ref={inputRef}
         type="text"
-        defaultValue={currentPost.title}
+        value={titleInput}
         onChange={clickTitleChangeHandler}
       />
       <br />
       내용:{" "}
       <textarea
         ref={textareaRef}
-        defaultValue={currentPost.content}
+        value={contentTextarea}
         onChange={clickContentChangeHandler}
       />
       <button type="submit" onClick={clickPostUpdateBtn}>
