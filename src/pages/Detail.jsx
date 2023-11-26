@@ -1,41 +1,31 @@
-import React, { useContext, useState } from "react";
-import { PostContext } from "../context/PostContext";
+import { doc, getDoc } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { db } from "../firebase";
 
 function Detail() {
-  const { postList, setPostList } = useContext(PostContext);
-  const data = [
-    { id: "1", title: "제목1", content: "내용입니다" },
-    { id: "2", title: "제목2", content: "내용입니다2" },
-    { id: "3", title: "제목3", content: "내용입니다3" },
-    { id: "4", title: "제목4", content: "내용입니다4" },
-    { id: "5", title: "제목5", content: "내용입니다5" },
-  ];
+  const [currentPost, setCurrentPost] = useState({});
 
-  const [todos, setTodos] = useState(data);
+  const params = useParams();
 
-  const clickDeleteButtonHadler = (id) => {
-    // const answer = window.confirm("정말로 삭제하시겠습니까?");
-    // if (!answer) return;
-    const deleteData = todos.filter((item) => {
-      return item.id !== id;
-    });
-    setTodos(deleteData);
-  };
+  useEffect(() => {
+    const getDocPost = async () => {
+      const updatePost = doc(db, "posts", params.id);
+      const snapshotPost = await getDoc(updatePost);
+      const postData = snapshotPost.data();
 
-  // const editData = todos.filter((item) => {
-  //   return item.id === id;
-  // });
+      setCurrentPost({ ...postData });
+      console.log(postData);
+      return postData;
+    };
+
+    getDocPost();
+  }, []);
 
   return (
     <>
-      {/* {editData.filter((data) => {
-        return (
-          <div key={data.id}>
-            <p>제목:{data.title}</p>
-            <p>내용:{data.content}</p>
-          </div>
-        );
-      })} */}
+      <p>{currentPost.title}</p>
+      <p>{currentPost.content}</p>
     </>
   );
 }

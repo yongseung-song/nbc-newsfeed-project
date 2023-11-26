@@ -5,30 +5,51 @@ import { authService } from "../../firebase";
 import { colors } from "../../styles/GlobalColors";
 
 function HeaderDropDown() {
-	console.log("test");
-	const navigator = useNavigate();
+  const navigate = useNavigate();
 
-	const clickLogoutBtnHandler = () => {
-		authService.signOut();
-		navigator("/");
-	};
+  const clickLogoutBtnHandler = () => {
+    authService.signOut();
+    navigate("/");
+  };
 
-	return (
-		<div>
-			<button onClick={() => navigator("mypage")}>마이페이지</button>
-			<button onClick={clickLogoutBtnHandler}>로그아웃</button>
-		</div>
-	);
+  return (
+    <StDropDownContainer>
+      <StHeaderBtn
+        onClick={() => {
+          navigate("mypage");
+          // window.location.reload();
+        }}
+      >
+        마이페이지
+      </StHeaderBtn>
+      <StHeaderBtn onClick={clickLogoutBtnHandler}>로그아웃</StHeaderBtn>
+    </StDropDownContainer>
+  );
 }
 
 export default HeaderDropDown;
 
+const StDropDownContainer = styled.div`
+  z-index: 3;
+  position: absolute;
+  width: 120px;
+  top: 42px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-color: #eee;
+  padding: 8px;
+  border-radius: 12px;
+`;
+
 const StHeaderBtn = styled.button`
-	background-color: ${colors.mainColor};
-	color: #fff;
-	border: none;
-	padding: 8px 16px;
-	border-radius: 99px;
-	margin-left: 10px;
-	font-weight: 700;
+  background-color: ${colors.mainColor};
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 99px;
+  /* margin-left: 10px; */
+  font-weight: 700;
+  cursor: pointer;
 `;
