@@ -13,7 +13,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Tag from "../components/tag/Tag";
-import { db } from "../firebase";
+import { authService, db } from "../firebase";
 import { colors } from "../styles/GlobalColors";
 
 function Detail() {
@@ -22,7 +22,7 @@ function Detail() {
 
   const postRef = collection(db, "posts");
   const params = useParams();
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getDocPost = async () => {
@@ -63,23 +63,28 @@ function Detail() {
   }, [params.id]);
 
   const clickUpdateBtnHandler = () => {
-    navigator(`update`);
+    if (currentPost.creatorUid === authService?.currentUser?.uid) {
+      navigate(`update`);
+    } else {
+      alert("수정 권한이 없습니다.");
+    }
   };
 
   const clickRemoveBtnHandler = async () => {
-    const delCheck = window.confirm("정말로 삭제하시겠습니까?");
+    if (currentPost.creatorUid === authService?.currentUser?.uid) {
+      const delCheck = window.confirm("정말로 삭제하시겠습니까?");
+      if (delCheck) {
+        await deleteDoc(doc(db, "posts", params.id));
 
-    if (delCheck) {
-      await deleteDoc(doc(db, "posts", params.id));
-
-      alert("삭제되었습니다!");
+        alert("삭제되었습니다!");
+      }
     } else {
-      return false;
+      alert("삭제 권한이 없습니다.");
     }
   };
 
   const clickGoToListBtnHandler = () => {
-    navigator(`/`);
+    navigate(`/`);
   };
 
   return (
@@ -119,7 +124,7 @@ function Detail() {
                 key={item.id}
                 style={{ backgroundColor: "red", cursor: "pointer" }}
                 onClick={() => {
-                  navigator(`/detail/${item.id}`);
+                  navigate(`/detail/${item.id}`);
                 }}
               >
                 <p>
