@@ -25,7 +25,7 @@ function Post({ id, creator, creatorUid, title, content, date, tag, edit }) {
 						<StBtnContainer>
 							<StFnBtn>👍🏻</StFnBtn>
 							<StFnBtn>⭐️</StFnBtn>
-							{creatoruid === getAuth()?.currentUser?.uid ? (
+							{creatorUid === getAuth()?.currentUser?.uid ? (
 								<StReviseBtn>수정/삭제</StReviseBtn>
 							) : (
 								""

@@ -34,7 +34,6 @@ function HeaderAuthMenu() {
 							src={userAvatarUrl}
 						/>
 						<p>{name ?? "guest"}님</p>
-						<StHeaderBtn onClick={clickLogoutBtnHandler}>로그아웃</StHeaderBtn>
 					</StAuthMenu>
 				) : (
 					<StHeaderBtn onClick={loginModalHandler}>로그인</StHeaderBtn>

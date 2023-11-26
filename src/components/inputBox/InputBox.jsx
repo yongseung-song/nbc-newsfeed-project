@@ -58,7 +58,9 @@ function InputBox() {
 		<InputBoxDiv>
 			<form action="">
 				<WriteBoxDiv>
-					<StInputTitleContent htmlFor="">제목 작성</StInputTitleContent>
+					<StInputTitleContent htmlFor="title">
+						제목을 입력해주세요
+					</StInputTitleContent>
 					<InputBoxStyle
 						ref={inputRef}
 						id="title"
@@ -70,7 +72,9 @@ function InputBox() {
 					/>
 				</WriteBoxDiv>
 				<WriteBoxDiv>
-					<StInputTitleContent htmlFor="textarea">글 작성</StInputTitleContent>
+					<StInputTitleContent htmlFor="textarea">
+						글의 내용을 입력해주세요
+					</StInputTitleContent>
 					<TextAreaStyle
 						placeholder="글의 내용을 1500자 이내로 입력해주세요"
 						ref={textareaRef}
@@ -82,10 +86,23 @@ function InputBox() {
 						onChange={(e) => setTextAreaValue(e.target.value)}
 					/>
 				</WriteBoxDiv>
+				<WriteBoxDiv>
+					<StInputTitleContent htmlFor="tags">
+						태그를 입력해주세요
+					</StInputTitleContent>
+					<InputBoxStyle
+						placeholder="태그는 쉼표(,) 로 구분해주세요"
+						ref={inputTagRef}
+						value={inputTagValue}
+						id="tags"
+						type="text"
+						onChange={(e) => setInputTagValue(e.target.value)}
+					/>
+				</WriteBoxDiv>
 			</form>
 			<BtnDiv>
 				<ButtonStyle type="submit" onClick={postSubmitBtnClickHandler}>
-					게시
+					등록
 				</ButtonStyle>
 				<ButtonStyle>취소</ButtonStyle>
 			</BtnDiv>
@@ -110,9 +127,6 @@ const InputBoxDiv = styled.div`
 	textarea {
 		/* width: 80%; */
 		resize: none;
-	}
-	label {
-		font-size: 0;
 	}
 	div {
 	}
