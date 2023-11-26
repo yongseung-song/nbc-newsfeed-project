@@ -125,9 +125,9 @@ const InputBoxDiv = styled.div`
 	/* height: 160px; // 조건부 스타일링 필요 */
 	position: sticky;
 	overflow: hidden;
-	padding: 30px;
+	padding: 24px 30px 30px 30px;
 	top: 110px;
-	margin-bottom: 16px;
+	margin-bottom: 20px;
 	border-radius: 30px;
 	background: #fff;
 	z-index: 2;
@@ -146,6 +146,7 @@ const InputBoxDiv = styled.div`
 		margin-bottom: ${(props) => (props.$isOpen ? "16px" : "40px")};
 		transition: 0.5s ease-in-out;
 		cursor: pointer;
+		color: ${colors.mainColor};
 	}
 `;
 
