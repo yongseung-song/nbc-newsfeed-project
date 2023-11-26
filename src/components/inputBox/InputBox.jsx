@@ -2,10 +2,8 @@ import dayjs from "dayjs";
 import { getAuth } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 import React, { useContext, useRef, useState } from "react";
-import styled from "styled-components";
 import { PostContext } from "../../context/PostContext";
 import { db } from "../../firebase";
-import { colors } from "../../styles/GlobalColors";
 // import { ModalContext } from "../../context/ModalContext";
 function InputBox() {
   const { setPostList } = useContext(PostContext);
@@ -31,7 +29,7 @@ function InputBox() {
     const newPost = {
       title: inputValue,
       content: textAreaValue,
-      date: dayjs().toJSON(),
+      createDate: dayjs().toJSON(),
       creator: user.displayName,
       creatorUid: auth.currentUser.uid,
       id: newDocRef.id,
@@ -130,6 +128,7 @@ const InputBoxDiv = styled.div`
   margin-bottom: 16px;
   border-radius: 30px;
   background: #fff;
+  z-index: 2;
 
   /* bigShadow */
   box-shadow: 0px 4px 30px 5px rgba(0, 0, 0, 0.05);

@@ -33,7 +33,7 @@ function PostsSummary({ displayName }) {
   // const myPosts = iterableData.filter((item) => item.creatorUid === uid);
 
   const clickGoToUpdate = (id) => {
-    navigate(`/detail/update/${id}`);
+    navigate(`/detail/${id}`);
   };
 
   return (

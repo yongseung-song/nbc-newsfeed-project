@@ -6,6 +6,7 @@ import { PostContext } from "../../context/PostContext";
 import { colors } from "../../styles/GlobalColors";
 function Profile({ photoURL, displayName, email, uid, creationTime }) {
   const { postList } = useContext(PostContext);
+
   // console.log(myPosts);
   return (
     <StProfileWrapper>
@@ -26,6 +27,7 @@ function Profile({ photoURL, displayName, email, uid, creationTime }) {
     </StProfileWrapper>
   );
 }
+
 export default Profile;
 const StProfileWrapper = styled.article`
   max-width: 800px;

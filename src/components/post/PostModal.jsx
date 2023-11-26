@@ -1,5 +1,5 @@
-import dayjs from "dayjs";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import ModalBasic from "../modal/ModalBasic";
 
 function PostModal({
@@ -9,21 +9,24 @@ function PostModal({
   creator,
   title,
   content,
-  date,
+  createDate,
   tag,
+  editDate,
 }) {
-  // console.log(id);
+  const navigate = useNavigate();
+
   return (
     <ModalBasic
       showPostModal={showPostModal}
       setShowPostModal={setShowPostModal}
     >
       <div>
-        <h3>{id}</h3>
+        <button onClick={() => navigate(`/detail/${id}`)}>상세보기</button>
+        <p>{creator}</p>
+        <p>{editDate ? `수정된 시간: ${editDate}` : createDate}</p>
+        <p>{title}</p>
         <p>{content}</p>
-        <p>{dayjs().format("YYYY년 M월 D일 hh:mm")}</p>
       </div>
-      <button></button>
     </ModalBasic>
   );
 }

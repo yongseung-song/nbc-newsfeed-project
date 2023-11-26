@@ -32,13 +32,14 @@ function Detail() {
     };
 
     getDocPost();
-  }, []);
+  }, [params.id]);
 
   useEffect(() => {
     const getDocsPost = async () => {
       const currentPostDoc = doc(db, "posts", params.id);
       const snapshotPost = await getDoc(currentPostDoc);
       const postData = snapshotPost.data();
+      let arr = [];
       const filterQuery = query(
         postRef,
         where("creatorUid", "!=", postData.creatorUid),
@@ -49,13 +50,14 @@ function Detail() {
       const postFilter = await getDocs(filterQuery);
 
       postFilter.forEach((post) => {
-        console.log(post.data());
-        setPostList((prevList) => [...prevList, post.data()]);
+        arr.push(post.data());
       });
+
+      setPostList(arr);
     };
 
     getDocsPost();
-  }, [db]);
+  }, [params.id]);
 
   const clickUpdateBtnHandler = () => {
     navigator(`update`);
@@ -89,7 +91,9 @@ function Detail() {
       <p>제목: {currentPost.title}</p>
       <p>작성자: {currentPost.creator}</p>
       <p>
-        작성시간: {currentPost.date} {currentPost.edit ? currentPost.edit : ""}
+        {currentPost.editDate
+          ? `수정된 시간:${currentPost.editDate}`
+          : `작성된 시간:${currentPost.createDate}`}
       </p>
       <p>{currentPost.content}</p>
       <button onClick={clickUpdateBtnHandler}>수정</button>
@@ -97,7 +101,19 @@ function Detail() {
       <button onClick={clickGoToListBtnHandler}>목록으로</button>
       <p>연관글보기</p>
       {postList?.map((item) => {
-        return <div key={item.id}>{item.title}</div>;
+        return (
+          <div
+            key={item.id}
+            style={{ backgroundColor: "red", cursor: "pointer" }}
+            onClick={() => {
+              navigator(`/detail/${item.id}`);
+            }}
+          >
+            <p>{item.editData ? `수정된 시간: ${item.editData}` : item.date}</p>
+            <p>{item.title}</p>
+            <p>{item.content}</p>
+          </div>
+        );
       })}
     </>
   );

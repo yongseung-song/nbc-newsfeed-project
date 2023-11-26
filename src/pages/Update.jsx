@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { db } from "../firebase";
 import { colors } from "../styles/GlobalColors";
-
 function Update() {
   const [titleInput, setTitleinput] = useState("");
   const [contentTextarea, setContentTextarea] = useState("");
@@ -14,62 +13,49 @@ function Update() {
   const inputRef = useRef();
   const textareaRef = useRef();
   const postUpdateRef = collection(db, "posts");
-
   const navigate = useNavigate();
-
   useEffect(() => {
     const getDocPost = async () => {
       const updatePost = doc(db, "posts", params.id);
       const snapshotPost = await getDoc(updatePost);
       const postData = snapshotPost.data();
-
-      setCurrentPost(postData);
-
+      setCurrentPost({ ...postData });
+      console.log(postData);
       return postData;
     };
-
     getDocPost();
-
-    setTitleinput(currentPost.title);
-    setContentTextarea(currentPost.content);
   }, []);
-
-  const clickTitleChangeHandler = (event) => {
+  const titleChangeHandler = (event) => {
     const inputTitle = event.currentTarget.value;
     setTitleinput(inputTitle);
   };
-
-  const clickContentChangeHandler = (event) => {
+  const contentChangeHandler = (event) => {
     const textareaContent = event.currentTarget.value;
     setContentTextarea(textareaContent);
   };
-
-  const clickPostUpdateBtn = async (event) => {
+  const clickUpdateBtnHandler = async (event) => {
     event.preventDefault();
     console.log(contentTextarea);
-    if (currentPost.content === contentTextarea) {
-      alert("수정된게 없어 돌아가 다시 작성해");
+    if (currentPost.content === textareaRef.current.value) {
+      alert("수정사항이 없습니다.");
       return false;
     }
-
-    if (window.confirm("진짜로 정말로 수정하시겠습니다?")) {
+    if (window.confirm("글을 수정하시겠습니까?")) {
       await updateDoc(doc(postUpdateRef, params.id), {
-        title: titleInput,
-        content: contentTextarea,
-        date: dayjs().toJSON(),
-        edit: "수정됨",
+        title: inputRef.current.value,
+        content: textareaRef.current.value,
+        editDate: dayjs().toJSON(),
       });
       alert("수정되었습니다!");
-
-      navigator("/mypage");
+      navigate(`/detail/${params.id}`);
+      // okok detail 페이지로 리디렉션
     }
     return;
   };
-
+  const clickUpdateCancelBtnHandler = () => {};
   const clickGoToList = () => {
-    navigator("/mypage");
+    navigate("/mypage");
   };
-
   return (
     <StUpdateWrapper>
       <StSectionTitle>글 수정하기 </StSectionTitle>
@@ -82,30 +68,28 @@ function Update() {
         <StInputContent
           ref={inputRef}
           type="text"
-          value={titleInput}
-          onChange={clickTitleChangeHandler}
+          defaultValue={currentPost.title}
+          onChange={titleChangeHandler}
         />
         <br />
         <StInputTItle>내용: </StInputTItle>
         <StTextArea
           ref={textareaRef}
-          value={contentTextarea}
-          onChange={clickContentChangeHandler}
+          defaultValue={currentPost.content}
+          onChange={contentChangeHandler}
         />
         <StBtnContainer>
-          <button type="submit" onClick={clickPostUpdateBtn}>
+          <button type="submit" onClick={clickUpdateBtnHandler}>
             수정하기
           </button>
-          <button>취소</button>
+          <button onClick={clickUpdateCancelBtnHandler}>취소</button>
           <button onClick={clickGoToList}>목록으로</button>
         </StBtnContainer>
       </StIndexWrapper>
     </StUpdateWrapper>
   );
 }
-
 export default Update;
-
 const StUpdateWrapper = styled.form`
   display: flex;
   flex-direction: column;
@@ -117,7 +101,6 @@ const StUpdateWrapper = styled.form`
   padding: 20px;
   border-radius: 20px;
 `;
-
 const StSectionTitle = styled.h3`
   color: ${colors.mainColor};
   font-family: Pretendard;
@@ -129,7 +112,6 @@ const StSectionTitle = styled.h3`
   margin-top: 20px;
   text-align: center;
 `;
-
 const StIndexWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -139,7 +121,6 @@ const StIndexWrapper = styled.div`
   width: 100%;
   gap: 10px;
 `;
-
 const StCreatorDayWrapper = styled.p`
   color: ${colors.postColor};
   display: flex;
@@ -147,20 +128,17 @@ const StCreatorDayWrapper = styled.p`
   margin-bottom: 25px;
   font-size: 14px;
 `;
-
 const StInputTItle = styled.label`
   color: ${colors.smallTitleColor};
   font-weight: 700;
   font-size: 24px;
 `;
-
 const StInputContent = styled.input`
   background-color: ${colors.inputBoxColor};
   border-radius: 20px;
   border: none;
   padding: 20px;
 `;
-
 const StTextArea = styled.textarea`
   background-color: ${colors.inputBoxColor};
   border-radius: 20px;
@@ -169,7 +147,6 @@ const StTextArea = styled.textarea`
   height: 200px;
   resize: none;
 `;
-
 const StBtnContainer = styled.div`
   display: flex;
   justify-content: center;
