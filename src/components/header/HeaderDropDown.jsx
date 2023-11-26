@@ -32,7 +32,7 @@ export default HeaderDropDown;
 const StDropDownContainer = styled.div`
   position: absolute;
   width: 120px;
-  top: 40px;
+  top: 42px;
   left: 0;
   display: flex;
   flex-direction: column;

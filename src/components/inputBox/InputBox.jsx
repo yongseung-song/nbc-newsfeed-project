@@ -18,6 +18,7 @@ function InputBox() {
   const inputTagRef = useRef();
   const auth = getAuth();
   const user = auth.currentUser;
+  // 강쟝님 파싱 추가 부탁
 
   const newDocRef = doc(collection(db, "posts"));
 
