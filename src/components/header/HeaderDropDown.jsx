@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { authService } from "../../firebase";
 import { colors } from "../../styles/GlobalColors";
-
 function HeaderDropDown() {
   const navigate = useNavigate();
 
