@@ -130,7 +130,6 @@ const InputBoxDiv = styled.div`
   margin-bottom: 16px;
   border-radius: 30px;
   background: #fff;
-  z-index: 2;
 
   /* bigShadow */
   box-shadow: 0px 4px 30px 5px rgba(0, 0, 0, 0.05);

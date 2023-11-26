@@ -23,20 +23,23 @@ function Update() {
       const snapshotPost = await getDoc(updatePost);
       const postData = snapshotPost.data();
 
-      setCurrentPost({ ...postData });
-      console.log(postData);
+      setCurrentPost(postData);
+
       return postData;
     };
 
     getDocPost();
+
+    setTitleinput(currentPost.title);
+    setContentTextarea(currentPost.content);
   }, []);
 
-  const titleChangeHandler = (event) => {
+  const clickTitleChangeHandler = (event) => {
     const inputTitle = event.currentTarget.value;
     setTitleinput(inputTitle);
   };
 
-  const contentChangeHandler = (event) => {
+  const clickContentChangeHandler = (event) => {
     const textareaContent = event.currentTarget.value;
     setContentTextarea(textareaContent);
   };
@@ -44,28 +47,27 @@ function Update() {
   const clickPostUpdateBtn = async (event) => {
     event.preventDefault();
     console.log(contentTextarea);
-    if (currentPost.content === textareaRef.current.value) {
-      alert("수정사항이 없습니다.");
+    if (currentPost.content === contentTextarea) {
+      alert("수정된게 없어 돌아가 다시 작성해");
       return false;
     }
 
-    if (window.confirm("글을 수정하시겠습니까?")) {
+    if (window.confirm("진짜로 정말로 수정하시겠습니다?")) {
       await updateDoc(doc(postUpdateRef, params.id), {
-        title: inputRef.current.value,
-        content: textareaRef.current.value,
+        title: titleInput,
+        content: contentTextarea,
         date: dayjs().toJSON(),
         edit: "수정됨",
       });
       alert("수정되었습니다!");
 
-      navigate(`/detail/${params.id}`);
-      // okok detail 페이지로 리디렉션
+      navigator("/mypage");
     }
     return;
   };
 
   const clickGoToList = () => {
-    navigate("/mypage");
+    navigator("/mypage");
   };
 
   return (
@@ -80,15 +82,15 @@ function Update() {
         <StInputContent
           ref={inputRef}
           type="text"
-          defaultValue={currentPost.title}
-          onChange={titleChangeHandler}
+          value={titleInput}
+          onChange={clickTitleChangeHandler}
         />
         <br />
         <StInputTItle>내용: </StInputTItle>
         <StTextArea
           ref={textareaRef}
-          defaultValue={currentPost.content}
-          onChange={contentChangeHandler}
+          value={contentTextarea}
+          onChange={clickContentChangeHandler}
         />
         <StBtnContainer>
           <button type="submit" onClick={clickPostUpdateBtn}>
