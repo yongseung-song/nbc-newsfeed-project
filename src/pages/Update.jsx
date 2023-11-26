@@ -68,7 +68,9 @@ function Update() {
                 ? `수정된 시간: ${dayjs(currentPost.editDate).format(
                     "YYYY년 M월 D일 hh:mm"
                   )}`
-                : `작성된 시간: dayjs(currentPost.createDate).format("YYYY년 M월 D일 hh:mm")`}
+                : `작성된 시간: ${dayjs(currentPost.createDate).format(
+                    "YYYY년 M월 D일 hh:mm"
+                  )}`}
             </p>
           </StCreatorDayWrapper>
           <StInputTItle>제목:</StInputTItle>
