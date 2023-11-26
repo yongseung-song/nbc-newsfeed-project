@@ -99,6 +99,7 @@ function Detail() {
           : dayjs(currentPost.createDate).format("YYYY년 M월 D일 hh:mm")}
       </p>
       <p>{currentPost.content}</p>
+      {/* 용승님 여기에요! 로그인 아이디랑 매치해서 얘를 뜨게 해주세요 */}
       <button onClick={clickUpdateBtnHandler}>수정</button>
       <button onClick={clickRemoveBtnHandler}>삭제</button>
       <button onClick={clickGoToListBtnHandler}>목록으로</button>
