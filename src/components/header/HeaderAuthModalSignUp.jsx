@@ -6,15 +6,16 @@ import {
 } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { authService, db } from "../../firebase";
 import * as St from "./HeaderAuthModalSignUp.style";
 
 function SignUp() {
-  const signupRef = collection(db, "users");
-
   const [accountEmail, setAccountEmail] = useState("");
   const [accountPassword, setAccountPassword] = useState("");
   const [accountNickname, setAccountNickname] = useState("");
+  const signupRef = collection(db, "users");
+  const navigate = useNavigate();
 
   const TODAY = dayjs().format("YY-MM-DD HH:mm:ss");
 
@@ -33,7 +34,7 @@ function SignUp() {
     setAccountNickname(nickname);
   };
 
-  const account = (accountEmail, accountPassword) => {
+  const createAccount = (accountEmail, accountPassword) => {
     const auth = getAuth();
     const newDocRef = doc(signupRef);
     // .then((res) => console.log(res));
@@ -55,18 +56,30 @@ function SignUp() {
           userCreateAt: TODAY,
         })
       )
-      .catch((error) => console.error(error.code, error.message));
+      .then(() => {
+        alert(`${accountNickname}님 회원 가입을 축하드립니다!`);
+        setAccountEmail("");
+        setAccountPassword("");
+        setAccountNickname("");
+      })
+      .then(() => navigate("/"))
+      .catch((error) => signUpErrorHandler(error));
+  };
+
+  const signUpErrorHandler = (error) => {
+    if (error.code === "auth/email-already-in-use") {
+      alert("입력하신 이메일 주소로 가입된 아이디가 이미 존재합니다.");
+    } else if (error.code === "auth/invalid-email") {
+      alert("유효하지 않은 이메일입니다.");
+    } else if (error.code === "auth/weak-password") {
+      alert("비밀번호는 6글자 이상이어야 합니다.");
+    }
   };
 
   // 회원가입 등록 버튼
   const accountBtnClickHandler = (event) => {
     event.preventDefault();
-    account(accountEmail, accountPassword);
-    alert("회원가입을 축하드립니다!");
-
-    setAccountEmail("");
-    setAccountPassword("");
-    setAccountNickname("");
+    createAccount(accountEmail, accountPassword);
   };
 
   return (

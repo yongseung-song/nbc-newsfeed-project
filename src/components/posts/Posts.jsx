@@ -18,6 +18,7 @@ function Posts() {
         }))
       )
     );
+    console.log("update occured");
   }, [db]);
 
   const iterableData = Object.values({ ...postList });

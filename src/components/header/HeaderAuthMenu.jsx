@@ -19,6 +19,8 @@ function HeaderAuthMenu() {
   const { isLoggedIn } = useContext(AuthContext);
   const { showModal, setShowModal } = useContext(ModalContext);
 
+  console.log(name);
+
   const loginModalHandler = () => {
     setShowModal(true);
   };
@@ -29,9 +31,8 @@ function HeaderAuthMenu() {
         {isLoggedIn ? (
           <StAuthMenu>
             <St.DropDownBtn
-              onClick={() => {
-                setShowDropDown(!showDropDown);
-              }}
+              onBlur={() => setShowDropDown(false)}
+              onClick={() => setShowDropDown(!showDropDown)}
               src={userAvatarUrl}
             />
             <p>{name ?? "guest"}님</p>

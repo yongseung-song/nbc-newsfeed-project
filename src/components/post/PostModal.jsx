@@ -12,7 +12,7 @@ function PostModal({
   date,
   tag,
 }) {
-  console.log(id);
+  // console.log(id);
   return (
     <ModalBasic
       showPostModal={showPostModal}

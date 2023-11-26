@@ -11,7 +11,7 @@ function Post({ id, creator, creatorUid, title, content, date, tag, edit }) {
   const [showPostModal, setShowPostModal] = useState(false);
   const postClickHandler = () => {
     console.log(id, content);
-    setShowPostModal(true); // 이부분때문에 포스트 누르면 모달 뜸
+    setShowPostModal(true);
   };
 
   return (
