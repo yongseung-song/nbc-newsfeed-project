@@ -1,12 +1,13 @@
 import dayjs from "dayjs";
-import { collection, doc, updateDoc } from "firebase/firestore";
-import React, { useRef, useState } from "react";
+import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { db } from "../firebase";
 
 function Update() {
-  // const { id } = useParams();
-  // console.log("id", id);
+  const [titleInput, setTitleinput] = useState("");
+  const [contentTextarea, setContentTextarea] = useState("");
+  const [currentPost, setCurrentPost] = useState({});
   const params = useParams();
   const inputRef = useRef();
   const textareaRef = useRef();
@@ -14,8 +15,19 @@ function Update() {
 
   const navigator = useNavigate();
 
-  const [titleInput, setTitleinput] = useState("");
-  const [contentTextarea, setContentTextarea] = useState("");
+  useEffect(() => {
+    const getDocPost = async () => {
+      const updatePost = doc(db, "posts", params.id);
+      const snapshotPost = await getDoc(updatePost);
+      const postData = snapshotPost.data();
+
+      setCurrentPost(postData);
+
+      return postData;
+    };
+
+    getDocPost();
+  }, []);
 
   const clickTitleChangeHandler = (event) => {
     const inputTitle = event.currentTarget.value;
@@ -29,14 +41,21 @@ function Update() {
 
   const clickPostUpdateBtn = async (event) => {
     event.preventDefault();
+    const updateCheck = window.confirm("진짜로 정말로 수정하시겠습니다?");
 
-    await updateDoc(doc(postUpdateRef, params.id), {
-      editTitle: titleInput,
-      editContent: contentTextarea,
-      editDate: dayjs().toJSON(),
-    });
+    if (updateCheck) {
+      await updateDoc(doc(postUpdateRef, params.id), {
+        editTitle: titleInput,
+        editContent: contentTextarea,
+        editDate: dayjs().toJSON(),
+      });
 
-    navigator("/mypage");
+      alert("수정되었습니다!");
+
+      navigator("/mypage");
+    } else {
+      return false;
+    }
   };
 
   const clickGoToList = () => {
@@ -45,22 +64,27 @@ function Update() {
 
   return (
     <form>
-      <h3>글 수정하기</h3>
-      <p>조회수</p>
-      <p>작성자</p>
-      <p>작성시간</p>
-      제목:{" "}
+      <h3>글 수정하기 </h3>
+      <p>작성자 {currentPost.creator}</p>
+      <p>작성시간 {currentPost.date}</p>
+      제목:
       <input
         ref={inputRef}
         type="text"
-        value={titleInput}
+        defaultValue={
+          currentPost.editTitle ? currentPost.editTitle : currentPost.title
+        }
         onChange={clickTitleChangeHandler}
       />
       <br />
       내용:{" "}
       <textarea
         ref={textareaRef}
-        value={contentTextarea}
+        defaultValue={
+          currentPost.editContent
+            ? currentPost.editContent
+            : currentPost.content
+        }
         onChange={clickContentChangeHandler}
       />
       <button type="submit" onClick={clickPostUpdateBtn}>
