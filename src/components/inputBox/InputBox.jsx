@@ -113,6 +113,7 @@ function InputBox() {
 export default InputBox;
 
 const InputBoxDiv = styled.div`
+	z-index: 2;
 	width: 630px;
 	/* height: 160px; // 조건부 스타일링 필요 */
 	position: sticky;

@@ -39,6 +39,12 @@ const ButtonStyle = styled.button`
 	font-weight: 700;
 	/* margin: 20px 20px 0px 20px; */
 	height: 50px;
+	cursor: pointer;
+	transition: all 0.8s ease;
+	&:hover {
+		background-color: ${colors.mainColor};
+		color: ${colors.inputBoxColor};
+	}
 `;
 
 const ButtonDiv = styled.div`

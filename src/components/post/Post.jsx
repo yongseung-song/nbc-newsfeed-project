@@ -61,6 +61,7 @@ export default Post;
 
 const StPostWrapper = styled.article`
 	width: 630px;
+	background-color: #fff;
 	/* height: 140px; */
 	box-shadow: 0px 4px 30px 5px rgba(0, 0, 0, 0.05);
 	padding: 20px;
@@ -68,20 +69,28 @@ const StPostWrapper = styled.article`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	cursor: pointer;
+	transition: all 0.5s ease;
+	&:hover {
+		transform: scale(1.04);
+	}
+	z-index: 1;
 `;
 
 const StPostHeaderWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 20px;
+	/* margin-bottom: 20px; */
 	/* div {
 		margin-left: 32px;
 	} */
+	margin: 10px 25px 10px 25px;
 `;
 const StTagContainer = styled.ul`
 	display: flex;
 	gap: 8px;
+	margin: 0 25px 10px 25px;
 `;
 
 const StDayContent = styled.p`
@@ -102,7 +111,8 @@ const StFnBtn = styled.button`
 	background-color: #fff;
 	text-align: center;
 	cursor: pointer;
-	padding: 2px 10px;
+	padding: 1px 8px;
+	font-size: 10px;
 `;
 
 const StIndexWrap = styled.div`
@@ -121,11 +131,18 @@ const StReviseBtn = styled.button`
 	cursor: pointer;
 	padding: 2px 10px;
 	color: ${colors.smallTitleColor};
+	font-size: 12px;
 `;
 
 const StContent = styled.p`
 	color: ${colors.postColor};
 	margin: 0 25px 10px 25px;
+	font-size: 16px;
+	line-height: 24px;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
 `;
 
 const StPostTitle = styled.h4`
@@ -133,7 +150,7 @@ const StPostTitle = styled.h4`
 	font-weight: 700;
 	font-size: 26px;
 	/* margin-bottom: 10px; */
-	margin: 0 25px 10px 25px;
+	margin: 10px 25px 10px 25px;
 `;
 
 const StProfileCreator = styled.div`
