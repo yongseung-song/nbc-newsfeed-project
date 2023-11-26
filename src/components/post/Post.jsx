@@ -42,17 +42,7 @@ function Post({ id, creator, creatorUid, title, content, date, tag, edit }) {
           )}
         </StIndexWrap>
       </StPostWrapper>
-      {showPostModal && (
-        <PostModal
-          id={id}
-          creator={creator}
-          creatorUid={creatorUid}
-          title={title}
-          content={content}
-          date={date}
-          tag={[]}
-        />
-      )}
+      {showPostModal && <PostModal id={id} />}
     </>
   );
 }
