@@ -29,11 +29,12 @@ function Posts() {
   return (
     <PostsWrapper>
       {iterableData
-        .sort((a, b) => dayjs(b.date) - dayjs(a.date))
+        .sort((a, b) => dayjs(b.createDate) - dayjs(a.createDate))
         .map((post, idx) => {
           const {
             creator,
             creatorUid,
+            creatorPhotoURL,
             title,
             id,
             content,
@@ -47,10 +48,11 @@ function Posts() {
               title={title}
               creator={creator}
               creatorUid={creatorUid}
+              creatorPhotoURL={creatorPhotoURL}
               content={content}
               id={id}
-              createDate={dayjs(createDate).format("YYYY년 M월 D일 h:m")}
-              editDate={dayjs(editDate).format("YYYY년 M월 D일 h:m")}
+              createDate={createDate}
+              editDate={editDate}
               tag={tag}
             />
           );

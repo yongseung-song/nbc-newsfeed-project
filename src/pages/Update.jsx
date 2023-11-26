@@ -100,7 +100,7 @@ function Update() {
 export default Update;
 
 const StUpdateWrapperBG = styled.div`
-  padding: 36px 0;
+  padding: 36px 0 180px;
   background: linear-gradient(
       127deg,
       rgba(32, 117, 255, 0.8),

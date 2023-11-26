@@ -7,11 +7,14 @@ import { colors } from "../../styles/GlobalColors.jsx";
 import HeaderAuthMenu from "./HeaderAuthMenu.jsx";
 
 function Header() {
+  const headerSubmitBtnClickHandler = (e) => {
+    e.preventDefault();
+  };
   return (
     <HeaderBox>
       <HeaderBoxDiv>
         <LinkIcon to="/"></LinkIcon>
-        <form action="submit">
+        <form action="submit" onSubmit={headerSubmitBtnClickHandler}>
           <label htmlFor="search"></label>
           <SearchBox id="search" name="search" type="text" />
         </form>

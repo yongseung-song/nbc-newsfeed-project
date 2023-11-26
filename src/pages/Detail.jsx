@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import {
   collection,
   deleteDoc,
@@ -97,8 +98,12 @@ function Detail() {
             <p>작성자: {currentPost.creator}</p>
             <p>
               {currentPost.editDate
-                ? `수정된 시간:${currentPost.editDate}`
-                : `작성된 시간:${currentPost.createDate}`}
+                ? `수정된 시간: ${dayjs(currentPost.editDate).format(
+                    "YYYY년 MM월 DD일 hh:mm"
+                  )}`
+                : `작성된 시간: ${dayjs(currentPost.createDate).format(
+                    "YYYY년 MM월 DD일 hh:mm"
+                  )}`}
             </p>
           </StTitleCreatorTimeWrapper>
           <StIndexContent>{currentPost.content}</StIndexContent>
@@ -133,7 +138,7 @@ function Detail() {
 export default Detail;
 
 const StDetailWrapperBG = styled.div`
-  padding: 36px 0;
+  padding: 36px 0 180px;
   background: linear-gradient(
       127deg,
       rgba(32, 117, 255, 0.8),
@@ -196,6 +201,7 @@ const StTitleCreatorTimeWrapper = styled.div`
 const StIndexContent = styled.p`
   font-size: 18px;
   line-height: 27px;
+  word-wrap: break-word;
   background-color: ${colors.inputBoxColor};
   padding: 20px;
   border-radius: 20px;

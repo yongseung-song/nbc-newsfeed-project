@@ -2,12 +2,14 @@ import dayjs from "dayjs";
 import { collection, doc, setDoc } from "firebase/firestore";
 import React, { useContext, useRef, useState } from "react";
 import styled from "styled-components";
+import { AuthContext } from "../../context/AuthContext";
 import { PostContext } from "../../context/PostContext";
 import { authService, db } from "../../firebase";
 import { colors } from "../../styles/GlobalColors";
 // import { ModalContext } from "../../context/ModalContext";
 function InputBox() {
   const { setPostList } = useContext(PostContext);
+  const { isLoggedIn } = useContext(AuthContext);
   const [inputValue, setInputValue] = useState("");
   const [textAreaValue, setTextAreaValue] = useState("");
   const [inputTagValue, setInputTagValue] = useState("");
@@ -22,17 +24,19 @@ function InputBox() {
   const newDocRef = doc(collection(db, "posts"));
 
   const parseTags = () => {
-    return inputTagValue.trim().toLowerCase().split(",");
+    return inputTagValue.trim().toUpperCase().split(",");
   };
 
   const postSubmitBtnClickHandler = async (e) => {
     // const tags = parseTags();
+
     const newPost = {
       title: inputValue,
       content: textAreaValue,
       createDate: dayjs().toJSON(),
-      creator: user.displayName,
+      creator: user?.displayName,
       creatorUid: auth.currentUser.uid,
+      creatorPhotoURL: auth.currentUser.photoURL,
       id: newDocRef.id,
       tag: parseTags(),
     };
@@ -56,7 +60,14 @@ function InputBox() {
   };
 
   const inputBoxClickHandler = () => {
-    setInputBoxOpen(!inputBoxOpen);
+    if (isLoggedIn === true) {
+      setInputBoxOpen(!inputBoxOpen);
+    } else {
+      alert("게시물을 작성하려면 먼저 로그인해주세요");
+    }
+  };
+  const inputBoxCancelBtnHandler = () => {
+    setInputBoxOpen(false);
   };
 
   return (
@@ -110,7 +121,7 @@ function InputBox() {
         <ButtonStyle type="submit" onClick={postSubmitBtnClickHandler}>
           등록
         </ButtonStyle>
-        <ButtonStyle>취소</ButtonStyle>
+        <ButtonStyle onClick={inputBoxCancelBtnHandler}>취소</ButtonStyle>
       </BtnDiv>
     </InputBoxDiv>
   );
