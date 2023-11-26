@@ -52,6 +52,25 @@ const StProfileInfo = styled.div`
   font-size: 24px;
 `;
 
+const SummarizedPost = styled.li`
+  padding: 30px;
+  border: none;
+  /* margin-bottom: 12px; */
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  background-color: ${colors.inputBoxColor};
+  border-radius: 10px;
+  color: ${colors.postColor};
+  margin: 20px;
+  transition: all 0.5s ease;
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
+
 const StIdCardContent = styled.div`
   background-image: url(${idcard});
   width: 236px;
@@ -86,4 +105,44 @@ const StSignUpDayContent = styled.p`
   font-weight: 600;
   border-radius: 10px;
   color: ${colors.smallTitleColor};
+`;
+
+const StWriteInforContent = styled.h4`
+  color: ${colors.smallTitleColor};
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 20px;
+`;
+
+const StPostContainer = styled.ul`
+  background-color: #fff;
+  box-shadow: 0px 4px 30px 5px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  /* display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center; */
+  /* padding: 20px; */
+  margin-bottom: 20px;
+  cursor: pointer;
+`;
+
+const StDayContent = styled.p`
+  color: ${colors.indexFontColor};
+  font-size: 14px;
+`;
+
+const StPostTitle = styled.h4`
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 10px;
+`;
+
+const StContent = styled.p`
+  font-size: 16px;
+  line-height: 24px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 `;
