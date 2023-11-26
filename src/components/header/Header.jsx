@@ -58,7 +58,7 @@ const HeaderBoxDiv = styled.div`
 `;
 
 const SearchBox = styled.input`
-	width: 350px;
+	width: 250px;
 	height: 32px;
 	flex-shrink: 0;
 	border-radius: 66px;

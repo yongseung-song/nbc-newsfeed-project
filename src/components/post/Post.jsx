@@ -17,29 +17,30 @@ function Post({ id, creator, creatoruid, title, content, date, tag }) {
 			<StPostWrapper id={id} onClick={postClickHandler}>
 				<StIndexWrap>
 					<StPostHeaderWrapper>
-						<img src="" alt="img" />
-						<div>
-							<h3>{creator}</h3>
-							<h4>{title}</h4>
-						</div>
+						<StProfileCreator>
+							<img src="" alt="img" />
+							<h3>작성자: {creator}</h3>
+							<StDayContent>{date}</StDayContent>
+						</StProfileCreator>
 						<StBtnContainer>
 							<StFnBtn>👍🏻</StFnBtn>
 							<StFnBtn>⭐️</StFnBtn>
+							{creatoruid === getAuth()?.currentUser?.uid ? (
+								<StReviseBtn>수정/삭제</StReviseBtn>
+							) : (
+								""
+							)}
 						</StBtnContainer>
 					</StPostHeaderWrapper>
-					<p>{content}</p>
-					<StDayContent>{date}</StDayContent>
+					<StPostTitle>{title}</StPostTitle>
+					<StContent>{content}</StContent>
+
 					<StTagContainer>
 						{tag &&
 							Object.values(tag).map((item, idx) => {
 								return <Tag key={idx} item={item} />;
 							})}
 					</StTagContainer>
-					{creatoruid === getAuth()?.currentUser?.uid ? (
-						<button>수정/삭제</button>
-					) : (
-						""
-					)}
 				</StIndexWrap>
 			</StPostWrapper>
 			{showPostModal && (
@@ -60,7 +61,7 @@ export default Post;
 
 const StPostWrapper = styled.article`
 	width: 630px;
-	height: 140px;
+	/* height: 140px; */
 	box-shadow: 0px 4px 30px 5px rgba(0, 0, 0, 0.05);
 	padding: 20px;
 	border-radius: 20px;
@@ -73,9 +74,10 @@ const StPostHeaderWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	div {
+	margin-bottom: 20px;
+	/* div {
 		margin-left: 32px;
-	}
+	} */
 `;
 const StTagContainer = styled.ul`
 	display: flex;
@@ -85,7 +87,7 @@ const StTagContainer = styled.ul`
 const StDayContent = styled.p`
 	color: ${colors.indexFontColor};
 	font-size: 12px;
-	margin-top: 20px;
+	margin-left: 20px;
 `;
 
 const StBtnContainer = styled.div`
@@ -109,4 +111,38 @@ const StIndexWrap = styled.div`
 	background-color: ${colors.inputBoxColor};
 	border-radius: 10px;
 	padding: 10px;
+`;
+
+const StReviseBtn = styled.button`
+	border: none;
+	border-radius: 999px;
+	background-color: #fff;
+	text-align: center;
+	cursor: pointer;
+	padding: 2px 10px;
+	color: ${colors.smallTitleColor};
+`;
+
+const StContent = styled.p`
+	color: ${colors.postColor};
+	margin: 0 25px 10px 25px;
+`;
+
+const StPostTitle = styled.h4`
+	color: ${colors.postColor};
+	font-weight: 700;
+	font-size: 26px;
+	/* margin-bottom: 10px; */
+	margin: 0 25px 10px 25px;
+`;
+
+const StProfileCreator = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	h3 {
+		color: ${colors.postColor};
+		margin-left: 20px;
+		font-weight: 500;
+	}
 `;

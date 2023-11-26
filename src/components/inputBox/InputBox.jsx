@@ -77,7 +77,7 @@ function InputBox() {
 			</form>
 			<BtnDiv>
 				<ButtonStyle type="submit" onClick={postSubmitBtnClickHandler}>
-					등록
+					게시
 				</ButtonStyle>
 				<ButtonStyle>취소</ButtonStyle>
 			</BtnDiv>

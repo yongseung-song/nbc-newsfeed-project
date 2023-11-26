@@ -62,5 +62,5 @@ const PostsWrapper = styled.section`
 	justify-content: center;
 	align-items: center;
 	gap: 24px;
-	margin-top: 36px;
+	margin-top: 20px;
 `;
