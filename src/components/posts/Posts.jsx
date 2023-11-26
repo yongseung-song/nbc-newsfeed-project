@@ -18,6 +18,7 @@ function Posts() {
         }))
       )
     );
+    console.log("update occured");
   }, [db]);
 
   // useEffect(() => {
@@ -58,5 +59,5 @@ const PostsWrapper = styled.section`
   justify-content: center;
   align-items: center;
   gap: 24px;
-  margin-top: 20px;
+  /* margin-top: 20px; */
 `;
