@@ -45,16 +45,16 @@ function Update() {
 
     if (updateCheck) {
       await updateDoc(doc(postUpdateRef, params.id), {
-        editTitle: titleInput,
-        editContent: contentTextarea,
-        editDate: dayjs().toJSON(),
+        title: titleInput,
+        content: contentTextarea,
+        date: dayjs().toJSON(),
       });
 
       alert("수정되었습니다!");
 
       navigator("/mypage");
     } else {
-      return false;
+      alert("수정된게 없습니다! 수정을 진행해주세요");
     }
   };
 
@@ -71,20 +71,14 @@ function Update() {
       <input
         ref={inputRef}
         type="text"
-        defaultValue={
-          currentPost.editTitle ? currentPost.editTitle : currentPost.title
-        }
+        defaultValue={currentPost.title}
         onChange={clickTitleChangeHandler}
       />
       <br />
       내용:{" "}
       <textarea
         ref={textareaRef}
-        defaultValue={
-          currentPost.editContent
-            ? currentPost.editContent
-            : currentPost.content
-        }
+        defaultValue={currentPost.content}
         onChange={clickContentChangeHandler}
       />
       <button type="submit" onClick={clickPostUpdateBtn}>
