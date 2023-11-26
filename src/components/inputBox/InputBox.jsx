@@ -31,7 +31,7 @@ function InputBox() {
 		const newPost = {
 			title: inputValue,
 			content: textAreaValue,
-			date: dayjs().toJSON(),
+			createDate: dayjs().toJSON(),
 			creator: user.displayName,
 			creatorUid: auth.currentUser.uid,
 			id: newDocRef.id,
@@ -59,6 +59,7 @@ function InputBox() {
 	const inputBoxClickHandler = () => {
 		setInputBoxOpen(!inputBoxOpen);
 	};
+
 	return (
 		<InputBoxDiv $isOpen={inputBoxOpen}>
 			<h1 onClick={inputBoxClickHandler}>게시물 작성하기</h1>
