@@ -1,31 +1,27 @@
-import { doc, getDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
-import { db } from "../../firebase";
+import dayjs from "dayjs";
+import React from "react";
 import ModalBasic from "../modal/ModalBasic";
 
-function PostModal({ id }) {
-  const [currentPost, setCurrentPost] = useState({});
-  console.log("해당하는", id);
-  useEffect(() => {
-    const getDocPost = async () => {
-      const getPost = doc(db, "posts", id);
-      const snapshotPost = await getDoc(getPost);
-      const postData = snapshotPost.data();
-
-      setCurrentPost(postData);
-
-      return postData;
-    };
-
-    getDocPost();
-  }, []);
-
+function PostModal({
+  showPostModal,
+  setShowPostModal,
+  id,
+  creator,
+  title,
+  content,
+  date,
+  tag,
+}) {
+  console.log(id);
   return (
-    <ModalBasic>
+    <ModalBasic
+      showPostModal={showPostModal}
+      setShowPostModal={setShowPostModal}
+    >
       <div>
-        <h3>{currentPost.title}</h3>
-        <p>{currentPost.id}</p>
-        <p>{currentPost.date}</p>
+        <h3>{id}</h3>
+        <p>{content}</p>
+        <p>{dayjs().format("YYYY년 M월 D일 hh:mm")}</p>
       </div>
       <button></button>
     </ModalBasic>

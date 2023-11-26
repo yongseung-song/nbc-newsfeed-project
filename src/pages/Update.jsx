@@ -13,7 +13,7 @@ function Update() {
   const textareaRef = useRef();
   const postUpdateRef = collection(db, "posts");
 
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getDocPost = async () => {
@@ -21,23 +21,20 @@ function Update() {
       const snapshotPost = await getDoc(updatePost);
       const postData = snapshotPost.data();
 
-      setCurrentPost(postData);
-
+      setCurrentPost({ ...postData });
+      console.log(postData);
       return postData;
     };
 
     getDocPost();
-
-    setTitleinput(currentPost.title);
-    setContentTextarea(currentPost.content);
   }, []);
 
-  const clickTitleChangeHandler = (event) => {
+  const titleChangeHandler = (event) => {
     const inputTitle = event.currentTarget.value;
     setTitleinput(inputTitle);
   };
 
-  const clickContentChangeHandler = (event) => {
+  const contentChangeHandler = (event) => {
     const textareaContent = event.currentTarget.value;
     setContentTextarea(textareaContent);
   };
@@ -45,27 +42,28 @@ function Update() {
   const clickPostUpdateBtn = async (event) => {
     event.preventDefault();
     console.log(contentTextarea);
-    if (currentPost.content === contentTextarea) {
-      alert("수정된게 없어 돌아가 다시 작성해");
+    if (currentPost.content === textareaRef.current.value) {
+      alert("수정사항이 없습니다.");
       return false;
     }
 
-    if (window.confirm("진짜로 정말로 수정하시겠습니다?")) {
+    if (window.confirm("글을 수정하시겠습니까?")) {
       await updateDoc(doc(postUpdateRef, params.id), {
-        title: titleInput,
-        content: contentTextarea,
+        title: inputRef.current.value,
+        content: textareaRef.current.value,
         date: dayjs().toJSON(),
         edit: "수정됨",
       });
       alert("수정되었습니다!");
 
-      navigator("/mypage");
+      navigate(`/detail/${params.id}`);
+      // okok detail 페이지로 리디렉션
     }
     return;
   };
 
   const clickGoToList = () => {
-    navigator("/mypage");
+    navigate("/mypage");
   };
 
   return (
@@ -77,15 +75,15 @@ function Update() {
       <input
         ref={inputRef}
         type="text"
-        value={titleInput}
-        onChange={clickTitleChangeHandler}
+        defaultValue={currentPost.title}
+        onChange={titleChangeHandler}
       />
       <br />
       내용:{" "}
       <textarea
         ref={textareaRef}
-        value={contentTextarea}
-        onChange={clickContentChangeHandler}
+        defaultValue={currentPost.content}
+        onChange={contentChangeHandler}
       />
       <button type="submit" onClick={clickPostUpdateBtn}>
         수정하기

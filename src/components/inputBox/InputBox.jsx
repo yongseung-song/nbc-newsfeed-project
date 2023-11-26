@@ -58,7 +58,15 @@ function InputBox() {
     <InputBoxDiv>
       <form action="">
         <WriteBoxDiv>
-          <label htmlFor="title">제목을 입력해주세요</label>
+          <select required="required">
+            <option value="">채널을 선택해주세요</option>
+            <option value="developTip">개발 팁 공유</option>
+            <option value="sidePj">사이드 프로젝트 구인</option>
+            <option value="question">질문</option>
+          </select>
+          <StInputTitleContent htmlFor="title">
+            제목을 입력해주세요
+          </StInputTitleContent>
           <InputBoxStyle
             ref={inputRef}
             id="title"
@@ -70,7 +78,9 @@ function InputBox() {
           />
         </WriteBoxDiv>
         <WriteBoxDiv>
-          <label htmlFor="textarea">글의 내용을 입력해주세요</label>
+          <StInputTitleContent htmlFor="textarea">
+            글의 내용을 입력해주세요
+          </StInputTitleContent>
           <TextAreaStyle
             placeholder="글의 내용을 1500자 이내로 입력해주세요"
             ref={textareaRef}
@@ -83,7 +93,9 @@ function InputBox() {
           />
         </WriteBoxDiv>
         <WriteBoxDiv>
-          <label htmlFor="tags">태그를 입력해주세요</label>
+          <StInputTitleContent htmlFor="tags">
+            태그를 입력해주세요
+          </StInputTitleContent>
           <InputBoxStyle
             placeholder="태그는 쉼표(,) 로 구분해주세요"
             ref={inputTagRef}
@@ -122,9 +134,6 @@ const InputBoxDiv = styled.div`
     /* width: 80%; */
     resize: none;
   }
-  label {
-    font-size: 0;
-  }
   div {
   }
 `;
@@ -145,7 +154,7 @@ const InputBoxStyle = styled.input`
 const TextAreaStyle = styled.textarea`
   background-color: ${colors.inputBoxColor};
   border: none;
-  padding: 10px 0 10px 25px;
+  padding: 25px;
   border-radius: 15px;
   width: 100%;
   &::placeholder {
@@ -173,4 +182,12 @@ const ButtonStyle = styled.button`
   margin-left: 10px;
   border-radius: 30px;
   font-weight: 700;
+  cursor: pointer;
+`;
+
+const StInputTitleContent = styled.label`
+  color: ${colors.smallTitleColor};
+  font-size: 14px;
+  display: block;
+  margin-bottom: 10px;
 `;

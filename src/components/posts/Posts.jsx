@@ -7,7 +7,7 @@ import { db } from "../../firebase";
 import Post from "../post/Post";
 
 function Posts() {
-  const { postList, setPostList } = useContext(PostContext);
+  const { postList, setPostList, filter } = useContext(PostContext);
 
   useEffect(() => {
     getDocs(collection(db, "posts")).then((querySnapshot) =>
@@ -20,7 +20,11 @@ function Posts() {
     );
   }, [db]);
 
+  // useEffect(() => {
+  // }, [filter]);
+
   const iterableData = Object.values({ ...postList });
+  // console.log(iterableData);
   return (
     <PostsWrapper>
       {iterableData
@@ -51,6 +55,8 @@ const PostsWrapper = styled.section`
   /* border: 1px solid #000; */
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 24px;
-  margin-top: 36px;
+  margin-top: 20px;
 `;

@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { getAuth } from "firebase/auth";
 import React, { useContext } from "react";
 import styled from "styled-components";
@@ -17,18 +16,12 @@ const StHomeContainer = styled.div`
 
 function Home() {
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-  const auth = getAuth();
-  const user = auth.currentUser;
-  if (user) {
-    console.log(user.uid, user.displayName);
+  if (getAuth().currentUser) {
+    console.log(getAuth().currentUser.displayName);
   } else {
     console.log("none");
   }
 
-  // console.log("app", app);
-  // console.log(isLoggedIn);
-  const dates = Array(5).fill(dayjs().toJSON());
-  // console.log(dates);
   return (
     <StHomeContainer>
       <Sidebar />

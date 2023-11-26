@@ -1,10 +1,12 @@
 import dayjs from "dayjs";
 import { getAuth } from "firebase/auth";
-import { useContext } from "react";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import idcard from "../../assets/idcard.png";
 import { PostContext } from "../../context/PostContext";
+import { db } from "../../firebase";
 import { colors } from "../../styles/GlobalColors";
 
 function Profile() {
@@ -16,13 +18,25 @@ function Profile() {
     uid,
     metadata: { creationTime },
   } = getAuth()?.currentUser;
-  console.log(getAuth().currentUser.uid);
-  const navigator = useNavigate();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const q = query(
+      collection(db, "posts"),
+      where("creatorUid", "==", getAuth().currentUser.uid)
+    );
+
+    getDocs(q)
+      .then((res) => res.forEach((doc) => console.log(doc.data())))
+      .catch((err) => console.log(err));
+    console.log(getAuth().currentUser.uid);
+  }, []);
+
   const iterableData = Object.values({ ...postList });
   const myPosts = iterableData.filter((item) => item.creatorUid === uid);
 
   const clickGoToUpdate = (id) => {
-    navigator(`update/${id}`);
+    navigate(`/detail/update/${id}`);
   };
 
   // console.log(myPosts);
@@ -103,6 +117,7 @@ const SummarizedPost = styled.li`
   background-color: ${colors.inputBoxColor};
   border-radius: 10px;
   color: ${colors.postColor};
+  margin: 20px;
 `;
 
 const StIdCardContent = styled.div`
@@ -156,6 +171,6 @@ const StPostContainer = styled.ul`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center; */
-  padding: 20px;
+  /* padding: 20px; */
   margin-bottom: 20px;
 `;
