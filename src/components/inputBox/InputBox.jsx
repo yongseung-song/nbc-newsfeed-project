@@ -2,8 +2,10 @@ import dayjs from "dayjs";
 import { getAuth } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 import React, { useContext, useRef, useState } from "react";
+import styled from "styled-components";
 import { PostContext } from "../../context/PostContext";
 import { db } from "../../firebase";
+import { colors } from "../../styles/GlobalColors";
 // import { ModalContext } from "../../context/ModalContext";
 function InputBox() {
   const { setPostList } = useContext(PostContext);
@@ -57,6 +59,7 @@ function InputBox() {
   const inputBoxClickHandler = () => {
     setInputBoxOpen(!inputBoxOpen);
   };
+
   return (
     <InputBoxDiv $isOpen={inputBoxOpen}>
       <h1 onClick={inputBoxClickHandler}>게시물 작성하기</h1>
@@ -123,9 +126,9 @@ const InputBoxDiv = styled.div`
   /* height: 160px; // 조건부 스타일링 필요 */
   position: sticky;
   overflow: hidden;
-  padding: 30px;
+  padding: 24px 30px 30px 30px;
   top: 110px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   border-radius: 30px;
   background: #fff;
   z-index: 2;
@@ -144,6 +147,7 @@ const InputBoxDiv = styled.div`
     margin-bottom: ${(props) => (props.$isOpen ? "16px" : "40px")};
     transition: 0.5s ease-in-out;
     cursor: pointer;
+    color: ${colors.mainColor};
   }
 `;
 
