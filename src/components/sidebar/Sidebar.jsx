@@ -17,6 +17,7 @@ function Sidebar() {
 export default Sidebar;
 
 const SideBarDiv = styled.div`
+<<<<<<< HEAD
   position: sticky;
   top: 110px;
   max-width: 200px;
@@ -26,6 +27,17 @@ const SideBarDiv = styled.div`
   margin: 0;
   border-radius: 30px;
   background: #fff;
+=======
+	position: sticky;
+	top: 110px;
+	max-width: 200px;
+	width: 200px;
+	height: 600px;
+	border: none;
+	margin: 0;
+	border-radius: 30px;
+	background: #fff;
+>>>>>>> bfb97ea95f50afeaad2a0498e62436c45fc565a6
 
   /* bigShadow */
   box-shadow: 0px 4px 30px 5px rgba(0, 0, 0, 0.05);

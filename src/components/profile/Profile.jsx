@@ -71,7 +71,9 @@ function Profile() {
               >
                 <div>
                   <h4>{post?.title}</h4>
-                  <p>{dayjs(post?.date).format("YYYY년 M년 D일 h:m")}</p>
+                  <StDayContent>
+                    {dayjs(post?.date).format("YYYY년 M년 D일 h:m")}
+                  </StDayContent>
                 </div>
                 <p>{post?.content}</p>
               </SummarizedPost>
@@ -173,4 +175,9 @@ const StPostContainer = styled.ul`
 	align-items: center; */
   /* padding: 20px; */
   margin-bottom: 20px;
+`;
+
+const StDayContent = styled.p`
+  color: ${colors.indexFontColor};
+  font-size: 12px;
 `;
