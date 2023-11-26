@@ -5,7 +5,6 @@ import {
   getDoc,
   getDocs,
   limit,
-  orderBy,
   query,
   where,
 } from "firebase/firestore";
@@ -16,7 +15,7 @@ import { db } from "../firebase";
 
 function Detail() {
   const [currentPost, setCurrentPost] = useState({});
-  const [postList, setPostList] = useState("");
+  const [postList, setPostList] = useState([]);
 
   const postRef = collection(db, "posts");
   const params = useParams();
@@ -42,18 +41,16 @@ function Detail() {
       const postData = snapshotPost.data();
       const filterQuery = query(
         postRef,
-        where("cretorUid", "!=", postData.creatorUid),
-        where("tag", "array-contains-any", postData.tag)
+        where("creatorUid", "!=", postData.creatorUid),
+        where("tag", "array-contains-any", postData.tag),
+        limit(5)
       );
-      const limitQuery = query(postRef, orderBy("date", "desc"), limit(5));
 
-      const postFilter = await getDocs(filterQuery, limitQuery);
+      const postFilter = await getDocs(filterQuery);
 
       postFilter.forEach((post) => {
-        setPostList((prevList) => ({
-          ...prevList,
-          ...post.data(),
-        }));
+        console.log(post.data());
+        setPostList((prevList) => [...prevList, post.data()]);
       });
     };
 
@@ -99,6 +96,9 @@ function Detail() {
       <button onClick={clickRemoveBtnHandler}>삭제</button>
       <button onClick={clickGoToListBtnHandler}>목록으로</button>
       <p>연관글보기</p>
+      {postList?.map((item) => {
+        return <div key={item.id}>{item.title}</div>;
+      })}
     </>
   );
 }

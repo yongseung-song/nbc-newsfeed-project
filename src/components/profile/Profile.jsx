@@ -174,3 +174,8 @@ const StPostContainer = styled.ul`
   /* padding: 20px; */
   margin-bottom: 20px;
 `;
+
+const StDayContent = styled.p`
+  color: ${colors.indexFontColor};
+  font-size: 12px;
+`;

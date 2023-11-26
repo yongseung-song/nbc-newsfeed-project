@@ -123,7 +123,7 @@ const InputBoxDiv = styled.div`
   /* height: 160px; // 조건부 스타일링 필요 */
   position: sticky;
   padding: 30px;
-  top: 84px;
+  top: 110px;
   margin-bottom: 16px;
   border-radius: 30px;
   background: #fff;

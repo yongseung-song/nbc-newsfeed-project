@@ -34,7 +34,7 @@ export default Sidebar;
 
 const SideBarDiv = styled.div`
   position: sticky;
-  top: 84px;
+  top: 110px;
   max-width: 200px;
   width: 200px;
   height: 600px;
