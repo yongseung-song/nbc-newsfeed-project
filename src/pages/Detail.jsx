@@ -117,22 +117,18 @@ function Detail() {
             <button onClick={clickRemoveBtnHandler}>삭제</button>
             <button onClick={clickGoToListBtnHandler}>목록으로</button>
           </StBtnWrapper>
-          <p>연관글보기</p>
+          <h3>연관 글 보기</h3>
           {postList?.map((item) => {
             return (
-              <div
+              <StRelatedPostsContainer
                 key={item.id}
-                style={{ backgroundColor: "red", cursor: "pointer" }}
                 onClick={() => {
                   navigate(`/detail/${item.id}`);
                 }}
               >
-                <p>
-                  {item.editData ? `수정된 시간: ${item.editData}` : item.date}
-                </p>
-                <p>{item.title}</p>
+                <h4>{item.title}</h4>
                 <p>{item.content}</p>
-              </div>
+              </StRelatedPostsContainer>
             );
           })}
         </StIndexWrapper>
@@ -192,6 +188,13 @@ const StIndexWrapper = styled.div`
   padding: 20px;
   width: 100%;
   gap: 10px;
+  div + h3 {
+    font-size: 1.2rem;
+    color: ${colors.mainColor};
+    font-weight: 700;
+    margin-top: 24px;
+    text-align: center;
+  }
 `;
 
 const StTitleCreatorTimeWrapper = styled.div`
@@ -228,5 +231,22 @@ const StBtnWrapper = styled.div`
     border-radius: 99px;
     font-size: 16px;
     cursor: pointer;
+  }
+`;
+
+const StRelatedPostsContainer = styled.div`
+  p {
+    background-color: ${colors.inputBoxColor};
+    color: ${colors.postColor};
+    padding: 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  h4 {
+    font-weight: 500;
+    color: ${colors.postColor};
+    margin-bottom: 6px;
+    margin-left: 12px;
   }
 `;

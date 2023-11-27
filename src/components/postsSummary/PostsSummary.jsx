@@ -94,7 +94,7 @@ const SummarizedPost = styled.li`
 `;
 
 const StWriteInforContent = styled.h4`
-  color: ${colors.smallTitleColor};
+  color: #fff;
   font-weight: 700;
   font-size: 18px;
   margin-bottom: 20px;

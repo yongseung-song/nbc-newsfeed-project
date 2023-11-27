@@ -1,19 +1,16 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import LightBtn from "../../assets/lightButton.png";
 import { AuthContext } from "../../context/AuthContext";
 import { ModalContext } from "../../context/ModalContext";
 import { authService } from "../../firebase";
 import { colors } from "../../styles/GlobalColors";
-import * as St from "./Header.style";
 import HeaderAuthModal from "./HeaderAuthModal";
 import HeaderDropDown from "./HeaderDropDown";
 
 function HeaderAuthMenu() {
   const name = authService?.currentUser?.displayName;
   const userAvatarUrl = authService?.currentUser?.photoURL;
-  const navigate = useNavigate();
 
   const [showDropDown, setShowDropDown] = useState(false);
   const { isLoggedIn } = useContext(AuthContext);
@@ -38,7 +35,7 @@ function HeaderAuthMenu() {
       <StAuthCWrapper>
         {isLoggedIn ? (
           <StAuthMenu>
-            <St.DropDownBtn
+            <StDropDownBtn
               onBlur={dropDownMenuCloseHandler}
               onClick={dropDownMenuOpenHandler}
               $userAvatarUrl={userAvatarUrl}
@@ -99,4 +96,17 @@ const StAuthCWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0;
+`;
+
+export const StDropDownBtn = styled.button`
+  background-image: url(${(props) => props.$userAvatarUrl});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  font-size: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+  cursor: pointer;
+  border: none;
 `;
