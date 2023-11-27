@@ -242,6 +242,7 @@ const StRelatedPostsContainer = styled.div`
     border-radius: 20px;
     margin-bottom: 12px;
     line-height: 1.2;
+    cursor: pointer;
   }
   h4 {
     font-weight: 500;
