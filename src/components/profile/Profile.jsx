@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { updateProfile } from "firebase/auth";
 import { collection } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import idcard from "../../assets/idcard.png";
@@ -14,6 +14,8 @@ function Profile({ photoURL, displayName, email, uid, creationTime }) {
   const storageRef = ref(storage);
   const usersRef = collection(db, "users");
   const navigate = useNavigate();
+
+  useEffect(() => {}, [imageURL]);
 
   const imageUploadHandler = (e) => {
     const file = e.target.files[0];
@@ -33,6 +35,8 @@ function Profile({ photoURL, displayName, email, uid, creationTime }) {
     setImageURL("");
     alert("이미지 업로드가 완료되었습니다!");
   };
+
+  const handleSideEffect = () => {};
 
   return (
     <StProfileWrapper>
@@ -59,7 +63,7 @@ function Profile({ photoURL, displayName, email, uid, creationTime }) {
         </StIdCardContent>
 
         <StSignUpDayContent>
-          가입 날짜 : {dayjs(creationTime).format("YYYY년 M년 D일 h:m")}
+          가입 날짜 : {dayjs(creationTime).format("YYYY년 MM년 DD일 hh:mm")}
         </StSignUpDayContent>
       </StProfileInfo>
     </StProfileWrapper>

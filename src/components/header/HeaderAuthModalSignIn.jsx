@@ -128,7 +128,7 @@ function SignIn({ onClickGoToSignUp: handleClickGoToSignUp }) {
           onChange={clickEmailChangehandler}
           placeholder="이메일을 입력해주세요"
         />
-        ​
+
         <St.IndexBox
           type="password"
           value={loginPassword}
